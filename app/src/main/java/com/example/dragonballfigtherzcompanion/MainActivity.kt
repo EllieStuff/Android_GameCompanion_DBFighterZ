@@ -6,14 +6,31 @@ import android.view.MenuItem
 import android.widget.TextView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+class  MainActivity : AppCompatActivity() {
+
+    override fun onStart() {
+        super.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Find views
         val bottomNavigationView: BottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        val testText: TextView = findViewById(R.id.testTextView)
 
+        // Get Fragment Container Reference
+        val fragmentContainer: FrameLayout = findViewById(R.id.fragmentContainer)
+
+        // Listen to Tabs Selected
         bottomNavigationView.setOnNavigationItemSelectedListener { menuItem: MenuItem ->
             when(menuItem.itemId){  //Es un 'switch'
                 R.id.newsTab->{
@@ -24,6 +41,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.chatTab->{
                     // TODO: Chat
                     testText.text = "CHAT"
+
+                    val transaction:FragmentTransaction = supportFragmentManager.beginTransaction()
+                    transaction.add(R.id.fragmentContainer, ChatFragment())
+                    transaction.commit()
                 }
 
                 R.id.activityTab->{
@@ -37,6 +58,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+            //return@setOnNavigationItemSelectedListener true
             true
         }
 
