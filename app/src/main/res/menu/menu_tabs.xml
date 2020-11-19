@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/newsTab"
+        android:enabled="true"
+        android:title="@string/tab_news_title"
+        android:icon="@drawable/ic_news"
+        />
+
+    <item
+        android:id="@+id/chatTab"
+        android:enabled="true"
+        android:title="@string/tab_chat_title"
+        android:icon="@drawable/ic_chat"
+        />
+
+    <item
+        android:id="@+id/activityTab"
+        android:enabled="true"
+        android:title="@string/tab_activity_title"
+        android:icon="@drawable/ic_activity"
+        />
+
+    <item
+        android:id="@+id/homeTab"
+        android:enabled="true"
+        android:title="@string/tab_home_title"
+        android:icon="@drawable/ic_home"
+        />
+
+</menu>
