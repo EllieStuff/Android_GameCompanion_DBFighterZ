@@ -36,6 +36,10 @@ class  MainActivity : AppCompatActivity() {
                 R.id.newsTab->{
                     // TODO: News
                     testText.text = "NEWS"
+
+                    val transaction:FragmentTransaction = supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.fragmentContainer, NewsFragment())
+                    transaction.commit()
                 }
 
                 R.id.chatTab->{
@@ -43,13 +47,17 @@ class  MainActivity : AppCompatActivity() {
                     testText.text = "CHAT"
 
                     val transaction:FragmentTransaction = supportFragmentManager.beginTransaction()
-                    transaction.add(R.id.fragmentContainer, ChatFragment())
+                    transaction.replace(R.id.fragmentContainer, ChatFragment())
                     transaction.commit()
                 }
 
                 R.id.activityTab->{
                     // TODO: Recent Activity
                     testText.text = "ACTIVITY"
+
+                    val transaction:FragmentTransaction = supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.fragmentContainer, ActivityFragment())
+                    transaction.commit()
                 }
 
                 R.id.homeTab->{
