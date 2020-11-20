@@ -1,0 +1,148 @@
+//Falta crear un proyecto del FireBase
+//Mirar video
+
+//ESTO VA EN MAIN ACTIVITY.KT
+// Listen to Tabs Selected
+bottomNavigationView.setOnNavigationItemSelectedListener {menuItem: MenuItem ->
+	when (menuItem.itemId) {
+		R.id.chatTab -> {
+			//Add Chat Fragment
+			val transaction = FragmentTransaction = supportFragmentManager.beginTransaction()
+			transaction.replace(R.id.fragmentContainer, ChatFragment())
+			transaction.commit()
+		}
+		R.id.newsTab -> {
+			//Add News Fragment
+			val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+			transaction.replace(R.id.fragmentContainer, NewsfeedFragment())
+			transaction.commit()
+		}
+		R.id.userTab -> {
+			//Add Profile Fragment
+			val transaction : FragmentTransaction = supportFragmentManager.beginTransaction()
+			transaction.replace(R.id.fragmentContainer, ProfileFragment())
+			transaction.commit()
+			}
+		}
+		return@setOnNavigationItemSelectedListener true
+	}
+			
+			
+			
+
+//A PARTIR DE AQUI NUEVO
+
+//En una nueva .kt "ProfileFragment"
+
+class ProfileFragment: Fragment()
+{
+	override fun onCreateView(inflater: LayoutInflater, contrainer: ViewGroup?, savedInstanceState: Bundle?): View? {
+		return inflater.inflate(R.layout.fragment_profile, container, attachToRoot: false)
+	}
+	
+	override fun onCreateView(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		val registerButton:Button! = view.findViewById<Button>(R.id.registerButton)
+		registerButton.setOnClickListener { it:View!
+			val intent  = Intent(activity, RegisterActivity::class.java)
+			startActivity(intent)
+		}
+	}
+	
+
+}
+	
+	
+	
+	
+
+//ESTO EN EL FRAGMENT_PROFILE.XML
+
+	<Button
+		android:id="@id/registerButton"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="16dp"
+		android:text="@string/button_register"/>
+	
+</LinearLayout>
+
+
+//NEW ACTIVITY -> EMPTY_ACTIVITY (template)
+//ESTO ES PARA REGISTERACTIVITY (PARA REGISTRARSE DENTRO DE LA APP EL BOTON :D)
+
+class RegisterActivity : AppCompatActivity() {
+
+	private lateinit var auth: FirebaseAuth
+	
+	override fun Oncreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		setContentView(R.layout.activity_register)
+		//Initialize Firebase Auth
+		auth = Firebase.auth
+		
+		//Get FireBase Auth
+		val auth : FirebaseAuth = Firebase.auth
+		
+		val registerButton: Button = findViewById<Button>(R.id.registerButton)
+		registerButton.setOnClickListener{ it:View!
+			// TODO: Get email and password from EditText
+			val email :String = findViewById<EditText>(R.id.emailEditText).text.toString()
+			val password : String = findViewById<EditText>(R.id.passwordEditText).text.toString()
+			// Register user
+			auth.createUserWithEmailAndPaswword(email, password)
+				.addOnComplenteListener { it:Task<AuthReuslt!>
+					// After 2 seconds, this will be called with the result
+					if (it.isSuccesful) {
+						//Yay!!
+						Log.i(tag : "RegisterActivity", msg: "User Registered!")
+					} else {
+						//TODO: Handle error
+						Log.i(tag: "RegisterActivity", msg: "Error: ${it.exception}")
+					}
+				}
+				
+				//Do other things
+				// ... 
+		}
+		
+	}
+	
+}
+
+
+
+
+
+
+
+//ACTIVITY_REGISTER.XML
+	android:orientation="vertical"
+	android:layout_margin="16dp"
+	android:gravity="center"
+	tools:context=".RegisterActivity">
+	
+	<!-- Email -->
+	<EditText
+		android:id="@id/emailEditText"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:inputType="textEmailAddress"
+		android:hint="Enter your email here"/>
+		
+	<!-- Password -->
+	<EditText
+		android:id="@id/passwordEditText"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:inputType="textPassword"
+		android:hint="Enter your password here"/>
+		
+	<!-- Button -->
+	<Button
+		android:id="@id/registerButton"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="16dp"
+		android:hint="Register"/>
+</LinearLayout>
