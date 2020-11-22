@@ -31,34 +31,27 @@ class  MainActivity : AppCompatActivity() {
         val fragmentContainer: FrameLayout = findViewById(R.id.fragmentContainer)
 
         // Listen to Tabs Selected
-        bottomNavigationView.setOnNavigationItemSelectedListener { menuItem: MenuItem ->
-            when(menuItem.itemId){  //Es un 'switch'
-                R.id.newsTab->{
-                    // TODO: News
-                    testText.text = "NEWS"
-
-                    val transaction:FragmentTransaction = supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.fragmentContainer, NewsFragment())
-                    transaction.commit()
-                }
-
-                R.id.chatTab->{
-                    // TODO: Chat
-                    testText.text = "CHAT"
-
-                    val transaction:FragmentTransaction = supportFragmentManager.beginTransaction()
+        bottomNavigationView.setOnNavigationItemSelectedListener {menuItem: MenuItem ->
+            when (menuItem.itemId) {
+                R.id.chatTab -> {
+                    //Add Chat Fragment
+                    val transaction = FragmentTransaction = supportFragmentManager.beginTransaction()
                     transaction.replace(R.id.fragmentContainer, ChatFragment())
                     transaction.commit()
                 }
-
-                R.id.activityTab->{
-                    // TODO: Recent Activity
-                    testText.text = "ACTIVITY"
-
-                    val transaction:FragmentTransaction = supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.fragmentContainer, ActivityFragment())
+                R.id.newsTab -> {
+                    //Add News Fragment
+                    val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.fragmentContainer, NewsfeedFragment())
                     transaction.commit()
                 }
+                R.id.userTab -> {
+                    //Add Profile Fragment
+                    val transaction : FragmentTransaction = supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.fragmentContainer, ProfileFragment())
+                    transaction.commit()
+                }
+            }
 
                 R.id.homeTab->{
                     // TODO: Home

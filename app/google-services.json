@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "526726663024",
+    "firebase_url": "https://enti-2020-game-companion-dbfz.firebaseio.com",
+    "project_id": "enti-2020-game-companion-dbfz",
+    "storage_bucket": "enti-2020-game-companion-dbfz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526726663024:android:523cd6fba0d01fd7f39db5",
+        "android_client_info": {
+          "package_name": "com.example.dragonballfigtherzcompanion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "526726663024-uopk095nahi7kkh30rarmpr13k7okt6e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1j7igC76dtIgZdAZP0ey0PGabbDS47iQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "526726663024-uopk095nahi7kkh30rarmpr13k7okt6e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
