@@ -9,6 +9,9 @@
     android:gravity="center"
     tools:context=".RegisterActivity">
 
+    <!-- User -->
+
+
     <!-- Email -->
     <EditText
         android:id="@+id/emailEditText"

@@ -78,7 +78,16 @@ class RegisterActivity : AppCompatActivity() {
                         // After 2 seconds, this will be called with the result
                         if (it.isSuccessful) {
                             //Yay!!
-                            Log.i("RegisterActivity", "User Registered!")
+                            auth.curentUser?.uid?.let { userId ->
+                                val user = User(userId = UserId, username = "TODO NOSE COMO SE HACE AAAAAHHHHH")
+                                firestore
+                                    .collection(collectionPath: "users")
+                                    .document(auth.currentUser?.uid)
+                                    .set(user)
+                            } ?: kotlin.run {
+                                Log.i("RegisterActivity", "User Registered!")
+                                showMessage(text: "Error ${it.exception?.message ?. ""}")
+                            }
                         } else {
                             //TODO: Handle error
                             Log.i("RegisterActivity", "Error: ${it.exception}")
