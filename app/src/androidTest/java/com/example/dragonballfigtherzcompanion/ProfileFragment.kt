@@ -44,4 +44,11 @@ class ProfileFragment : Fragment {
             welcomeTextView.visibility = View.GONE
         }
     }
+
+    private fun saveData() {
+        val sharedPreferences = activity!!.getSharedPreferences(name:"test", Context.MODE_PRIVATE)
+        sharedPreferences.edit()
+            .putString("firstKey", "value")
+            .apply()
+    }
 }
