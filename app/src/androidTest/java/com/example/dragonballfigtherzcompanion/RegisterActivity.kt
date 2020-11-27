@@ -21,6 +21,7 @@ class RegisterActivity : AppCompatActivity() {
     // Views
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
+    private lateinit var usernameEditText: EditText
     private lateinit var registerButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +52,7 @@ class RegisterActivity : AppCompatActivity() {
         emailEditText = findViewById<EditText>(R.id.emailEditText)
         passwordEditText = findViewById<EditText>(R.id.passwordEditText)
         registerButton = findViewById<Button>(R.id.registerButton)
+        usernameEditText = findViewById<Button>(R.id.usernameEditText)
 
         //Initialize Firebase Auth
         auth = Firebase.auth
@@ -59,6 +61,11 @@ class RegisterActivity : AppCompatActivity() {
     private fun initListeners(){
         registerButton.setOnClickListener{ it
             // TODO: Get email and password from EditText
+            var username = usernameEditText.text.toString()
+            if(username.isBlank()){
+                usernameEditText.error = " Username cannot be empty"
+                return@setOnClickListener
+            }
             val email :String = emailEditText.text.toString()
             if(!isEmailValid(email)){
                 Log.i("RegisterActivity", "Email not valid")
@@ -73,17 +80,28 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             // Register user
+            registerUser(email, password, username)
+
             auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener { it
                         // After 2 seconds, this will be called with the result
                         if (it.isSuccessful) {
                             //Yay!!
                             auth.curentUser?.uid?.let { userId ->
-                                val user = User(userId = UserId, username = "TODO NOSE COMO SE HACE AAAAAHHHHH")
+                                val user = User(userId = UserId, username = username)
                                 firestore
                                     .collection(collectionPath: "users")
                                     .document(auth.currentUser?.uid)
                                     .set(user)
+                                .addOnCompleteListener {
+                                    if(it.isSuccessful) {
+
+                                    }
+                                    else
+                                    {
+                                         showMessage(text: "Errrrorrrr ${it.exception?.message ?. ""}")
+                                    }
+                                }
                             } ?: kotlin.run {
                                 Log.i("RegisterActivity", "User Registered!")
                                 showMessage(text: "Error ${it.exception?.message ?. ""}")
