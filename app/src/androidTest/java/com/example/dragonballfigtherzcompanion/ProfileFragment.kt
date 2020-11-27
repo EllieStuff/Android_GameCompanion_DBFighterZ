@@ -3,16 +3,45 @@ package com.example.dragonballfigtherzcompanion
 import android.app.Fragment
 
 class ProfileFragment : Fragment {
-    override fun onCreateView(inflater: LayoutInflater, contrainer: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+    private lateinit var registerButton: Button
+    private lateinit var welcomeTextView: TextView
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        contrainer: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_profile, container, attachToRoot: false)
     }
 
     override fun onCreateView(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val registerButton:Button! = view.findViewById<Button>(R.id.registerButton)
-        registerButton.setOnClickListener { it:View!
-            val intent  = Intent(activity, RegisterActivity::class.java)
+        initViews(View)
+        initListeners()
+    }
+
+    private fun initViews(parentView: View) {
+        registerButton = parentView.findViewById<Button>(R.id.registerButton)
+        welcomeTextView = parentView.findViewById<Button>(R.id.welcomeTextView)
+    }
+
+    private fun initListeners() {
+        registerButton: Button! = view.findViewById<Button>(R.id.registerButton)
+        registerButton.setOnClickListener {
+            it:View!
+            val intent = Intent(activity, RegisterActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    private fun checkUserAvailability() {
+        Firebase.auth.currentUser?.let {
+            registerButton.visibility = View.GONE
+            welcomeTextView.visibility = View.VISIBLE
+        } ?: run {
+            registerButton.visibility = View.VISIBLE
+            welcomeTextView.visibility = View.GONE
         }
     }
 }

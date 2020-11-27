@@ -6,7 +6,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class  MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
@@ -25,17 +25,19 @@ class  MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Find views
-        val bottomNavigationView: BottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val bottomNavigationView: BottomNavigationView =
+            findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
         // Get Fragment Container Reference
         val fragmentContainer: FrameLayout = findViewById(R.id.fragmentContainer)
 
         // Listen to Tabs Selected
-        bottomNavigationView.setOnNavigationItemSelectedListener {menuItem: MenuItem ->
+        bottomNavigationView.setOnNavigationItemSelectedListener { menuItem: MenuItem ->
             when (menuItem.itemId) {
                 R.id.chatTab -> {
                     //Add Chat Fragment
-                    val transaction = FragmentTransaction = supportFragmentManager.beginTransaction()
+                    val transaction =
+                        FragmentTransaction = supportFragmentManager.beginTransaction()
                     transaction.replace(R.id.fragmentContainer, ChatFragment())
                     transaction.commit()
                 }
@@ -47,24 +49,24 @@ class  MainActivity : AppCompatActivity() {
                 }
                 R.id.userTab -> {
                     //Add Profile Fragment
-                    val transaction : FragmentTransaction = supportFragmentManager.beginTransaction()
+                    val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
                     transaction.replace(R.id.fragmentContainer, ProfileFragment())
                     transaction.commit()
                 }
             }
 
-                R.id.homeTab->{
-                    // TODO: Home
-                    testText.text = "HOME"
-                }
-            }
-
-            //return@setOnNavigationItemSelectedListener true
-            true
+            R.id.homeTab->{
+            // TODO: Home
+            testText.text = "HOME"
+        }
         }
 
-        // Select Initial Tab
-        bottomNavigationView.selectedItemId = R.id.newsTab
-
+        //return@setOnNavigationItemSelectedListener true
+        true
     }
+
+    // Select Initial Tab
+    bottomNavigationView.selectedItemId = R.id.newsTab
+
+}
 }
