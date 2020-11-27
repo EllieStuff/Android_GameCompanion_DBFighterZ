@@ -14,6 +14,8 @@ import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
 
+    private val TAG = "RegisterActivity"
+
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
 
@@ -23,6 +25,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var passwordEditText: EditText
     private lateinit var usernameEditText: EditText
     private lateinit var registerButton: Button
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +56,7 @@ class RegisterActivity : AppCompatActivity() {
         passwordEditText = findViewById<EditText>(R.id.passwordEditText)
         registerButton = findViewById<Button>(R.id.registerButton)
         usernameEditText = findViewById<Button>(R.id.usernameEditText)
+        progressBar = findViewById(R.id.progressBar)
 
         //Initialize Firebase Auth
         auth = Firebase.auth
@@ -68,21 +72,23 @@ class RegisterActivity : AppCompatActivity() {
             }
             val email :String = emailEditText.text.toString()
             if(!isEmailValid(email)){
-                Log.i("RegisterActivity", "Email not valid")
+                Log.i(TAG, "Email not valid")
                 //showMessage(getString(R.string.error_email_invalid))  //Forma alternativa de mostrar missatge
                 emailEditText.error = getString(R.string.error_email_invalid)
                 return@setOnClickListener
             }
             val password : String = passwordEditText.text.toString()
             if(!isPasswordValid(password)){
-                Log.i("RegisterActivity", "Password not valid")
+                Log.i(TAG, "Password not valid")
                 passwordEditText.error = getString(R.string.error_password_invalid, MIN_PASSWORD_LENGTH)
                 return@setOnClickListener
             }
             // Register user
             registerUser(email, password, username)
 
-            auth.createUserWithEmailAndPassword(email, password)
+            private fun registerUser(email: String, password: String, username: String) {
+                progressBar.visibility = View.VISIBLE
+                auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener { it
                         // After 2 seconds, this will be called with the result
                         if (it.isSuccessful) {
@@ -90,26 +96,29 @@ class RegisterActivity : AppCompatActivity() {
                             auth.curentUser?.uid?.let { userId ->
                                 val user = User(userId = UserId, username = username)
                                 firestore
-                                    .collection(collectionPath: "users")
+                                    .collection(Constants.COLLECTION_USERS)
                                     .document(auth.currentUser?.uid)
                                     .set(user)
                                 .addOnCompleteListener {
+                                    progressBar.visibility = View.GONE
                                     if(it.isSuccessful) {
 
                                     }
                                     else
                                     {
                                          showMessage(text: "Errrrorrrr ${it.exception?.message ?. ""}")
+                                         progressBar.visibility = View.GONE
                                     }
                                 }
                             } ?: kotlin.run {
-                                Log.i("RegisterActivity", "User Registered!")
+                                Log.i(TAG, "User Registered!") // LOG.I o LOG.E ??
                                 showMessage(text: "Error ${it.exception?.message ?. ""}")
                             }
                         } else {
                             //TODO: Handle error
-                            Log.i("RegisterActivity", "Error: ${it.exception}")
+                            Log.i(TAG, "Error: ${it.exception}")
                             showMessage("Error logging up ${it.exception?.message ?: ""}")
+                            progressBar.visibility = View.GONE
                         }
                     }
 
