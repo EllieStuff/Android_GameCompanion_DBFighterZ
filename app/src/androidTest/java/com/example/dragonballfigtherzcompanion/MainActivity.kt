@@ -3,7 +3,10 @@ package com.example.dragonballfigtherzcompanion
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.TextView
+import android.widget.FrameLayout
+import androidx.fragment.app.FragmentTransaction
+import com.example.dragonballfighterzcompanion.ChatFragment
+import com.example.dragonballfigtherzcompanion.fragments.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
