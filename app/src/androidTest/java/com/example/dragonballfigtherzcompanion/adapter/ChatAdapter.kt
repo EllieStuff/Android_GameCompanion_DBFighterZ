@@ -17,12 +17,16 @@ class ChatAdapter(var chatList: List<Chat>): RecyclerView.Adapter<ChatAdapter.Ch
         return ChatViewHolder(chatView)
     }
 
-    // Total items
+    // Update view for position
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
-        holder.messageTextView.text = chatList[position].message
+        val chat = chatList[position]
+        holder.messageTextView.text = chat.message
+        holder.usernameTextView.text = chat.username
+        //TODO: Format Date
+        holder.dateTextView.text = chat.sentAt.toString()
     }
 
-    // Update view for position
+    // Total items
     override fun getItemCount(): Int {
         return chatList.count()
     }
@@ -31,6 +35,8 @@ class ChatAdapter(var chatList: List<Chat>): RecyclerView.Adapter<ChatAdapter.Ch
     // Maps view xml => Kotlin
     inner class ChatViewHolder(view: View): RecyclerView.ViewHolder(view){
         val messageTextView: TextView = view.findViewById(R.id.messageTextView);
+        val usernameTextView: TextView = view.findViewById(R.id.usernameTextView);
+        val dateTextView: TextView = view.findViewById(R.id.messageDateTextView);
     }
 
 }

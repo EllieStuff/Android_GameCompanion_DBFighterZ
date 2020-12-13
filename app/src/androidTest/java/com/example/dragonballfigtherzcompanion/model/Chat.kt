@@ -1,5 +1,13 @@
 package com.example.dragonballfigtherzcompanion.model
 
-data class Chat(message) {
-    val message: String? = null
-}
+data class Chat(
+        val userId: String? = null,
+        val message: String? = null,
+        val sentAt: Long? = null,
+        val isSent: Boolean? = null,    //1 check
+        val imageUrl: String? = null,
+        //User
+        val username: String? = null,
+        val avatarUrl: String? = null,
+        //Speed vs Consistence
+)

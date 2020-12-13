@@ -10,10 +10,12 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.dragonballfigtherzcompanion.Constants.COLLECTION_CHAT
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.adapter.ChatAdapter
 import com.example.dragonballfigtherzcompanion.model.Chat
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_chat.*
 
@@ -22,6 +24,7 @@ class ChatFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var messageEditText: EditText
     private lateinit var sendButton: Button
+    private lateinit var  swipeRefreshLayout: SwipeRefreshLayout
 
     private lateinit var firestore: FirebaseFirestore
 
@@ -50,6 +53,7 @@ class ChatFragment : Fragment() {
         recyclerView = view.findViewById(R.id.recyclerView)
         messageEditText = view.findViewById(R.id.messageEditText)
         sendButton = view.findViewById((R.id.sendButton))
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout)
 
     }
 
@@ -69,24 +73,73 @@ class ChatFragment : Fragment() {
             val message = messageEditText.text.toString()
             // Validate
             if(message.isBlank()) return@setOnClickListener
-            // Create Chat Message
-            val chat = Chat(message = message)
-            // Save in Firestrore
-            firestore
-                    .collection(COLLECTION_CHAT)
-                    .add(chat)
-                    .addOnCompleteListener{
-                        if(it.isSuccessful){
-                            Log.i("Chat", "Success uploading message $message")
-                        }
-                        else{
-                            Log.i("Chat", "Error uploading message $message")
-                        }
-                    }
+            //Send Message
+            sendMessage(message)
+        }
+        //Swipe to Refresh
+        swipeRefreshLayout.setOnRefreshListener {
+            getChats()
         }
     }
 
+    private fun sendMessage(text: String)
+    {
+        //0 - Get user id
+        Firebase.auth.currentUser?.uid?.let { userId: String ->
+            //User Available
+            //1 - Get User Object
+            UserData.getUsername()
+
+            firestore
+                .collection(COLLECTION_USERS)
+                .document(userId)
+                .get()
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        val user = it.result?.toObject(User::class.java)?.let { user: User ->
+                            //2 - Create Chat Message
+                            val chat = Chat(
+                                userId = Firebase.auth.currentUser?.uid,
+                                message = message,
+                                sentAt = Date().time,
+                                isSent = false,
+                                imageUrl = null,
+                                username = user.username,
+                                avatarUrl = null,   //TODO: SUpport User Avatar
+                            )
+                            //3 - Save in Firestrore
+                            firestore
+                                .collection(COLLECTION_CHAT)
+                                .add(chat)
+                                .addOnCompleteListener{
+                                    if(it.isSuccessful){
+                                        Log.i("Chat", "Success uploading message $message")
+                                        //Update chats
+                                        getChats()
+                                    }
+                                    else{
+                                        Log.w("Chat", "Error uploading message $message")
+                                        //TODO: Show Error
+                                    }
+                                }
+                        } ?: run {
+                            //TODO: Show Error
+                        }
+                    } else {
+                        //TODO: Show Error
+                    }
+                }
+
+        } ?: run {
+            //User NOT Available
+            //TODO: Show message
+
+        }
+
+    }
     private fun getChats(){
+        //TODO: Sort
+        swipeRefreshLayout.isRefreshing = true
         firestore.collection(COLLECTION_CHAT)
                 .get()
                 .addOnCompleteListener {
@@ -98,6 +151,7 @@ class ChatFragment : Fragment() {
                     } else {
                         // TODO: Show Error
                     }
+                    swipeRefreshLayout.isRefreshing = false
                 }
     }
 

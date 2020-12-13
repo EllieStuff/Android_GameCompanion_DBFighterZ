@@ -4,14 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <androix.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/sendMessageContainer">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/sendMessageContainer"
         android:paddingBottom="16dp"
         />
-
+    </androix.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <!-- Send message container -->
     <RelativeLayout
         android:id="@+id/sendMessageContainer"
         android:layout_width="match_parent"
