@@ -31,6 +31,9 @@ class ProfileFragment : Fragment {
     private fun initListeners() {
         registerButton: Button! = view.findViewById<Button>(R.id.registerButton)
         registerButton.setOnClickListener {
+            // Track register button click
+            Firebase.analytics.logEvent("registerButtonClick", null)
+            // Open registr activity
             it:View!
             val intent = Intent(activity, RegisterActivity::class.java)
             startActivity(intent)
