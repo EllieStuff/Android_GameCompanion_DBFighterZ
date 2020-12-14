@@ -1,6 +1,7 @@
 package com.example.dragonballfigtherzcompanion.data
 
 import android.content.Context
+import com.example.dragonballfighterzcompanion.model.User
 import kotlinx.android.synthetic.main.activity_register.view.*
 
 class UserRepository (
@@ -19,7 +20,7 @@ class UserRepository (
             //Get from Firestore
             firestorDataSource.getUser(userId) {user: User? ->
                 //Save locally
-                localDataSource.saveUsername(context, user?.username =: "") //TODO: Allow null
+                localDataSource.saveUsername(context, user?.username ?: "") //TODO: Allow null
                 //Return result
                 resultListener(user?.username)
             }
