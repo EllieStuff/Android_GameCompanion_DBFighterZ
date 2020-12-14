@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <androix.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="+id/swipeRefreshLayout"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/sendMessageContainer">
@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:paddingBottom="16dp"
         />
-    </androix.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <!-- Send message container -->
     <RelativeLayout
         android:id="@+id/sendMessageContainer"

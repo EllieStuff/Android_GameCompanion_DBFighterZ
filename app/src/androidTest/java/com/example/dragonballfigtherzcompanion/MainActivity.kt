@@ -59,9 +59,9 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.homeTab->{
-            // TODO: Home
-            testText.text = "HOME"
-        }
+                // TODO: Home
+                testText.text = "HOME"
+            }
         }
 
         //return@setOnNavigationItemSelectedListener true

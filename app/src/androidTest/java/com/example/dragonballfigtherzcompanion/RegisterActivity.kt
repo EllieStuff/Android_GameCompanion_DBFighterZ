@@ -2,10 +2,13 @@ package com.example.dragonballfigtherzcompanion
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.dragonballfighterzcompanion.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -56,7 +59,7 @@ class RegisterActivity : AppCompatActivity() {
         emailEditText = findViewById<EditText>(R.id.emailEditText)
         passwordEditText = findViewById<EditText>(R.id.passwordEditText)
         registerButton = findViewById<Button>(R.id.registerButton)
-        usernameEditText = findViewById<Button>(R.id.usernameEditText)
+        usernameEditText = findViewById<EditText>(R.id.usernameEditText)
         progressBar = findViewById(R.id.progressBar)
 
         //Initialize Firebase Auth
@@ -83,102 +86,115 @@ class RegisterActivity : AppCompatActivity() {
             if (!isPasswordValid(password)) {
                 Log.i(TAG, "Password not valid")
                 passwordEditText.error =
-                    getString(R.string.error_password_invalid, MIN_PASSWORD_LENGTH)
+                        getString(R.string.error_password_invalid, MIN_PASSWORD_LENGTH)
                 return@setOnClickListener
             }
             // Register user
             registerUser(email, password, username)
 
-            private fun registerUser(email: String, password: String, username: String) {
-                progressBar.visibility = View.VISIBLE
-                auth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener {
-                        it
-                        // After 2 seconds, this will be called with the result
-                        if (it.isSuccessful) {
-                            //Yay!!
-                            auth.curentUser?.uid?.let { userId ->
-                                val user = User(userId = UserId, username = username)
-                                firestore
+        }
+
+    }
+
+    private fun registerUser(email: String, password: String, username: String) {
+        progressBar.visibility = View.VISIBLE
+        registerButton.isEnabled = false;
+
+        auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener {
+                    it
+                    // After 2 seconds, this will be called with the result
+                    if (it.isSuccessful) {
+                        //Yay!!
+                        auth.currentUser?.uid?.let { userId ->
+                            val user = User(userId = userId, username = username)
+                            firestore
                                     .collection(Constants.COLLECTION_USERS)
-                                    .document(auth.currentUser?.uid)
+                                    .document(userId)
                                     .set(user)
                                     .addOnCompleteListener {
                                         progressBar.visibility = View.GONE
+                                        // Finish
+                                        finish()
                                         if (it.isSuccessful) {
-
+                                            Log.i(TAG, "User Profile Created!");
                                         } else {
-                                            showMessage(text: "Errrrorrrr ${it.exception?.message ?. ""}")
+                                            Log.e(TAG, "Error: UserId is null");
+                                            showMessage("Error signing up ${it.exception?.message ?: ""}")
+                                            // Hide Loading
                                             progressBar.visibility = View.GONE
                                             registerButton.isEnabled = true
                                         }
                                     }
-                            } ?: kotlin.run {
-                                Log.i(TAG, "User Registered!") // LOG.I o LOG.E ??
-                                showMessage(text: "Error ${it.exception?.message ?. ""}")
-                            }
-                        } else {
-                            //TODO: Handle error
-                            Log.i(TAG, "Error: ${it.exception}")
-                            showMessage("Error logging up ${it.exception?.message ?: ""}")
+                        } ?: kotlin.run {
+                            // Handle Error
+                            Log.e(TAG, "User Registered!")
+                            // Hide Loading
+                            showMessage("Error ${it.exception?.message ?: ""}")
                             progressBar.visibility = View.GONE
                             registerButton.isEnabled = true
                         }
+                    } else {
+                        //TODO: Handle error
+                        Log.i(TAG, "Error: ${it.exception}")
+                        showMessage("Error logging up ${it.exception?.message ?: ""}")
+                        progressBar.visibility = View.GONE
+                        registerButton.isEnabled = true
                     }
+                }
 
-                //Do other things
-                // ...
-            }
-        }
-
-        private fun isEmailValid(email: String): Boolean {
-            //Regex: forma de comprovar si un email pot ser valid comprovant totes les seves parts (nom)@(domini).(adreça)
-            val emailRegex = "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
-                    "\\@" +
-                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
-                    "(" +
-                    "\\." +
-                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
-                    ")+"
-
-            return email.isNotBlank()
-                    && email.contains("@")
-                    && email.contains(Regex(emailRegex))
-        }
-
-        private fun isPasswordValid(password: String): Boolean {
-            // 1 - No buit
-            // 2 - Min 6 characters
-            // 3 - Contains letters & numbers
-
-            val passwordRegex = "[a-zA-Z0-9-.]"
-
-            return password.isNotBlank()
-                    && password.count() >= MIN_PASSWORD_LENGTH
-                    && password.contains(Regex(passwordRegex))
-        }
-
-        private fun showMessage(text: String) {
-            Toast.makeText(this, text, Toast.LENGTH_LONG).show()
-        }
-
-        //Forma alternativa per comprovar si te numeros o lletres
-        /*
-        private fun containsLetterAndNumber(text: String): Boolean{
-            var containsLetter = false
-            var containsNumber = false
-            for(char: Char in text){
-                if(char.isDigit())
-                    containsNumber = true;
-                if(char.isLetter())
-                    containsLetter = true;
-
-                if(containsLetter && containsNumber)
-                    return true
-            }
-
-            return false
-        }
-        */
-
+        //Do other things
+        // ...
     }
+
+    private fun isEmailValid(email: String): Boolean {
+        //Regex: forma de comprovar si un email pot ser valid comprovant totes les seves parts (nom)@(domini).(adreça)
+        val emailRegex = "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                "\\@" +
+                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                "(" +
+                "\\." +
+                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                ")+"
+
+        return email.isNotBlank()
+                && email.contains("@")
+                && email.contains(Regex(emailRegex))
+    }
+
+    private fun isPasswordValid(password: String): Boolean {
+        // 1 - No buit
+        // 2 - Min 6 characters
+        // 3 - Contains letters & numbers
+
+        val passwordRegex = "[a-zA-Z0-9-.]"
+
+        return password.isNotBlank()
+                && password.count() >= MIN_PASSWORD_LENGTH
+                && password.contains(Regex(passwordRegex))
+    }
+
+    private fun showMessage(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show()
+    }
+
+    //Forma alternativa per comprovar si te numeros o lletres
+    /*
+    private fun containsLetterAndNumber(text: String): Boolean{
+        var containsLetter = false
+        var containsNumber = false
+        for(char: Char in text){
+            if(char.isDigit())
+                containsNumber = true;
+            if(char.isLetter())
+                containsLetter = true;
+
+            if(containsLetter && containsNumber)
+                return true
+        }
+
+        return false
+    }
+    */
+
+}

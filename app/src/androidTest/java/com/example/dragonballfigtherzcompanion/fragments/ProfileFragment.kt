@@ -1,25 +1,35 @@
 package com.example.dragonballfigtherzcompanion.fragments
 
 import android.app.Fragment
+import android.content.Intent
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.RegisterActivity
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
-class ProfileFragment : Fragment {
+class ProfileFragment : Fragment() {
 
     private lateinit var registerButton: Button
     private lateinit var welcomeTextView: TextView
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        contrainer: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            contrainer: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_profile, container, attachToRoot: false)
+        return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
     override fun onCreateView(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews(View)
+        initViews(view)
         initListeners()
     }
 
@@ -34,7 +44,7 @@ class ProfileFragment : Fragment {
             // Track register button click
             Firebase.analytics.logEvent("registerButtonClick", null)
             // Open registr activity
-            it:View!
+            it: View!
             val intent = Intent(activity, RegisterActivity::class.java)
             startActivity(intent)
         }
@@ -51,7 +61,7 @@ class ProfileFragment : Fragment {
     }
 
     private fun saveData() {
-        val sharedPreferences = activity!!.getSharedPreferences(name:"test", Context.MODE_PRIVATE)
+        val sharedPreferences = activity!!.getSharedPreferences("test", Context.MODE_PRIVATE)
         sharedPreferences.edit()
             .putString("firstKey", "value")
             .apply()
