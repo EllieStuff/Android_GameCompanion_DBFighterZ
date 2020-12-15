@@ -22,6 +22,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_chat.*
+import java.util.*
 
 class ChatFragment : Fragment() {
 
@@ -67,7 +68,8 @@ class ChatFragment : Fragment() {
         recyclerView.layoutManager = layoutManager
 
         // Adapter
-        chatAdapter = ChatAdapter(chatList = listOf("Chat 0", "Chat 1", "Chat 2", "Chat 3", "Chat 4", "Chat 5", "Chat 6", "Chat 7", "Chat 8", "Chat 9"))
+        chatAdapter = ChatAdapter(chatList = listOf(Chat("Chat 0"), Chat("Chat 1"), Chat("Chat 2"), Chat("Chat 3"),
+                Chat("Chat 4"), Chat("Chat 5"), Chat("Chat 6"), Chat("Chat 7"), Chat("Chat 8"), Chat("Chat 9")))
         recyclerView.adapter = chatAdapter
 
     }
@@ -86,7 +88,7 @@ class ChatFragment : Fragment() {
         }
     }
 
-    private fun sendMessage(text: String)
+    private fun sendMessage(message: String)
     {
         //0 - Get user id
         Firebase.auth.currentUser?.uid?.let { userId: String ->

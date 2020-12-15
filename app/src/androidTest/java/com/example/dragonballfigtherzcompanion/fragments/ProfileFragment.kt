@@ -3,6 +3,7 @@ package com.example.dragonballfigtherzcompanion.fragments
 import android.app.Fragment
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,20 +17,26 @@ import com.google.firebase.ktx.Firebase
 
 class ProfileFragment : Fragment() {
 
+    private val TAG = "ProfileManager"
+
     private lateinit var registerButton: Button
     private lateinit var welcomeTextView: TextView
 
     override fun onCreateView(
             inflater: LayoutInflater,
-            contrainer: ViewGroup?,
+            container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        Log.i(TAG, "++ onCreateView ++")
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
-    override fun onCreateView(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.i(TAG, "++ onViewCreated ++")
+        // Init View
         initViews(view)
+        // Init Listeners
         initListeners()
     }
 
@@ -38,8 +45,15 @@ class ProfileFragment : Fragment() {
         welcomeTextView = parentView.findViewById<Button>(R.id.welcomeTextView)
     }
 
+    override  fun onStart(){
+        super.onStart()
+        Log.i(TAG, "++ onStart ++")
+        // Check User
+        checkUserAvailability()
+    }
+
     private fun initListeners() {
-        registerButton: Button! = view.findViewById<Button>(R.id.registerButton)
+        //registerButton: Button! = view.findViewById<Button>(R.id.registerButton)
         registerButton.setOnClickListener {
             // Track register button click
             Firebase.analytics.logEvent("registerButtonClick", null)
