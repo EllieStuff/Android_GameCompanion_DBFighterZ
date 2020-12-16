@@ -58,9 +58,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            R.id.homeTab->{
+            R.id.homeTab-> {
                 // TODO: Home
-                testText.text = "HOME"
+                //testText.text = "HOME"
+                // Screen Recording 2020-11-16 at 09.08.46.mov
             }
         }
 
