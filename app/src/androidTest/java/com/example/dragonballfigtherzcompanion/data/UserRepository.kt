@@ -12,7 +12,8 @@ class UserRepository (
     //Tries to get username locally first
     //If not available, get from Firestore
     //And save locally
-    fun getUsername(context: Context, userId: String, resultListener: ((String?) -> Unit)) {
+
+    public fun getUsername(context: Context, userId: String, resultListener: ((String?) -> Unit)) {
         localDataSource.getUsername(context)?.let { username ->
             //Return username
             resultListener(username)

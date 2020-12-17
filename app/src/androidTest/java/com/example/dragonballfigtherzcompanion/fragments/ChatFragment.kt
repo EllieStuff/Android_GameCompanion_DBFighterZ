@@ -1,4 +1,4 @@
-package com.example.dragonballfighterzcompanion
+package com.example.dragonballfigtherzcompanion.fragments
 
 import android.os.Bundle
 import android.service.autofill.UserData
@@ -94,7 +94,7 @@ class ChatFragment : Fragment() {
         Firebase.auth.currentUser?.uid?.let { userId: String ->
             //User Available
             //1 - Get User Object
-            UserData.getUsername()
+            /// UserData.getUserName()
 
             firestore
                 .collection(COLLECTION_USERS)

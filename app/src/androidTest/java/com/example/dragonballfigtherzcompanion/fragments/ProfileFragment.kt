@@ -1,6 +1,7 @@
 package com.example.dragonballfigtherzcompanion.fragments
 
-import android.app.Fragment
+import android.content.Context
+import androidx.fragment.app.Fragment
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -57,8 +58,8 @@ class ProfileFragment : Fragment() {
         registerButton.setOnClickListener {
             // Track register button click
             Firebase.analytics.logEvent("registerButtonClick", null)
-            // Open registr activity
-            it: View!
+            // Open register activity
+            ///it: View!
             val intent = Intent(activity, RegisterActivity::class.java)
             startActivity(intent)
         }
@@ -76,6 +77,7 @@ class ProfileFragment : Fragment() {
 
     private fun saveData() {
         val sharedPreferences = activity!!.getSharedPreferences("test", Context.MODE_PRIVATE)
+
         sharedPreferences.edit()
             .putString("firstKey", "value")
             .apply()

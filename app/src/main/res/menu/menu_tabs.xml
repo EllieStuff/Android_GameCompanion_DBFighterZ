@@ -8,6 +8,14 @@
         />
 
     <item
+        android:id="@+id/userTab"
+        android:enabled="true"
+        android:title="Users"
+        android:icon="@drawable/ic_news"
+        />
+        <!-- USERS ICON DOESN'T EXIST-->
+
+    <item
         android:id="@+id/chatTab"
         android:enabled="true"
         android:title="@string/tab_chat_title"

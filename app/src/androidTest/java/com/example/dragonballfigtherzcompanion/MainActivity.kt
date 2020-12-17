@@ -5,8 +5,9 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.FrameLayout
 import androidx.fragment.app.FragmentTransaction
-import com.example.dragonballfighterzcompanion.ChatFragment
+import com.example.dragonballfigtherzcompanion.fragments.ChatFragment
 import com.example.dragonballfigtherzcompanion.fragments.ProfileFragment
+import com.example.dragonballfigtherzcompanion.fragments.NewsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -39,15 +40,14 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.chatTab -> {
                     //Add Chat Fragment
-                    val transaction =
-                        FragmentTransaction = supportFragmentManager.beginTransaction()
+                    val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
                     transaction.replace(R.id.fragmentContainer, ChatFragment())
                     transaction.commit()
                 }
                 R.id.newsTab -> {
                     //Add News Fragment
                     val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.fragmentContainer, NewsfeedFragment())
+                    transaction.replace(R.id.fragmentContainer, NewsFragment())
                     transaction.commit()
                 }
                 R.id.userTab -> {
@@ -56,13 +56,7 @@ class MainActivity : AppCompatActivity() {
                     transaction.replace(R.id.fragmentContainer, ProfileFragment())
                     transaction.commit()
                 }
-            }
 
-            R.id.homeTab-> {
-                // TODO: Home
-                //testText.text = "HOME"
-                // Screen Recording 2020-11-16 at 09.08.46.mov
-            }
         }
 
         //return@setOnNavigationItemSelectedListener true

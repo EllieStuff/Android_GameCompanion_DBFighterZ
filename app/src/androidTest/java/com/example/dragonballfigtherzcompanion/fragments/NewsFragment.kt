@@ -1,4 +1,4 @@
-package com.example.dragonballfighterzcompanion
+package com.example.dragonballfigtherzcompanion.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
