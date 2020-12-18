@@ -57,7 +57,7 @@ class ChatFragment : Fragment() {
     private fun initViews(view: View){
         recyclerView = view.findViewById(R.id.recyclerView)
         messageEditText = view.findViewById(R.id.messageEditText)
-        sendButton = view.findViewById((R.id.sendButton))
+        sendButton = view.findViewById(R.id.sendButton)
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout)
 
     }
