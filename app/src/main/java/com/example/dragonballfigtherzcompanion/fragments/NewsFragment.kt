@@ -20,5 +20,6 @@ class NewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState);
         // TODO: Init
+        // Coger info de Firebase y colocar
     }
 }
