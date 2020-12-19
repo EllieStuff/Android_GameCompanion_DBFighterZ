@@ -14,14 +14,17 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="16dp"
+        android:paddingBottom="32dp"
         />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     <!-- Send message container -->
     <RelativeLayout
         android:id="@+id/sendMessageContainer"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal"
         >
 
