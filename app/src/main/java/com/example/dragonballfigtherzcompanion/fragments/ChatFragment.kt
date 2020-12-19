@@ -20,6 +20,7 @@ import com.example.dragonballfigtherzcompanion.adapter.ChatAdapter
 import com.example.dragonballfigtherzcompanion.model.Chat
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_chat.*
 import java.util.*
@@ -42,7 +43,8 @@ class ChatFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState);
-        // TODO: Init
+        // Init firestore
+        firestore = Firebase.firestore
         // Init Views
         initViews(view)
 
