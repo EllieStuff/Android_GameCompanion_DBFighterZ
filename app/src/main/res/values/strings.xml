@@ -10,6 +10,8 @@
 
     <string name="error_email_invalid">Email is not Valid</string>
 
+    <string name="login_signup"><u>Already have an Account? Sign In Here</u></string>
+
     <!--%d per posar variables decimals, per strings es %s-->
     <string name="error_password_invalid">Password must be at least %d characters long and contain letters &amp; numbers</string>
 </resources>
