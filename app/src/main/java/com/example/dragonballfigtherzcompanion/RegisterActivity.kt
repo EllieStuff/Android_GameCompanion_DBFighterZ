@@ -39,7 +39,7 @@ class RegisterActivity : AppCompatActivity() {
         //Initialize Firebase Auth
         auth = Firebase.auth
         //Get FireBase Auth
-        val auth: FirebaseAuth = Firebase.auth
+        //val auth: FirebaseAuth = Firebase.auth
         //Initialize FireStore
         firestore = Firebase.firestore
         //Exemple de contingut

@@ -54,6 +54,9 @@ class ChatFragment : Fragment() {
         // Init Listeners
         initListeners()
 
+        // Init Chats
+        getChats()
+
     }
 
     private fun initViews(view: View){
@@ -81,9 +84,11 @@ class ChatFragment : Fragment() {
             val message = messageEditText.text.toString()
             // Validate
             if(message.isBlank()) return@setOnClickListener
+
             //Send Message
             sendMessage(message)
         }
+
         //Swipe to Refresh
         swipeRefreshLayout.setOnRefreshListener {
             getChats()
@@ -92,6 +97,57 @@ class ChatFragment : Fragment() {
 
     private fun sendMessage(message: String)
     {
+        // 0 - Get user id
+        Firebase.auth.currentUser?.uid?.let{ userId: String ->
+            // User Available
+            // 1 - Get User Object
+            firestore
+                    .collection(COLLECTION_USERS)
+                    .document(userId)
+                    .get()
+                    .addOnCompleteListener {
+                        if(it.isSuccessful){
+                            // TODO
+                            val user = it.result?.toObject(User::class.java)?.let { user: User ->
+                                // 2 - Create Chat Message
+                                val chat = Chat(
+                                        userId = Firebase.auth.currentUser?.uid,
+                                        message = message,
+                                        sentAt = Date().time,
+                                        isSent = false,
+                                        imageUrl = null,
+                                        username = user.username,
+                                        avatarUrl = null,   //TODO: SUpport User Avatar
+                                )
+                                // 3 - Save in Firestore
+                                firestore
+                                        .collection(COLLECTION_CHAT)
+                                        .add(chat)
+                                        .addOnCompleteListener{
+                                            if(it.isSuccessful){
+                                                getChats()
+                                                Log.i("chat", "Succes uploading message $message")
+                                            }else{
+                                                Log.w("chat", "Error uploading message $message")
+                                            }
+                                        }
+
+                            } ?: run {
+                                //TODO: Show Error
+                            }
+
+                        } else{
+                            // TODO: Show Error
+                        }
+                    }
+
+        } ?: run {
+            // User NOT Available
+            // TODO: show message
+        }
+
+
+        /*
         //0 - Get user id
         Firebase.auth.currentUser?.uid?.let { userId: String ->
             //User Available
@@ -144,6 +200,7 @@ class ChatFragment : Fragment() {
 
         }
 
+         */
     }
     private fun getChats(){
         //TODO: Sort
@@ -156,8 +213,10 @@ class ChatFragment : Fragment() {
                         val chats: List<Chat> = it.result?.documents?.mapNotNull{ it.toObject(Chat::class.java) }.orEmpty()
                         chatAdapter.chatList = chats
                         chatAdapter.notifyDataSetChanged()
+                        Log.i("chat", "ye")
                     } else {
                         // TODO: Show Error
+                        Log.e("chat", "me")
                     }
                     swipeRefreshLayout.isRefreshing = false
                 }
