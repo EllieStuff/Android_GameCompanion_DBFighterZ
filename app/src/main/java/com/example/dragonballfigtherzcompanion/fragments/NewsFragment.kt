@@ -16,18 +16,33 @@ import com.example.dragonballfigtherzcompanion.adapter.NewsAdapter
 import com.example.dragonballfigtherzcompanion.model.Chat
 import com.example.dragonballfigtherzcompanion.model.News
 import com.google.firebase.firestore.FirebaseFirestore
+
+/* import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
+import com.google.firebase.ktx.Firebase */
+//import com.google.firebase.referencecode.database.R
+
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 
 class NewsFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var newsAdapter: NewsAdapter
+
     private lateinit var searchButton: Button
     private lateinit var optionsButton: Button
+
     private lateinit var  swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var recyclerView: RecyclerView
+
     private lateinit var firestore: FirebaseFirestore
+
+    private lateinit var dataBaseRef: DatabaseReference
+    //private lateinit var dataBase: FirebaseDatabase
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -52,14 +67,20 @@ class NewsFragment : Fragment() {
         initRecyclerView()
     }
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView() {
         // Layout Manager
         var layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
 
+        val database_ = Firebase.database
+        dataBaseRef = database_.getReference().child("Tomodachi")
+
+        val uan;
+
+
         // Adapter
-        newsAdapter = NewsAdapter(newsList = listOf(News("Chat 0"), News("Chat 1"), News("Chat 2"), News("Chat 3"),
-                News("Chat 4"), News("Chat 5"), News("Chat 6"), News("Chat 7"), News("Chat 8"), News("Chat 9")))
+        newsAdapter = NewsAdapter(newsList = listOf(News(ei), News("Chat 1"), News("Chat 2"), News("Chat 3"),
+                News("Chat 4"), News("Chat 5")))
         recyclerView.adapter = newsAdapter
 
     }
