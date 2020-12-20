@@ -70,10 +70,10 @@ class ChatFragment : Fragment() {
         recyclerView.layoutManager = layoutManager
 
         // Adapter
-        chatAdapter = ChatAdapter(chatList = listOf(Chat("Chat 0"), Chat("Chat 1"), Chat("Chat 2"), Chat("Chat 3"),
-                Chat("Chat 4"), Chat("Chat 5"), Chat("Chat 6"), Chat("Chat 7"), Chat("Chat 8"), Chat("Chat 9")))
+        chatAdapter = ChatAdapter(chatList = listOf())
         recyclerView.adapter = chatAdapter
 
+        //getChats()
     }
 
     private fun initListeners(){
@@ -83,6 +83,7 @@ class ChatFragment : Fragment() {
             if(message.isBlank()) return@setOnClickListener
             //Send Message
             sendMessage(message)
+            messageEditText.setText("")
         }
         //Swipe to Refresh
         swipeRefreshLayout.setOnRefreshListener {
