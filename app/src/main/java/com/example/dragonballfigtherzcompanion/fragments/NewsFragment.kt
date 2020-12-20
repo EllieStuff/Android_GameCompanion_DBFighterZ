@@ -17,13 +17,13 @@ import com.example.dragonballfigtherzcompanion.model.Chat
 import com.example.dragonballfigtherzcompanion.model.News
 import com.google.firebase.firestore.FirebaseFirestore
 
-/* import com.google.firebase.database.DatabaseReference
+ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
-import com.google.firebase.ktx.Firebase */
+import com.google.firebase.ktx.Firebase
 //import com.google.firebase.referencecode.database.R
 
 import com.google.firebase.firestore.ktx.firestore
@@ -72,16 +72,25 @@ class NewsFragment : Fragment() {
         var layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
 
-        val database_ = Firebase.database
-        dataBaseRef = database_.getReference().child("Tomodachi")
+        //val database_ = Firebase.database
+        //dataBaseRef = database_.getReference().child("Tomodachi")
 
-        val uan;
+        var names = mutableListOf<String>()
 
+        firestore.collection("news").get().addOnSuccessListener { result->
+            for (document in result)
+            {
+                names.add(document.data["Name"].toString())
+            }
 
-        // Adapter
-        newsAdapter = NewsAdapter(newsList = listOf(News(ei), News("Chat 1"), News("Chat 2"), News("Chat 3"),
-                News("Chat 4"), News("Chat 5")))
-        recyclerView.adapter = newsAdapter
+            // Adapter
+            newsAdapter = NewsAdapter(newsList = listOf(News(names[0]), News(names[1]), News(names[2]), News(names[3]), News(names[4]), News(names[5])))
+            recyclerView.adapter = newsAdapter
+
+        }.addOnFailureListener { exception ->
+
+        }
+
 
     }
 
