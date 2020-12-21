@@ -20,10 +20,12 @@ class ChatAdapter(var chatList: List<Chat>): RecyclerView.Adapter<ChatAdapter.Ch
     // Update view for position
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         val chat = chatList[position]
+        /*
         holder.messageTextView.text = chat.message
         holder.usernameTextView.text = chat.username
         //TODO: Format Date
         holder.dateTextView.text = chat.sentAt.toString()
+         */
     }
 
     // Total items

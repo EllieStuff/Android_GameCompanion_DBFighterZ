@@ -38,8 +38,6 @@ class RegisterActivity : AppCompatActivity() {
         initViews()
         //Initialize Firebase Auth
         auth = Firebase.auth
-        //Get FireBase Auth
-        val auth: FirebaseAuth = Firebase.auth
         //Initialize FireStore
         firestore = Firebase.firestore
         //Exemple de contingut
@@ -107,7 +105,7 @@ class RegisterActivity : AppCompatActivity() {
                     if (it.isSuccessful) {
                         //Yay!!
                         auth.currentUser?.uid?.let { userId ->
-                            val user = User(userId = userId, username = username)
+                            val user = User(userId = userId, username = username, email = email)
                             firestore
                                     .collection(Constants.COLLECTION_USERS)
                                     .document(userId)

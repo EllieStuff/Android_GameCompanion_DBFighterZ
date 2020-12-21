@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/newChatContainer">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="32dp"
+            />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <!-- New Chat container -->
+    <RelativeLayout
+        android:id="@+id/newChatContainer"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        >
+
+        <EditText
+            android:id="@+id/newChatName"
+            android:layout_width="match_parent"
+            android:layout_toStartOf="@id/newChatButton"
+            android:inputType="textEmailAddress"
+            android:layout_height="match_parent"
+            android:hint="Write your friend e-mail"
+            />
+
+        <Button
+            android:id="@+id/newChatButton"
+            android:layout_width="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_height="wrap_content"
+            android:text="CHAT"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>
