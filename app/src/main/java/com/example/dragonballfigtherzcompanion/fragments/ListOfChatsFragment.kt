@@ -107,10 +107,6 @@ class ListOfChatsFragment : Fragment() {
 
     }
 
-    private fun chatSelected(chat: Chat){
-        //val
-    }
-
     private fun newChat(){
         newChatButton.setOnClickListener {
             val otherUserEmail = newChatText.text.toString()
@@ -128,7 +124,7 @@ class ListOfChatsFragment : Fragment() {
         val chatId = UUID.randomUUID().toString()
 
         // Get Chat Num (in order to create it's name)
-        var chatNum: Int? = 0
+        /*var chatNum: Int? = 0
         firestore.collection(Constants.COLLECTION_CHAT)
                 .get()
                 .addOnCompleteListener {
@@ -139,7 +135,9 @@ class ListOfChatsFragment : Fragment() {
                         // TODO: Show Error
                         showMessage("Error on creating the name");
                     }
-                }
+                }*/
+        //var thisUser: User?
+        //var otherUser: User?
 
         // Look for the other User
         firestore.collection(Constants.COLLECTION_USERS)
@@ -152,14 +150,19 @@ class ListOfChatsFragment : Fragment() {
                             val otherUserId = otherUser.userId
 
                             // Create New Chat
-                            Firebase.auth.currentUser?.uid?.let { userId: String? ->
-                                firestore.collection(Constants.COLLECTION_CHAT).document(chatId)
-                                        .set(Chat(
-                                                id = chatId,
-                                                name = "Chat " + chatNum.toString(),
-                                                users = listOf(userId, otherUserId),
-                                                date = Date()
-                                        ))
+                            Firebase.auth.currentUser?.uid?.let { userId: String ->
+                                firestore.collection(COLLECTION_USERS).document(userId).get().addOnCompleteListener {
+                                    val user = it.result?.toObject(User::class.java)?.let { user: User ->
+                                        val chatName = user.username + "  &&  " + otherUser.username + "  Chat"
+                                        firestore.collection(Constants.COLLECTION_CHAT).document(chatId)
+                                                .set(Chat(
+                                                        id = chatId,
+                                                        name = chatName,
+                                                        users = listOf(userId, otherUserId),
+                                                        date = Date()
+                                                ))
+                                    }
+                                }
 
                             } ?: run {
                                 //User NOT Available
@@ -179,17 +182,7 @@ class ListOfChatsFragment : Fragment() {
         //TODO: Sort
         swipeRefreshLayout.isRefreshing = true
 
-        firestore.collection(Constants.COLLECTION_CHAT)
-                .orderBy("date", Query.Direction.ASCENDING)
-                .get()
-                .addOnCompleteListener {
-                    if(it.isSuccessful){
-                        showMessage("Chats ordered");
-                    } else {
-                        // TODO: Show Error
-                        showMessage("Error on ordering the chats");
-                    }
-                }
+
 
         Firebase.auth.currentUser?.uid?.let { userId: String ->
             firestore.collection(Constants.COLLECTION_CHAT)
@@ -198,7 +191,8 @@ class ListOfChatsFragment : Fragment() {
                     .addOnCompleteListener {
                         if(it.isSuccessful){
                             // Update UI
-                            val chats: List<Chat> = it.result?.documents?.mapNotNull{ it.toObject(Chat::class.java) }.orEmpty()
+                            var chats: List<Chat> = it.result?.documents?.mapNotNull{ it.toObject(Chat::class.java) }.orEmpty()
+                            chats = chats.sortedWith(compareByDescending{it.date})
                             listOfChatAdapter.chatList = chats
                             listOfChatAdapter.notifyDataSetChanged()
                         } else {

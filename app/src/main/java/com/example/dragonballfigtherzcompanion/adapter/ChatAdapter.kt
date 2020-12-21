@@ -6,10 +6,13 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dragonballfigtherzcompanion.Constants
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.model.Chat
 import com.example.dragonballfigtherzcompanion.model.Message
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.auth.User
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class ChatAdapter(var messageList: List<Message>): RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
@@ -25,19 +28,18 @@ class ChatAdapter(var messageList: List<Message>): RecyclerView.Adapter<ChatAdap
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         val message = messageList[position]
 
-
         Firebase.auth.currentUser?.uid?.let { userId: String ->
             if(message.from == userId){
                 holder.cardViewFromOther.visibility = View.GONE
 
-                holder.usernameTextViewFromThis.text = message.from //TODO: Pillar el nom en contres de la id
+                holder.usernameTextViewFromThis.text = message.username //TODO: Pillar el nom en contres de la id
                 holder.messageTextViewFromThis.text = message.text
                 //holder.messageDateTextViewFromThis.text = message.date.toString()
             }
             else{
                 holder.cardViewFromThis.visibility = View.GONE
 
-                holder.usernameTextViewFromOther.text = message.from //TODO: Pillar el nom en contres de la id
+                holder.usernameTextViewFromOther.text = message.username //TODO: Pillar el nom en contres de la id
                 holder.messageTextViewFromOther.text = message.text
                 //holder.messageDateTextViewFromOther.text = message.date.toString()
             }

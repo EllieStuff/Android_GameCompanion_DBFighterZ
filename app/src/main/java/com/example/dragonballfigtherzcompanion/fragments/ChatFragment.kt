@@ -101,7 +101,6 @@ class ChatFragment(val chatId: String) : Fragment() {
         // Look for changes and refresh chats if needed
         Firebase.auth.currentUser?.uid?.let { userId: String ->
             firestore.collection(Constants.COLLECTION_MESSAGES)
-                    .whereEqualTo("chatId", chatId)
                     .addSnapshotListener { messages, error ->
                         if(error == null){
                             messages?.let{
@@ -132,6 +131,7 @@ class ChatFragment(val chatId: String) : Fragment() {
                             val message = Message(
                                     text = message,
                                     from = userId,
+                                    username = user.username,
                                     date = Date(),
                                     chatId = chatId
                             )
@@ -174,7 +174,8 @@ class ChatFragment(val chatId: String) : Fragment() {
                 .addOnCompleteListener {
                     if(it.isSuccessful){
                         // Update UI
-                        val messages: List<Message> = it.result?.documents?.mapNotNull{ it.toObject(Message::class.java) }.orEmpty()
+                        var messages: List<Message> = it.result?.documents?.mapNotNull{ it.toObject(Message::class.java) }.orEmpty()
+                        messages = messages.sortedWith(compareBy{it.date})
                         chatAdapter.messageList = messages
                         chatAdapter.notifyDataSetChanged()
                     } else {

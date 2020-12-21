@@ -37,7 +37,7 @@ class ListOfChatAdapter(var chatList: List<Chat>, var activity: MainActivity): R
 
         holder.clickableListOfChatsLayout.setOnClickListener {
 
-            /*
+
             Firebase.firestore.collection(Constants.COLLECTION_CHAT)
                     .document(chat.id)
                     .set(Chat(
@@ -47,6 +47,7 @@ class ListOfChatAdapter(var chatList: List<Chat>, var activity: MainActivity): R
                             date = Date()
                     ))
 
+                    /*
             Firebase.firestore.collection(Constants.COLLECTION_CHAT)
                     .orderBy("date", Query.Direction.ASCENDING)
                     .get()
