@@ -50,6 +50,7 @@ class ChatFragment(val chatId: String) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState);
+
         // Init firestore
         firestore = Firebase.firestore
         // Init Views

@@ -25,27 +25,27 @@ class ChatAdapter(var messageList: List<Message>): RecyclerView.Adapter<ChatAdap
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         val message = messageList[position]
 
-        /*
+
         Firebase.auth.currentUser?.uid?.let { userId: String ->
             if(message.from == userId){
-                holder.layoutFromOther.visibility = View.GONE
+                holder.cardViewFromOther.visibility = View.GONE
 
                 holder.usernameTextViewFromThis.text = message.from //TODO: Pillar el nom en contres de la id
                 holder.messageTextViewFromThis.text = message.text
-                holder.messageDateTextViewFromThis.text = message.date.toString()
+                //holder.messageDateTextViewFromThis.text = message.date.toString()
             }
             else{
-                holder.layoutFromThis.visibility = View.GONE
+                holder.cardViewFromThis.visibility = View.GONE
 
                 holder.usernameTextViewFromOther.text = message.from //TODO: Pillar el nom en contres de la id
                 holder.messageTextViewFromOther.text = message.text
-                holder.messageDateTextViewFromOther.text = message.date.toString()
+                //holder.messageDateTextViewFromOther.text = message.date.toString()
             }
 
         } ?: run {
             // Error
         }
-        */
+
 
         /*
         holder.messageTextView.text = chat.message
@@ -63,20 +63,17 @@ class ChatAdapter(var messageList: List<Message>): RecyclerView.Adapter<ChatAdap
 
     // Maps view xml => Kotlin
     inner class ChatViewHolder(view: View): RecyclerView.ViewHolder(view){
-        /*
         // This
-        val layoutFromThis: LinearLayout = view.findViewById(R.id.LayoutFromThis)
+        val cardViewFromThis: androidx.cardview.widget.CardView = view.findViewById(R.id.cardViewFromThis)
         val usernameTextViewFromThis: TextView = view.findViewById(R.id.usernameTextViewFromThis)
         val messageTextViewFromThis: TextView = view.findViewById(R.id.messageTextViewFromThis)
-        val messageDateTextViewFromThis: TextView = view.findViewById(R.id.messageDateTextViewFromThis)
+        //val messageDateTextViewFromThis: TextView = view.findViewById(R.id.messageDateTextViewFromThis)
 
         // Other
-        val layoutFromOther: LinearLayout = view.findViewById(R.id.LayoutFromOther)
+        val cardViewFromOther: androidx.cardview.widget.CardView = view.findViewById(R.id.cardViewFromOther)
         val usernameTextViewFromOther: TextView = view.findViewById(R.id.usernameTextViewFromOther)
         val messageTextViewFromOther: TextView = view.findViewById(R.id.messageTextViewFromOther)
-        val messageDateTextViewFromOther: TextView = view.findViewById(R.id.messageDateTextViewFromOther)
-
-         */
+        //val messageDateTextViewFromOther: TextView = view.findViewById(R.id.messageDateTextViewFromOther)
     }
 
 }
