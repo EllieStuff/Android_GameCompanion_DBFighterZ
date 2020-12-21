@@ -91,7 +91,15 @@ class NewsFragment : Fragment() {
             }
 
             // Adapter
-            newsAdapter = NewsAdapter(newsList = listOf(News(names[0], rank[0], fav_char[0], victory[0], ranking[0]), News(names[1]), News(names[2]), News(names[3]), News(names[4]), News(names[5])))
+            newsAdapter = NewsAdapter(
+                    newsList = listOf(
+                            News(names[0], rank[0], fav_char[0], victory[0], ranking[0], victory_rate[0], play_time[0], max_combo[0]),
+                            News(names[1], rank[1], fav_char[1], victory[1], ranking[1], victory_rate[1], play_time[1], max_combo[1]),
+                            News(names[2], rank[2], fav_char[2], victory[2], ranking[2], victory_rate[2], play_time[2], max_combo[2]),
+                            News(names[3], rank[3], fav_char[3], victory[3], ranking[3], victory_rate[3], play_time[3], max_combo[3]),
+                            News(names[4], rank[4], fav_char[4], victory[4], ranking[4], victory_rate[4], play_time[4], max_combo[4]),
+                            News(names[5], rank[5], fav_char[5], victory[5], ranking[5], victory_rate[5], play_time[5], max_combo[5])
+                    ))
             recyclerView.adapter = newsAdapter
 
         }.addOnFailureListener { exception ->

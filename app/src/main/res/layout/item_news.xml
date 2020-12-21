@@ -4,63 +4,99 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_margin="8dp"
-    android:layout_height="200dp">
+    android:layout_height="120dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:gravity="left"
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp">
     
         <TextView
             android:id="@+id/usernameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Pedro"
+            android:textSize="20dp"
             />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="5dp"
+        >
         <TextView
             android:id="@+id/rankTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Rank: Terricola"
-            />
-        <TextView
-            android:id="@+id/favCharTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Fav. Char: Koku"
-            />
-        <TextView
-            android:id="@+id/victoryTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="You Win"
-            />
+            tools:text="Rank: Terricola" />
+
         <TextView
             android:id="@+id/victoryRateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Victory Rate: 22%"
             />
+
+        <TextView
+            android:id="@+id/favCharTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Fav. Char: Koku"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="160dp"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp">
+
         <TextView
             android:id="@+id/rankingTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Ranking: 0"
-            />
+            android:gravity="right"
+            tools:text="Ranking: 0" />
+
         <TextView
             android:id="@+id/playTimeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Play Time: 333h"
-            />
+            android:gravity="right"
+            tools:text="Play Time: 333h" />
+
         <TextView
             android:id="@+id/maxComboTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Max. Combo: 99"
+            android:gravity="left"
+            tools:text="Max. Combo: 99" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginLeft="240dp"
+        android:layout_marginTop="90dp">
+
+        <TextView
+            android:id="@+id/victoryTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="You Win"
             />
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
