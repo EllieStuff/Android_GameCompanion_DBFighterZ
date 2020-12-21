@@ -17,11 +17,13 @@ import com.example.dragonballfighterzcompanion.model.User
 import com.example.dragonballfigtherzcompanion.Constants
 import com.example.dragonballfigtherzcompanion.Constants.COLLECTION_CHAT
 import com.example.dragonballfigtherzcompanion.Constants.COLLECTION_USERS
+import com.example.dragonballfigtherzcompanion.MainActivity
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.adapter.ListOfChatAdapter
 import com.example.dragonballfigtherzcompanion.model.Chat
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,7 +39,6 @@ class ListOfChatsFragment : Fragment() {
     private lateinit var firestore: FirebaseFirestore
 
     private lateinit var listOfChatAdapter: ListOfChatAdapter
-    private lateinit var otherUserId: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         //return super.onCreateView(inflater, container, savedInstanceState)
@@ -76,8 +77,9 @@ class ListOfChatsFragment : Fragment() {
         /*chatAdapter = ChatAdapter{ chat->
             chatSelected(chat)
         }*/
-        listOfChatAdapter = ListOfChatAdapter(chatList = emptyList())
+        listOfChatAdapter = ListOfChatAdapter(chatList = emptyList(), activity = (activity as MainActivity))
         recyclerView.adapter = listOfChatAdapter
+        getChats()
 
     }
 
@@ -101,9 +103,8 @@ class ListOfChatsFragment : Fragment() {
                             }
                         }
                     }
-        } ?: run{
-
         }
+
     }
 
     private fun chatSelected(chat: Chat){
@@ -177,6 +178,18 @@ class ListOfChatsFragment : Fragment() {
     private fun getChats(){
         //TODO: Sort
         swipeRefreshLayout.isRefreshing = true
+
+        firestore.collection(Constants.COLLECTION_CHAT)
+                .orderBy("date", Query.Direction.ASCENDING)
+                .get()
+                .addOnCompleteListener {
+                    if(it.isSuccessful){
+                        showMessage("Chats ordered");
+                    } else {
+                        // TODO: Show Error
+                        showMessage("Error on ordering the chats");
+                    }
+                }
 
         Firebase.auth.currentUser?.uid?.let { userId: String ->
             firestore.collection(Constants.COLLECTION_CHAT)

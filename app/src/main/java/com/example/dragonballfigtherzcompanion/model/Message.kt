@@ -3,8 +3,9 @@ package com.example.dragonballfigtherzcompanion.model
 import java.util.*
 
 data class Message (
-    val message: String = "",
+    val text: String = "",
     val from: String = "",
-    val date: Date = Date()
+    val date: Date = Date(),
+    val chatId: String = ""
 
 )

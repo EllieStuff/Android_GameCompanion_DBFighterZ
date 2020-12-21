@@ -10,12 +10,12 @@
         android:layout_height="match_parent"
         android:layout_above="@id/sendMessageContainer">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="32dp"
-        />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewFromThis"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="32dp"
+            />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <!-- Send message container -->

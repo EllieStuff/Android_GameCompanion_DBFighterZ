@@ -8,12 +8,18 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dragonballfigtherzcompanion.Constants
 import com.example.dragonballfigtherzcompanion.MainActivity
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.fragments.ListOfChatsFragment
 import com.example.dragonballfigtherzcompanion.model.Chat
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import java.util.*
 
-class ListOfChatAdapter(var chatList: List<Chat>): RecyclerView.Adapter<ListOfChatAdapter.ListOfChatViewHolder>() {
+class ListOfChatAdapter(var chatList: List<Chat>, var activity: MainActivity): RecyclerView.Adapter<ListOfChatAdapter.ListOfChatViewHolder>() {
 
     // Inflate view (xml layout) => ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListOfChatViewHolder {
@@ -30,14 +36,23 @@ class ListOfChatAdapter(var chatList: List<Chat>): RecyclerView.Adapter<ListOfCh
         //TODO: Format Date
 
         holder.clickableListOfChatsLayout.setOnClickListener {
-            /*
-            val transaction: FragmentTransaction = MainActivity.instance.supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragmentContainer, ListOfChatsFragment())
-            transaction.commit()
-            */
-            //MainActivity.instance.showMessage("in")
 
-            val chut = chat
+            /*
+            Firebase.firestore.collection(Constants.COLLECTION_CHAT)
+                    .document(chat.id)
+                    .set(Chat(
+                            id = chat.id,
+                            name = chat.name,
+                            users = chat.users,
+                            date = Date()
+                    ))
+
+            Firebase.firestore.collection(Constants.COLLECTION_CHAT)
+                    .orderBy("date", Query.Direction.ASCENDING)
+                    .get()
+            */
+
+            activity.loadChatScreen(chat.id)
         }
     }
 

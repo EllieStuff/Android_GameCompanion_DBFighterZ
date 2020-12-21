@@ -14,6 +14,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
+    //var onSubMenu = false;
+
     override fun onStart() {
         super.onStart()
     }
@@ -27,9 +29,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Singleton de MainActivity
-    companion object {
-        val instance = MainActivity()
-    }
+    /*companion object {
+        private lateinit var instance: MainActivity
+
+        val managerInstance: MainActivity
+            get() {
+                if (instance == null) {
+                    instance = MainActivity()
+                }
+
+                return instance
+            }
+
+    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +56,7 @@ class MainActivity : AppCompatActivity() {
 
         // Listen to Tabs Selected
         bottomNavigationView.setOnNavigationItemSelectedListener { menuItem: MenuItem ->
+
             when (menuItem.itemId) {
                 R.id.chatTab -> {
                     //Add Chat Fragment
@@ -75,7 +88,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    public fun showMessage(text: String) {
+    internal fun loadChatScreen(chatId: String){
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, ChatFragment(chatId))
+        transaction.commit()
+    }
+
+    private fun showMessage(text: String) {
         Toast.makeText(this, text, Toast.LENGTH_LONG).show()
     }
 }
