@@ -23,6 +23,7 @@
             android:textAlignment="center"
             />
 
+        <!--
         <Button
             android:id="@+id/searchButton"
             android:layout_width="45dp"
@@ -38,6 +39,7 @@
             android:layout_alignParentEnd="false"
             android:layout_marginLeft="310dp"
             />
+            -->
 
     </RelativeLayout>
 

@@ -9,20 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.dragonballfigtherzcompanion.Constants.COLLECTION_NEWS
 import com.example.dragonballfigtherzcompanion.Constants
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.adapter.NewsAdapter
-import com.example.dragonballfigtherzcompanion.model.Chat
 import com.example.dragonballfigtherzcompanion.model.News
 import com.google.firebase.firestore.FirebaseFirestore
 
- import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.ktx.Firebase
 //import com.google.firebase.referencecode.database.R
 
@@ -55,8 +48,8 @@ class NewsFragment : Fragment() {
 
     private fun initViews(view: View) {
         recyclerView = view.findViewById(R.id.recyclerView)
-        searchButton = view.findViewById(R.id.searchButton)
-        optionsButton = view.findViewById(R.id.optionsButton)
+        //searchButton = view.findViewById(R.id.searchButton)
+        //optionsButton = view.findViewById(R.id.optionsButton)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,19 +69,33 @@ class NewsFragment : Fragment() {
         //dataBaseRef = database_.getReference().child("Tomodachi")
 
         var names = mutableListOf<String>()
+        var rank = mutableListOf<String>()
+        var fav_char = mutableListOf<String>()
+        var victory = mutableListOf<String>()
+        var ranking = mutableListOf<Int>()
+        var victory_rate = mutableListOf<Int>()
+        var play_time = mutableListOf<Int>()
+        var max_combo = mutableListOf<Int>()
 
         firestore.collection("news").get().addOnSuccessListener { result->
             for (document in result)
             {
                 names.add(document.data["Name"].toString())
+                rank.add(document.data["Rank"].toString())
+                fav_char.add(document.data["Fav_Char"].toString())
+                victory.add(document.data["Victory"].toString())
+                ranking.add(document.data["Ranking"].toString().toInt())
+                victory_rate.add(document.data["Victory_Rate"].toString().toInt())
+                play_time.add(document.data["Play_Time"].toString().toInt())
+                max_combo.add(document.data["Max_Combo"].toString().toInt())
             }
 
             // Adapter
-            newsAdapter = NewsAdapter(newsList = listOf(News(names[0]), News(names[1]), News(names[2]), News(names[3]), News(names[4]), News(names[5])))
+            newsAdapter = NewsAdapter(newsList = listOf(News(names[0], rank[0], fav_char[0], victory[0], ranking[0]), News(names[1]), News(names[2]), News(names[3]), News(names[4]), News(names[5])))
             recyclerView.adapter = newsAdapter
 
         }.addOnFailureListener { exception ->
-
+            // Error
         }
 
 
