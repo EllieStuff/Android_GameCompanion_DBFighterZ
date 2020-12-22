@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="16dp"
     android:gravity="center"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="@color/colorGold">
 
     <!-- EMAIL -->
     <TextView
@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:hint="Enter your email here"
+        android:layout_marginHorizontal="16dp"
         android:inputType="textEmailAddress"/>
 
     <!-- PASSWORD -->
@@ -36,6 +37,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:hint="Enter your password here"
+        android:layout_marginHorizontal="16dp"
         android:inputType="textPassword" />
 
     <!-- LOGIN -->
@@ -44,7 +46,8 @@
         android:layout_width="172dp"
         android:layout_height="53dp"
         android:hint="Log In"
-        android:layout_margin="20dp" />
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/colorDarkOrange" />
 
 
 </LinearLayout>

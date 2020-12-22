@@ -10,6 +10,9 @@ import com.example.dragonballfigtherzcompanion.fragments.ChatFragment
 import com.example.dragonballfigtherzcompanion.fragments.ListOfChatsFragment
 import com.example.dragonballfigtherzcompanion.fragments.ProfileFragment
 import com.example.dragonballfigtherzcompanion.fragments.NewsFragment
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -77,14 +80,22 @@ class MainActivity : AppCompatActivity() {
                     transaction.commit()
                 }
 
+            }
+
+            //return@setOnNavigationItemSelectedListener true
+            true
         }
 
-        //return@setOnNavigationItemSelectedListener true
-        true
-    }
+        // Select Initial Tab
+        bottomNavigationView.selectedItemId = R.id.newsTab
 
-    // Select Initial Tab
-    bottomNavigationView.selectedItemId = R.id.newsTab
+
+        // Init AdMob
+        MobileAds.initialize(this)
+        // Load Ad
+        val adView = findViewById<AdView>(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
 
     }
 

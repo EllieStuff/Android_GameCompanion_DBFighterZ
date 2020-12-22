@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorGold">
 
 
     <!-- LOG IN -->
@@ -13,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:layout_marginHorizontal="16dp"
-        android:text="@string/button_login" />
+        android:text="@string/button_login"
+        android:backgroundTint="@color/colorDarkOrange" />
 
     <!-- REGISTER -->
     <Button
@@ -21,7 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="@string/button_register" />
+        android:text="@string/button_register"
+        android:backgroundTint="@color/colorDarkOrange" />
 
     <!-- LOG OUT -->
     <Button
@@ -29,7 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Log Out"/>
+        android:text="Log Out"
+        android:backgroundTint="@color/colorDarkOrange"/>
 
 
 </LinearLayout>
