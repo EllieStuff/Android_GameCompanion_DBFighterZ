@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="colorOrange">#E9740A</color>
+    <color name="colorDarkOrange">#F5771F</color>
+    <color name="colorGold">#B47B20</color>
     <color name="black">#000</color>
     <color name="violet">#9400D3</color>
     <color name="indigo">#4B0082</color>
