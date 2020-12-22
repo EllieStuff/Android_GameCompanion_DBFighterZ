@@ -5,13 +5,13 @@
     android:layout_height="match_parent" >
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+        android:id="@+id/swipeRefreshLayoutInChat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/sendMessageContainer">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/recyclerViewInChat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="32dp"

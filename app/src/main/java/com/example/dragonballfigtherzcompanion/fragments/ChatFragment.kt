@@ -65,16 +65,17 @@ class ChatFragment(val chatId: String) : Fragment() {
     }
 
     private fun initViews(view: View){
-        recyclerView = view.findViewById(R.id.recyclerView)
+        recyclerView = view.findViewById(R.id.recyclerViewInChat)
         messageEditText = view.findViewById(R.id.messageEditText)
         sendButton = view.findViewById(R.id.sendButton)
-        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout)
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayoutInChat)
 
     }
 
     private fun initRecyclerView(){
         // Layout Manager
         var layoutManager = LinearLayoutManager(activity)
+        layoutManager.reverseLayout = true
         recyclerView.layoutManager = layoutManager
 
         // Adapter
@@ -175,7 +176,7 @@ class ChatFragment(val chatId: String) : Fragment() {
                     if(it.isSuccessful){
                         // Update UI
                         var messages: List<Message> = it.result?.documents?.mapNotNull{ it.toObject(Message::class.java) }.orEmpty()
-                        messages = messages.sortedWith(compareBy{it.date})
+                        messages = messages.sortedWith(compareByDescending{it.date})
                         chatAdapter.messageList = messages
                         chatAdapter.notifyDataSetChanged()
                     } else {
