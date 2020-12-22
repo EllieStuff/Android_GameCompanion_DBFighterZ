@@ -153,14 +153,26 @@ class ChatFragment(val chatId: String) : Fragment() {
                                 }
 
                             //Notify Chat
-                            val chat: Chat = firestore.collection(Constants.COLLECTION_CHAT).document(message.chatId).get() as Chat
-                            firestore.collection(Constants.COLLECTION_CHAT).document(chat.id)
-                                    .set(Chat(
-                                            id = chat.id,
-                                            name = chat.name,
-                                            users = chat.users,
-                                            date = Date()
-                                    ))
+                            //val chat: Chat = firestore.collection(Constants.COLLECTION_CHAT).document(message.chatId).get() as Chat
+                            firestore.collection(Constants.COLLECTION_CHAT).whereEqualTo("id", message.chatId).get()
+                                    .addOnCompleteListener {
+                                        if(it.isSuccessful){
+                                            val chat: Chat? = it.result?.documents?.mapNotNull{ it.toObject(Chat::class.java) }?.getOrNull(0)
+                                            if(chat != null) {
+                                                firestore.collection(Constants.COLLECTION_CHAT).document(chat.id)
+                                                        .set(Chat(
+                                                                id = chat.id,
+                                                                name = chat.name,
+                                                                users = chat.users,
+                                                                date = Date()
+                                                        ))
+                                            } else {
+
+                                            }
+                                        } else {
+
+                                        }
+                                    }
 
                         } ?: run {
                             //TODO: Show Error
@@ -190,6 +202,7 @@ class ChatFragment(val chatId: String) : Fragment() {
                         messages = messages.sortedWith(compareByDescending{it.date})
                         chatAdapter.messageList = messages
                         chatAdapter.notifyDataSetChanged()
+                        recyclerView.adapter = chatAdapter
                     } else {
                         // TODO: Show Error
                     }

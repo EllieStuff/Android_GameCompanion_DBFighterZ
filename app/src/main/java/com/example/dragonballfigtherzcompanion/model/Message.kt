@@ -7,6 +7,7 @@ data class Message (
     val from: String = "",
     val username: String? = "",
     val date: Date = Date(),
-    val chatId: String = ""
+    val chatId: String = "",
+    val readed: Boolean = false
 
 )

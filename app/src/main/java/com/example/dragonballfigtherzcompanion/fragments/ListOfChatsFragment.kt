@@ -173,7 +173,7 @@ class ListOfChatsFragment : Fragment() {
                                                             firestore.collection(Constants.COLLECTION_CHAT).document(chatId)
                                                                     .set(Chat(
                                                                             id = chatId,
-                                                                            name = "Block de notas",
+                                                                            name = "Blog de notas",
                                                                             users = listOfUsers,
                                                                             date = Date()
                                                                     ))
@@ -231,6 +231,7 @@ class ListOfChatsFragment : Fragment() {
                             chats = chats.sortedWith(compareByDescending{it.date})
                             listOfChatAdapter.chatList = chats
                             listOfChatAdapter.notifyDataSetChanged()
+                            recyclerView.adapter = listOfChatAdapter
                         } else {
                             // TODO: Show Error
                             showMessage("Error Getting The Chats");
