@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import com.example.dragonballfigtherzcompanion.LoginActivity
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.RegisterActivity
 import com.google.firebase.analytics.ktx.analytics
@@ -20,8 +21,8 @@ class ProfileFragment : Fragment() {
 
     private val TAG = "ProfileManager"
 
+    private lateinit var loginButton: Button
     private lateinit var registerButton: Button
-    private lateinit var welcomeTextView: TextView
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -43,7 +44,7 @@ class ProfileFragment : Fragment() {
 
     private fun initViews(parentView: View) {
         registerButton = parentView.findViewById<Button>(R.id.registerButton)
-        welcomeTextView = parentView.findViewById<Button>(R.id.welcomeTextView)
+        loginButton = parentView.findViewById<Button>(R.id.loginButton)
     }
 
     override  fun onStart(){
@@ -54,7 +55,14 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initListeners() {
-        //registerButton: Button! = view.findViewById<Button>(R.id.registerButton)
+        loginButton.setOnClickListener {
+            // Track register button click
+            Firebase.analytics.logEvent("loginButtonClick", null)
+            // Open login activity
+            ///it: View!
+            val intent = Intent(activity, LoginActivity::class.java)
+            startActivity(intent)
+        }
         registerButton.setOnClickListener {
             // Track register button click
             Firebase.analytics.logEvent("registerButtonClick", null)
@@ -63,15 +71,16 @@ class ProfileFragment : Fragment() {
             val intent = Intent(activity, RegisterActivity::class.java)
             startActivity(intent)
         }
+
     }
 
     private fun checkUserAvailability() {
         Firebase.auth.currentUser?.let {
             registerButton.visibility = View.GONE
-            welcomeTextView.visibility = View.VISIBLE
+            loginButton.visibility = View.GONE
         } ?: run {
             registerButton.visibility = View.VISIBLE
-            welcomeTextView.visibility = View.GONE
+            loginButton.visibility = View.VISIBLE
         }
     }
 

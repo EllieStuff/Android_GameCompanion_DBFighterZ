@@ -54,9 +54,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:hint="Enter your password here"
-        android:inputType="textPassword"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="353dp" />
+        android:inputType="textPassword" />
 
    <!-- REGISTER -->
     <Button
@@ -68,7 +66,7 @@
 
     <!-- LOGIN -->
     <Button
-        android:id="@+id/registerButton"
+        android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:hint="@string/login_signup"
