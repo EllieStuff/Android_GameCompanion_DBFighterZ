@@ -12,8 +12,8 @@
         android:id="@+id/drac"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="-50dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginBottom="-200dp"
         android:background="@drawable/drak">
 
     </ImageView>

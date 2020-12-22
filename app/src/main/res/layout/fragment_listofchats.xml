@@ -42,6 +42,7 @@
             android:layout_alignParentEnd="true"
             android:layout_height="wrap_content"
             android:text="CHAT"
+            android:backgroundTint="@color/colorGold"
             />
 
     </RelativeLayout>
