@@ -5,13 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorGold">
+
+    <ImageView
+        android:id="@+id/drac"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="600dp"
+        android:layout_marginBottom="-715dp"
+        android:background="@drawable/drak">
+
+    </ImageView>
 
     <RelativeLayout
         android:id="@+id/sendMessageContainer"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
+        android:background="@color/colorDarkOrange"
         >
         <!--android:translationY="50dp" -->
 
@@ -22,6 +34,8 @@
             android:textSize="30dp"
             android:textAlignment="center"
             />
+
+
 
         <!--
         <Button
@@ -43,15 +57,16 @@
 
     </RelativeLayout>
 
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="480dp">
+        android:layout_height="1042dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="480dp"
+            android:layout_height="600dp"
             android:paddingBottom="32dp" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
