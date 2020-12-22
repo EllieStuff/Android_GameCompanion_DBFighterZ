@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_margin="8dp"
-    android:layout_height="72dp"
+    android:layout_height="wrap_content"
     >
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/clickableListOfChatsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,26 +25,27 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:textColor="@color/black"
-            tools:text="Username"
-            android:layout_margin="2dp"
+            tools:text="Chat name"
+            android:layout_margin="20dp"
             android:textSize="20dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
+            android:layout_gravity="left"
             />
 
+        <!--
         <TextView
             android:id="@+id/lastMessageTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Message text"
+            tools:text="Last Message text"
             android:textColor="@color/black"
             android:layout_margin="6dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
 
             />
+            -->
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <!--
     <Button

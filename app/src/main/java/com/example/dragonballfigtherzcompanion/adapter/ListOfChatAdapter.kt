@@ -3,6 +3,7 @@ package com.example.dragonballfigtherzcompanion.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -66,8 +67,8 @@ class ListOfChatAdapter(var chatList: List<Chat>, var activity: MainActivity): R
     // Maps view xml => Kotlin
     inner class ListOfChatViewHolder(view: View): RecyclerView.ViewHolder(view){
         val chatNameTextView: TextView = view.findViewById(R.id.chatNameTextView);
-        val lastMessageTextView: TextView = view.findViewById(R.id.lastMessageTextView);
-        val clickableListOfChatsLayout: RelativeLayout = view.findViewById(R.id.clickableListOfChatsLayout);
+        //val lastMessageTextView: TextView = view.findViewById(R.id.lastMessageTextView);
+        val clickableListOfChatsLayout: LinearLayout = view.findViewById(R.id.clickableListOfChatsLayout);
     }
 
 }

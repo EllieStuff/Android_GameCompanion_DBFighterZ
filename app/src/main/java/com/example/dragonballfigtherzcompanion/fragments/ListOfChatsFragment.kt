@@ -84,9 +84,8 @@ class ListOfChatsFragment : Fragment() {
     }
 
     private fun initListeners(){
-        newChatButton.setOnClickListener{
-            newChat()
-        }
+        newChatListener()
+        
         //Swipe to Refresh
         swipeRefreshLayout.setOnRefreshListener {
             getChats()
@@ -107,7 +106,7 @@ class ListOfChatsFragment : Fragment() {
 
     }
 
-    private fun newChat(){
+    private fun newChatListener(){
         newChatButton.setOnClickListener {
             val otherUserEmail = newChatText.text.toString()
             // Validate
@@ -136,8 +135,6 @@ class ListOfChatsFragment : Fragment() {
                         showMessage("Error on creating the name");
                     }
                 }*/
-        //var thisUser: User?
-        //var otherUser: User?
 
         // Look for the other User
         firestore.collection(Constants.COLLECTION_USERS)
@@ -151,16 +148,53 @@ class ListOfChatsFragment : Fragment() {
 
                             // Create New Chat
                             Firebase.auth.currentUser?.uid?.let { userId: String ->
-                                firestore.collection(COLLECTION_USERS).document(userId).get().addOnCompleteListener {
+                                firestore.collection(Constants.COLLECTION_USERS).document(userId).get().addOnCompleteListener {
                                     val user = it.result?.toObject(User::class.java)?.let { user: User ->
-                                        val chatName = user.username + "  &&  " + otherUser.username + "  Chat"
-                                        firestore.collection(Constants.COLLECTION_CHAT).document(chatId)
-                                                .set(Chat(
-                                                        id = chatId,
-                                                        name = chatName,
-                                                        users = listOf(userId, otherUserId),
-                                                        date = Date()
-                                                ))
+                                        val listOfUsers = listOf(user.userId, otherUser.userId)
+                                        firestore.collection(Constants.COLLECTION_CHAT)
+                                                .whereEqualTo("users", listOfUsers)
+                                                .get()
+                                                .addOnCompleteListener {
+                                                    if(it.isSuccessful){
+                                                        val thisChat = it.result?.documents?.mapNotNull{ it.toObject(Chat::class.java) }?.getOrNull(0)
+                                                        if(thisChat != null){
+                                                            showMessage(thisChat.name + " already exists")
+                                                            firestore.collection(Constants.COLLECTION_CHAT).document(thisChat.id)
+                                                                    .set(Chat(
+                                                                            id = thisChat.id,
+                                                                            name = thisChat.name,
+                                                                            users = thisChat.users,
+                                                                            date = Date()
+                                                                    ))
+
+                                                            getChats()
+                                                        }
+                                                        else if(user.userId == otherUser.userId){
+                                                            firestore.collection(Constants.COLLECTION_CHAT).document(chatId)
+                                                                    .set(Chat(
+                                                                            id = chatId,
+                                                                            name = "Block de notas",
+                                                                            users = listOfUsers,
+                                                                            date = Date()
+                                                                    ))
+                                                        }
+                                                        else {
+                                                            val chatName = "Chat de: " + user.username + "  &&  " + otherUser.username
+                                                            firestore.collection(Constants.COLLECTION_CHAT).document(chatId)
+                                                                    .set(Chat(
+                                                                            id = chatId,
+                                                                            name = chatName,
+                                                                            users = listOfUsers,
+                                                                            date = Date()
+                                                                    ))
+                                                        }
+
+                                                    }
+                                                    else {
+
+                                                    }
+                                                }
+
                                     }
                                 }
 
@@ -170,9 +204,13 @@ class ListOfChatsFragment : Fragment() {
                                 showMessage("Error on creating chat");
                             }
                         }
+                        else{
+                            // TODO: Show Error
+                            showMessage("Error 2 on finding user");
+                        }
                     } else {
                         // TODO: Show Error
-                        showMessage("Error on finding user");
+                        showMessage("Error 1 on finding user");
                     }
                 }
 
@@ -181,8 +219,6 @@ class ListOfChatsFragment : Fragment() {
     private fun getChats(){
         //TODO: Sort
         swipeRefreshLayout.isRefreshing = true
-
-
 
         Firebase.auth.currentUser?.uid?.let { userId: String ->
             firestore.collection(Constants.COLLECTION_CHAT)
