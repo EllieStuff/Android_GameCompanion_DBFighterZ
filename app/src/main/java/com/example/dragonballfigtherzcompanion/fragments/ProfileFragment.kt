@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
+import android.widget.Toast
 import com.example.dragonballfigtherzcompanion.LoginActivity
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.RegisterActivity
@@ -22,6 +22,7 @@ class ProfileFragment : Fragment() {
     private val TAG = "ProfileManager"
 
     private lateinit var loginButton: Button
+    private lateinit var logoutButton: Button
     private lateinit var registerButton: Button
 
     override fun onCreateView(
@@ -45,6 +46,7 @@ class ProfileFragment : Fragment() {
     private fun initViews(parentView: View) {
         registerButton = parentView.findViewById<Button>(R.id.registerButton)
         loginButton = parentView.findViewById<Button>(R.id.loginButton)
+        logoutButton = parentView.findViewById<Button>(R.id.logoutButton)
     }
 
     override  fun onStart(){
@@ -72,15 +74,25 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
         }
 
+        logoutButton.setOnClickListener{
+            //Track register button click
+            Firebase.analytics.logEvent("logoutButtonClick", null)
+            //Open logout activity
+            Firebase.auth.signOut()
+            checkUserAvailability()
+        }
+
     }
 
     private fun checkUserAvailability() {
         Firebase.auth.currentUser?.let {
             registerButton.visibility = View.GONE
             loginButton.visibility = View.GONE
+            logoutButton.visibility = View.VISIBLE
         } ?: run {
             registerButton.visibility = View.VISIBLE
             loginButton.visibility = View.VISIBLE
+            logoutButton.visibility = View.GONE
         }
     }
 

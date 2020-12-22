@@ -1,5 +1,6 @@
 package com.example.dragonballfigtherzcompanion
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,11 +10,13 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dragonballfighterzcompanion.model.User
+import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -89,7 +92,11 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         loginButton.setOnClickListener {
-            return@setOnClickListener
+            //Track register button click
+            Firebase.analytics.logEvent("loginFromRegisterButton", null)
+            //Open logout activity
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }
 
     }
@@ -117,6 +124,7 @@ class RegisterActivity : AppCompatActivity() {
                                         finish()
                                         if (it.isSuccessful) {
                                             Log.i(TAG, "User Profile Created!");
+                                            showMessage("Logged in")
                                         } else {
                                             Log.e(TAG, "Error: UserId is null");
                                             showMessage("Error signing up ${it.exception?.message ?: ""}")

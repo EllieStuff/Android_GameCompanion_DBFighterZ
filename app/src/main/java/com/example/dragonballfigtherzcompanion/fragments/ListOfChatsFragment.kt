@@ -241,7 +241,7 @@ class ListOfChatsFragment : Fragment() {
         } ?: run {
             //User NOT Available
             //TODO: Show message
-            showMessage("Error Finding the userId");
+            showMessage("You must log in to chat with friends");
         }
 
 

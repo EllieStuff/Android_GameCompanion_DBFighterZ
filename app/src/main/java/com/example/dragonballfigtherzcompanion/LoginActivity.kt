@@ -1,5 +1,6 @@
 package com.example.dragonballfigtherzcompanion
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -51,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
     private fun initListeners() {
         loginButton.setOnClickListener {
             it
-            var email : String = emailLoginEditText.toString()
+            var email : String = emailLoginEditText.text.toString()
             if (!isEmailValid(email)){
                 Log.i(TAG, "Email not valid")
                 emailLoginEditText.error = getString(R.string.error_email_invalid)
@@ -70,6 +71,8 @@ class LoginActivity : AppCompatActivity() {
                 }
             //visibility
             loginButton.isEnabled = false;
+            Toast.makeText(baseContext, "Logged in", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 
