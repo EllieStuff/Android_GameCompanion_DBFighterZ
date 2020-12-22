@@ -7,6 +7,7 @@
     <string name="tab_activity_title">Activity</string>
 
     <string name="button_register">Register</string>
+    <string name="button_login">Log In</string>
 
     <string name="error_email_invalid">Email is not Valid</string>
 
@@ -14,4 +15,5 @@
 
     <!--%d per posar variables decimals, per strings es %s-->
     <string name="error_password_invalid">Password must be at least %d characters long and contain letters &amp; numbers</string>
+    <string name="error_login_password_invalid">Password is not valid</string>
 </resources>

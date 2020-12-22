@@ -5,6 +5,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+    <!-- LOG IN -->
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_marginHorizontal="16dp"
+        android:text="@string/button_login" />
+
+    <!-- REGISTER -->
     <Button
         android:id="@+id/registerButton"
         android:layout_width="match_parent"
@@ -12,11 +23,5 @@
         android:layout_margin="16dp"
         android:text="@string/button_register" />
 
-    <TextView
-        android:id="@+id/welcomeTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Welcome" />
 
 </LinearLayout>

@@ -29,6 +29,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var passwordEditText: EditText
     private lateinit var usernameEditText: EditText
     private lateinit var registerButton: Button
+    private lateinit var loginButton: Button
     private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,13 +43,7 @@ class RegisterActivity : AppCompatActivity() {
         val auth: FirebaseAuth = Firebase.auth
         //Initialize FireStore
         firestore = Firebase.firestore
-        //Exemple de contingut
-        /*firestore
-                .collection("users")
-                .document("ascdfg")
-                .whereEqualTo("userId", "gdsgtv")
-                .addNoseComContinuavaAixo()
-         */
+
 
         //Init Listeners
         initListeners()
@@ -60,6 +55,7 @@ class RegisterActivity : AppCompatActivity() {
         passwordEditText = findViewById<EditText>(R.id.passwordEditText)
         registerButton = findViewById<Button>(R.id.registerButton)
         usernameEditText = findViewById<EditText>(R.id.usernameEditText)
+        loginButton = findViewById<Button>(R.id.loginButton)
         progressBar = findViewById(R.id.progressBar)
 
         //Initialize Firebase Auth
@@ -94,11 +90,16 @@ class RegisterActivity : AppCompatActivity() {
 
         }
 
+        loginButton.setOnClickListener {
+            return@setOnClickListener
+        }
+
     }
 
     private fun registerUser(email: String, password: String, username: String) {
         progressBar.visibility = View.VISIBLE
         registerButton.isEnabled = false;
+        loginButton.isEnabled = false;
 
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
@@ -124,6 +125,7 @@ class RegisterActivity : AppCompatActivity() {
                                             // Hide Loading
                                             progressBar.visibility = View.GONE
                                             registerButton.isEnabled = true
+                                            loginButton.isEnabled = true
                                         }
                                     }
                         } ?: kotlin.run {
@@ -133,6 +135,7 @@ class RegisterActivity : AppCompatActivity() {
                             showMessage("Error ${it.exception?.message ?: ""}")
                             progressBar.visibility = View.GONE
                             registerButton.isEnabled = true
+                            loginButton.isEnabled = true
                         }
                     } else {
                         //TODO: Handle error
@@ -140,6 +143,7 @@ class RegisterActivity : AppCompatActivity() {
                         showMessage("Error logging up ${it.exception?.message ?: ""}")
                         progressBar.visibility = View.GONE
                         registerButton.isEnabled = true
+                        loginButton.isEnabled = true
                     }
                 }
 
