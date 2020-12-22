@@ -223,26 +223,6 @@ class ChatFragment(val chatId: String) : Fragment() {
                         if (it.isSuccessful) {
                             // Update UI
                             val messages: List<Message> = it.result?.documents?.mapNotNull { it.toObject(Message::class.java) }.orEmpty()
-                            //var actualizedMessages: List<Message> = emptyList()
-                            /*messages.forEach{
-                                if(it != null){
-                                    if(it.from != userId && it.readed == false){
-                                        firestore.collection(COLLECTION_MESSAGES).document(it.messageId)
-                                                .set(Message(
-                                                        text = it.text,
-                                                        from = it.from,
-                                                        username = it.username,
-                                                        date = it.date,
-                                                        messageId = it.messageId,
-                                                        chatId = it.chatId,
-                                                        readed = true
-                                                ))
-                                    }
-                                }
-                                else {
-
-                                }
-                            }*/
 
                             for(message in messages){
                                 if(message != null){

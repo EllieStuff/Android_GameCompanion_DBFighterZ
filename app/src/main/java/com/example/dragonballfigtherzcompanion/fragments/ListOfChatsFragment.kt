@@ -75,12 +75,10 @@ class ListOfChatsFragment : Fragment() {
         recyclerView.layoutManager = layoutManager
 
         // Adapter
-        /*chatAdapter = ChatAdapter{ chat->
-            chatSelected(chat)
-        }*/
         listOfChatAdapter = ListOfChatAdapter(chatList = emptyList(), activity = (activity as MainActivity))
         recyclerView.adapter = listOfChatAdapter
         getChats()
+        //lookForNotReadedMessages()
 
     }
 
@@ -100,24 +98,25 @@ class ListOfChatsFragment : Fragment() {
                         if(error == null){
                             chats?.let{
                                 getChats()
+                                lookForNotReadedMessages()
                             }
                         }
                     }
 
 
-            firestore.collection(Constants.COLLECTION_CHAT)
+            /*firestore.collection(Constants.COLLECTION_CHAT)
                     .whereArrayContains("users", userId)
                     .get()
                     .addOnCompleteListener {
                         if(it.isSuccessful){
                             val userChats: List<Chat> = it.result?.documents?.mapNotNull { it.toObject(Chat::class.java) }.orEmpty()
                             for(chats in userChats){
-                                if(it != null){
+                                if(chats != null){
                                     firestore.collection(Constants.COLLECTION_MESSAGES)
                                             .whereArrayContains("chatId", chats.id)
-                                            .addSnapshotListener { chats, error ->
+                                            .addSnapshotListener { messages, error ->
                                                 if(error == null){
-                                                    chats?.let{
+                                                    messages?.let{
                                                         lookForNotReadedMessages()
                                                     }
                                                 }
@@ -132,7 +131,7 @@ class ListOfChatsFragment : Fragment() {
                         } else {
 
                         }
-                    }
+                    }*/
         }
 
     }
@@ -152,20 +151,6 @@ class ListOfChatsFragment : Fragment() {
     private fun CreateChat(userMail: String){
         //Get Chat Id
         val chatId = UUID.randomUUID().toString()
-
-        // Get Chat Num (in order to create it's name)
-        /*var chatNum: Int? = 0
-        firestore.collection(Constants.COLLECTION_CHAT)
-                .get()
-                .addOnCompleteListener {
-                    if(it.isSuccessful){
-                        chatNum = it.result?.documents?.mapNotNull{ it.toObject(User::class.java) }?.size
-                        //showMessage("2");
-                    } else {
-                        // TODO: Show Error
-                        showMessage("Error on creating the name");
-                    }
-                }*/
 
         // Look for the other User
         firestore.collection(Constants.COLLECTION_USERS)

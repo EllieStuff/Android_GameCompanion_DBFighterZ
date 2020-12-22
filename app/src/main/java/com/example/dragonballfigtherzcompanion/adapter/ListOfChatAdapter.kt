@@ -32,7 +32,10 @@ class ListOfChatAdapter(var chatList: List<Chat>, var activity: MainActivity): R
     override fun onBindViewHolder(holder: ListOfChatViewHolder, position: Int) {
         val chat = chatList[position]
         holder.chatNameTextView.text = chat.name
-        holder.notReadedMessagesTextView.text = chat.messagesToRead.toString()
+        if(chat.messagesToRead == 0)
+            holder.notReadedMessagesTextView.text = ""
+        else
+            holder.notReadedMessagesTextView.text = chat.messagesToRead.toString()
         //holder.lastMessageTextView.text = chat.username
         //TODO: Format Date
 
