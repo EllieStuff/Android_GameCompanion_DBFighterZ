@@ -83,6 +83,7 @@ class ChatFragment(val chatId: String) : Fragment() {
         recyclerView.adapter = chatAdapter
 
         getMessages()
+        checkForNotReadedMessages()
     }
 
     private fun initListeners(){
@@ -134,12 +135,14 @@ class ChatFragment(val chatId: String) : Fragment() {
                                     from = userId,
                                     username = user.username,
                                     date = Date(),
-                                    chatId = chatId
+                                    messageId = UUID.randomUUID().toString(),
+                                    chatId = chatId,
+                                    readed = false
                             )
                             //3 - Save in Firestrore
                             firestore
-                                .collection(COLLECTION_MESSAGES)
-                                .add(message)
+                                .collection(COLLECTION_MESSAGES).document(message.messageId)
+                                .set(message)
                                 .addOnCompleteListener{
                                     if(it.isSuccessful){
                                         Log.i("Chat", "Success uploading message $message")
@@ -208,6 +211,49 @@ class ChatFragment(val chatId: String) : Fragment() {
                     }
                     swipeRefreshLayout.isRefreshing = false
                 }
+    }
+
+    private fun checkForNotReadedMessages(){
+
+        Firebase.auth.currentUser?.uid?.let { userId: String ->
+            firestore.collection(COLLECTION_MESSAGES)
+                    .whereEqualTo("chatId", chatId)
+                    .get()
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            // Update UI
+                            val messages: List<Message> = it.result?.documents?.mapNotNull { it.toObject(Message::class.java) }.orEmpty()
+
+                            for(message in messages){
+                                if(message != null){
+                                    if(message.from != userId && message.readed == false){
+                                        firestore.collection(COLLECTION_MESSAGES).document(message.messageId)
+                                                .set(Message(
+                                                        text = message.text,
+                                                        from = message.from,
+                                                        username = message.username,
+                                                        date = message.date,
+                                                        messageId = message.messageId,
+                                                        chatId = message.chatId,
+                                                        readed = true
+                                                ))
+
+                                    }
+                                }
+                                else {
+
+                                }
+                            }
+
+                        } else {
+                            // TODO: Show Error
+                        }
+                        swipeRefreshLayout.isRefreshing = false
+                    }
+        } ?: run {
+            (activity as MainActivity).showMessage("Couldn't empty non readed messages")
+        }
+
     }
 
 }

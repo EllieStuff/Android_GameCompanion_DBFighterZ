@@ -21,6 +21,7 @@ import com.example.dragonballfigtherzcompanion.MainActivity
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.adapter.ListOfChatAdapter
 import com.example.dragonballfigtherzcompanion.model.Chat
+import com.example.dragonballfigtherzcompanion.model.Message
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -74,12 +75,10 @@ class ListOfChatsFragment : Fragment() {
         recyclerView.layoutManager = layoutManager
 
         // Adapter
-        /*chatAdapter = ChatAdapter{ chat->
-            chatSelected(chat)
-        }*/
         listOfChatAdapter = ListOfChatAdapter(chatList = emptyList(), activity = (activity as MainActivity))
         recyclerView.adapter = listOfChatAdapter
         getChats()
+        //lookForNotReadedMessages()
 
     }
 
@@ -99,9 +98,40 @@ class ListOfChatsFragment : Fragment() {
                         if(error == null){
                             chats?.let{
                                 getChats()
+                                lookForNotReadedMessages()
                             }
                         }
                     }
+
+
+            /*firestore.collection(Constants.COLLECTION_CHAT)
+                    .whereArrayContains("users", userId)
+                    .get()
+                    .addOnCompleteListener {
+                        if(it.isSuccessful){
+                            val userChats: List<Chat> = it.result?.documents?.mapNotNull { it.toObject(Chat::class.java) }.orEmpty()
+                            for(chats in userChats){
+                                if(chats != null){
+                                    firestore.collection(Constants.COLLECTION_MESSAGES)
+                                            .whereArrayContains("chatId", chats.id)
+                                            .addSnapshotListener { messages, error ->
+                                                if(error == null){
+                                                    messages?.let{
+                                                        lookForNotReadedMessages()
+                                                    }
+                                                }
+                                            }
+
+                                }
+                                else {
+
+                                }
+                            }
+
+                        } else {
+
+                        }
+                    }*/
         }
 
     }
@@ -121,20 +151,6 @@ class ListOfChatsFragment : Fragment() {
     private fun CreateChat(userMail: String){
         //Get Chat Id
         val chatId = UUID.randomUUID().toString()
-
-        // Get Chat Num (in order to create it's name)
-        /*var chatNum: Int? = 0
-        firestore.collection(Constants.COLLECTION_CHAT)
-                .get()
-                .addOnCompleteListener {
-                    if(it.isSuccessful){
-                        chatNum = it.result?.documents?.mapNotNull{ it.toObject(User::class.java) }?.size
-                        //showMessage("2");
-                    } else {
-                        // TODO: Show Error
-                        showMessage("Error on creating the name");
-                    }
-                }*/
 
         // Look for the other User
         firestore.collection(Constants.COLLECTION_USERS)
@@ -250,6 +266,65 @@ class ListOfChatsFragment : Fragment() {
 
     private fun showMessage(text: String?) {
         Toast.makeText(context, text, Toast.LENGTH_LONG).show()
+    }
+
+    private fun lookForNotReadedMessages(){
+
+        Firebase.auth.currentUser?.uid?.let { userId: String ->
+            firestore.collection(Constants.COLLECTION_CHAT)
+                    .whereArrayContains("users", userId)
+                    .get()
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            // Update UI
+                            var userChats: List<Chat> = it.result?.documents?.mapNotNull { it.toObject(Chat::class.java) }.orEmpty()
+                            userChats = userChats.sortedWith(compareByDescending{it.date})
+                            for(i in userChats.indices){
+                                if(it != null){
+                                    firestore.collection(Constants.COLLECTION_MESSAGES)
+                                            .whereEqualTo("chatId", userChats.get(i).id)
+                                            .get()
+                                            .addOnCompleteListener {
+                                                if(it.isSuccessful) {
+                                                    val chatMessages: List<Message> = it.result?.documents?.mapNotNull { it.toObject(Message::class.java) }.orEmpty()
+                                                    var messagesToRead: Int = 0
+                                                    for(message in chatMessages){
+                                                        //showMessage( messagesToRead.toString())
+                                                        if(message != null){
+                                                            //showMessage( messagesToRead.toString())
+                                                            if(message.from != userId && message.readed == false){
+                                                                messagesToRead++
+                                                                //showMessage( messagesToRead.toString())
+                                                            }
+                                                        }
+                                                    }
+
+                                                    //userChats.get(i).messagesToRead = messagesToRead
+
+                                                    listOfChatAdapter.chatList.get(i).messagesToRead = messagesToRead
+                                                    listOfChatAdapter.notifyDataSetChanged()
+                                                    recyclerView.adapter = listOfChatAdapter
+
+                                                } else {
+
+                                                }
+                                            }
+
+                                }
+                                else {
+
+                                }
+                            }
+
+                        } else {
+                            // TODO: Show Error
+                        }
+                        swipeRefreshLayout.isRefreshing = false
+                    }
+        } ?: run {
+            (activity as MainActivity).showMessage("Couldn't do it")
+        }
+
     }
 
 }
