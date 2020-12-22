@@ -94,16 +94,18 @@
         android:id="@+id/e1"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/drak"
+        android:src="@drawable/a16"
         />
     <ImageView
         android:id="@+id/e2"
         android:layout_width="30dp"
-        android:layout_height="30dp"/>
+        android:layout_height="30dp"
+        android:src="@drawable/a17"/>
     <ImageView
         android:id="@+id/e3"
         android:layout_width="30dp"
-        android:layout_height="30dp"/>
+        android:layout_height="30dp"
+        android:src="@drawable/a18"/>
 
     </LinearLayout>
 
@@ -117,15 +119,18 @@
         <ImageView
             android:id="@+id/f1"
             android:layout_width="30dp"
-            android:layout_height="30dp"/>
+            android:layout_height="30dp"
+            android:src="@drawable/kidgoku"/>
         <ImageView
             android:id="@+id/f2"
             android:layout_width="30dp"
-            android:layout_height="30dp"/>
+            android:layout_height="30dp"
+            android:src="@drawable/goku"/>
         <ImageView
             android:id="@+id/f3"
             android:layout_width="30dp"
-            android:layout_height="30dp"/>
+            android:layout_height="30dp"
+            android:src="@drawable/gokublue"/>
 
     </LinearLayout>
 
