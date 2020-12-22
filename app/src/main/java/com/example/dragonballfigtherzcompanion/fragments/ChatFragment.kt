@@ -151,6 +151,17 @@ class ChatFragment(val chatId: String) : Fragment() {
                                         //TODO: Show Error
                                     }
                                 }
+
+                            //Notify Chat
+                            val chat: Chat = firestore.collection(Constants.COLLECTION_CHAT).document(message.chatId).get() as Chat
+                            firestore.collection(Constants.COLLECTION_CHAT).document(chat.id)
+                                    .set(Chat(
+                                            id = chat.id,
+                                            name = chat.name,
+                                            users = chat.users,
+                                            date = Date()
+                                    ))
+
                         } ?: run {
                             //TODO: Show Error
                         }
