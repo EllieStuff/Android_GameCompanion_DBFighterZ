@@ -22,6 +22,8 @@ import java.util.*
 
 class ListOfChatAdapter(var chatList: List<Chat>, var activity: MainActivity): RecyclerView.Adapter<ListOfChatAdapter.ListOfChatViewHolder>() {
 
+    public var messagesToRead: Int = 0
+
     // Inflate view (xml layout) => ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListOfChatViewHolder {
         val chatView: View = LayoutInflater.from(parent.context).inflate(R.layout.item_listofchats, parent, false)

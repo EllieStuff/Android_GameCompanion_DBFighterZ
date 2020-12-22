@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-    private fun showMessage(text: String) {
+    public fun showMessage(text: String) {
         Toast.makeText(this, text, Toast.LENGTH_LONG).show()
     }
 }

@@ -21,6 +21,7 @@ import com.example.dragonballfigtherzcompanion.MainActivity
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.adapter.ListOfChatAdapter
 import com.example.dragonballfigtherzcompanion.model.Chat
+import com.example.dragonballfigtherzcompanion.model.Message
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -100,6 +101,35 @@ class ListOfChatsFragment : Fragment() {
                             chats?.let{
                                 getChats()
                             }
+                        }
+                    }
+
+            firestore.collection(Constants.COLLECTION_CHAT)
+                    .whereArrayContains("users", userId)
+                    .get()
+                    .addOnCompleteListener {
+                        if(it.isSuccessful){
+                            val userChats: List<Chat> = it.result?.documents?.mapNotNull { it.toObject(Chat::class.java) }.orEmpty()
+                            for(chats in userChats){
+                                if(it != null){
+                                    firestore.collection(Constants.COLLECTION_MESSAGES)
+                                            .whereArrayContains("chatId", chats.id)
+                                            .addSnapshotListener { chats, error ->
+                                                if(error == null){
+                                                    chats?.let{
+                                                        lookForNotReadedMessages()
+                                                    }
+                                                }
+                                            }
+
+                                }
+                                else {
+
+                                }
+                            }
+
+                        } else {
+
                         }
                     }
         }
@@ -250,6 +280,59 @@ class ListOfChatsFragment : Fragment() {
 
     private fun showMessage(text: String?) {
         Toast.makeText(context, text, Toast.LENGTH_LONG).show()
+    }
+
+    private fun lookForNotReadedMessages(){
+
+        Firebase.auth.currentUser?.uid?.let { userId: String ->
+            firestore.collection(Constants.COLLECTION_CHAT)
+                    .whereArrayContains("users", userId)
+                    .get()
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            // Update UI
+                            val userChats: List<Chat> = it.result?.documents?.mapNotNull { it.toObject(Chat::class.java) }.orEmpty()
+                            for(chats in userChats){
+                                if(it != null){
+                                    firestore.collection(Constants.COLLECTION_MESSAGES)
+                                            .whereArrayContains("chatId", chats.id)
+                                            .get()
+                                            .addOnCompleteListener {
+                                                if(it.isSuccessful) {
+                                                    val chatMessages: List<Message> = it.result?.documents?.mapNotNull { it.toObject(Message::class.java) }.orEmpty()
+                                                    var messagesToRead: Int = 0
+                                                    for(message in chatMessages){
+                                                        if(message != null){
+                                                            if(message.from != userId && message.readed == false){
+                                                                messagesToRead++
+                                                                showMessage( messagesToRead.toString())
+                                                            }
+                                                        }
+                                                    }
+
+                                                    listOfChatAdapter.messagesToRead = messagesToRead
+                                                    //showMessage("Message to read: " + messagesToRead)
+
+                                                } else {
+
+                                                }
+                                            }
+
+                                }
+                                else {
+
+                                }
+                            }
+
+                        } else {
+                            // TODO: Show Error
+                        }
+                        swipeRefreshLayout.isRefreshing = false
+                    }
+        } ?: run {
+            (activity as MainActivity).showMessage("Couldn't do it")
+        }
+
     }
 
 }
