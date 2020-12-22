@@ -1,36 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_margin="8dp"
-    android:layout_height="72dp">
+    android:layout_height="wrap_content"
+    >
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewFromOther"
         android:layout_width="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="64dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
-    
-        <TextView
-            android:id="@+id/usernameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Username"
-            />
+        >
 
-        <TextView
-            android:id="@+id/messageTextView"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Message text"
-            />
-        <TextView
-            android:id="@+id/messageDateTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="12:34:10, 1/12/20"
-            />
-    </LinearLayout>
+            android:orientation="vertical"
+            android:background="@color/yellow"
+            >
 
-</androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/usernameTextViewFromOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Username"
+                android:layout_gravity="left"
+                android:textSize="15dp"
+                android:layout_marginStart="4dp"
+                />
+
+            <TextView
+                android:id="@+id/messageTextViewFromOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Message text"
+                android:layout_gravity="right"
+                android:textSize="15dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="4dp"
+                />
+
+            <!--
+            <TextView
+                android:id="@+id/messageDateTextViewFromOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="12:34:10, 1/12/20"
+                android:layout_gravity="right"
+                android:textSize="10dp"
+                android:layout_margin="2dp"
+                />
+                -->
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewFromThis"
+        android:layout_width="match_parent"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_height="wrap_content"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/green"
+            >
+
+            <TextView
+                android:id="@+id/usernameTextViewFromThis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Username"
+                android:gravity="left"
+                android:layout_gravity="left"
+                android:textSize="15dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
+                />
+
+            <TextView
+                android:id="@+id/messageTextViewFromThis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Message text"
+                android:gravity="right"
+                android:layout_gravity="right"
+                android:textSize="15dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="4dp"
+                />
+
+            <!--
+            <TextView
+                android:id="@+id/messageDateTextViewFromThis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="12:34:10, 1/12/20"
+                android:layout_gravity="right"
+                android:textSize="10dp"
+                android:layout_margin="2dp"
+                />
+                -->
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

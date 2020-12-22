@@ -1,6 +1,14 @@
 package com.example.dragonballfigtherzcompanion.model
 
+import java.util.*
+
 data class Chat(
+        val id: String = "",
+        val name: String = "",
+        val users: List<String?> = emptyList(),
+        val date: Date = Date()
+
+        /*
         val message: String? = null,
         val userId: String? = null,
         val sentAt: Long? = null,
@@ -9,5 +17,7 @@ data class Chat(
         //User
         val username: String? = null,
         val avatarUrl: String? = null
+
+         */
         //Speed vs Consistence
 )

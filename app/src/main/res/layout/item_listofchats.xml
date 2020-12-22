@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_margin="8dp"
+    android:layout_height="wrap_content"
+    >
+
+    <LinearLayout
+        android:id="@+id/clickableListOfChatsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        >
+
+        <TextView
+            android:id="@+id/chatNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textColor="@color/black"
+            tools:text="Chat name"
+            android:layout_margin="20dp"
+            android:textSize="20dp"
+            android:layout_gravity="left"
+            />
+
+        <!--
+        <TextView
+            android:id="@+id/lastMessageTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Last Message text"
+            android:textColor="@color/black"
+            android:layout_margin="6dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+
+            />
+            -->
+
+    </LinearLayout>
+
+    <!--
+    <Button
+        android:id="@+id/listOfChatsButton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="@color/orange"
+        android:backgroundTint="@color/orange"
+
+
+        android:alpha="0.25"
+
+        />
+
+    -->
+
+</androidx.cardview.widget.CardView>
