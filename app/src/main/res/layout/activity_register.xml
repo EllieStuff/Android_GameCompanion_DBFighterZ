@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="16dp"
     android:gravity="center"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterActivity"
+    android:background="@color/colorGold">
 
     <!-- USERNAME -->
     <TextView
@@ -20,6 +20,7 @@
         android:id="@+id/usernameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:gravity="center"
         android:hint="Enter your username here"
         android:inputType="textPersonName"/>
@@ -28,6 +29,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:gravity="center"
         android:text="Email:"/>
 
@@ -38,6 +40,7 @@
         android:gravity="center"
         android:hint="Enter your email here"
         android:inputType="textEmailAddress"
+        android:layout_marginHorizontal="16dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="269dp" />
 
@@ -53,6 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_marginHorizontal="16dp"
         android:hint="Enter your password here"
         android:inputType="textPassword" />
 
@@ -62,7 +66,8 @@
         android:layout_width="172dp"
         android:layout_height="53dp"
         android:hint="Register"
-        android:layout_margin="20dp" />
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/colorDarkOrange" />
 
     <!-- LOGIN -->
     <Button
@@ -80,6 +85,5 @@
         android:layout_marginTop="16dp"
         android:visibility="gone" />
     <!-- Missing Constraints ignores the no Y Constraint -->
-
 
 </LinearLayout>

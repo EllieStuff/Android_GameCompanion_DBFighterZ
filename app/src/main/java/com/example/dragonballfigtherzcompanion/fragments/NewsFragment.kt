@@ -13,6 +13,9 @@ import com.example.dragonballfigtherzcompanion.Constants
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.adapter.NewsAdapter
 import com.example.dragonballfigtherzcompanion.model.News
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.firestore.FirebaseFirestore
 
 import com.google.firebase.database.DatabaseReference
@@ -33,6 +36,7 @@ class NewsFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
 
     private lateinit var firestore: FirebaseFirestore
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private lateinit var dataBaseRef: DatabaseReference
     //private lateinit var dataBase: FirebaseDatabase
@@ -56,6 +60,7 @@ class NewsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState);
         // TODO: Init
         firestore = Firebase.firestore
+        firebaseAnalytics = Firebase.analytics
         initViews(view)
         initRecyclerView()
     }
@@ -64,9 +69,6 @@ class NewsFragment : Fragment() {
         // Layout Manager
         var layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
-
-        //val database_ = Firebase.database
-        //dataBaseRef = database_.getReference().child("Tomodachi")
 
         var names = mutableListOf<String>()
         var rank = mutableListOf<String>()
@@ -102,8 +104,11 @@ class NewsFragment : Fragment() {
                     ))
             recyclerView.adapter = newsAdapter
 
+            firebaseAnalytics.logEvent("checkActivity", null)
+
         }.addOnFailureListener { exception ->
             // Error
+            firebaseAnalytics.logEvent("failedToCheck", null)
         }
 
 

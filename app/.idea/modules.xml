@@ -4,8 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/475616269/Dragon_Ball_FigtherZ_Companion.iml" filepath="$PROJECT_DIR$/.idea/modules/475616269/Dragon_Ball_FigtherZ_Companion.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Dragon_Ball_FigtherZ_Companion.app.iml" filepath="$PROJECT_DIR$/.idea/modules/Dragon_Ball_FigtherZ_Companion.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1869327156/Game_Companion_DBFighterZ-Dragon_Ball_FigtherZ_Companion.iml" filepath="$PROJECT_DIR$/.idea/modules/-1869327156/Game_Companion_DBFighterZ-Dragon_Ball_FigtherZ_Companion.iml" group="Dragon_Ball_FigtherZ_Companion" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app.iml" group="Dragon Ball FigtherZ Companion/app" />
     </modules>
   </component>
 </project>
