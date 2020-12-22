@@ -6,7 +6,8 @@ data class Chat(
         val id: String = "",
         val name: String = "",
         val users: List<String?> = emptyList(),
-        val date: Date = Date()
+        val date: Date = Date(),
+        var messagesToRead: Int = 0
 
         /*
         val message: String? = null,

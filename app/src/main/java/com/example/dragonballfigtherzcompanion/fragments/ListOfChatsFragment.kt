@@ -104,6 +104,7 @@ class ListOfChatsFragment : Fragment() {
                         }
                     }
 
+
             firestore.collection(Constants.COLLECTION_CHAT)
                     .whereArrayContains("users", userId)
                     .get()
@@ -291,27 +292,33 @@ class ListOfChatsFragment : Fragment() {
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
                             // Update UI
-                            val userChats: List<Chat> = it.result?.documents?.mapNotNull { it.toObject(Chat::class.java) }.orEmpty()
-                            for(chats in userChats){
+                            var userChats: List<Chat> = it.result?.documents?.mapNotNull { it.toObject(Chat::class.java) }.orEmpty()
+                            userChats = userChats.sortedWith(compareByDescending{it.date})
+                            for(i in userChats.indices){
                                 if(it != null){
                                     firestore.collection(Constants.COLLECTION_MESSAGES)
-                                            .whereArrayContains("chatId", chats.id)
+                                            .whereEqualTo("chatId", userChats.get(i).id)
                                             .get()
                                             .addOnCompleteListener {
                                                 if(it.isSuccessful) {
                                                     val chatMessages: List<Message> = it.result?.documents?.mapNotNull { it.toObject(Message::class.java) }.orEmpty()
                                                     var messagesToRead: Int = 0
                                                     for(message in chatMessages){
+                                                        //showMessage( messagesToRead.toString())
                                                         if(message != null){
+                                                            //showMessage( messagesToRead.toString())
                                                             if(message.from != userId && message.readed == false){
                                                                 messagesToRead++
-                                                                showMessage( messagesToRead.toString())
+                                                                //showMessage( messagesToRead.toString())
                                                             }
                                                         }
                                                     }
 
-                                                    listOfChatAdapter.messagesToRead = messagesToRead
-                                                    //showMessage("Message to read: " + messagesToRead)
+                                                    //userChats.get(i).messagesToRead = messagesToRead
+
+                                                    listOfChatAdapter.chatList.get(i).messagesToRead = messagesToRead
+                                                    listOfChatAdapter.notifyDataSetChanged()
+                                                    recyclerView.adapter = listOfChatAdapter
 
                                                 } else {
 

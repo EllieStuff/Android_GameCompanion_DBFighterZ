@@ -21,9 +21,6 @@ import com.google.firebase.ktx.Firebase
 import java.util.*
 
 class ListOfChatAdapter(var chatList: List<Chat>, var activity: MainActivity): RecyclerView.Adapter<ListOfChatAdapter.ListOfChatViewHolder>() {
-
-    public var messagesToRead: Int = 0
-
     // Inflate view (xml layout) => ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListOfChatViewHolder {
         val chatView: View = LayoutInflater.from(parent.context).inflate(R.layout.item_listofchats, parent, false)
@@ -35,6 +32,7 @@ class ListOfChatAdapter(var chatList: List<Chat>, var activity: MainActivity): R
     override fun onBindViewHolder(holder: ListOfChatViewHolder, position: Int) {
         val chat = chatList[position]
         holder.chatNameTextView.text = chat.name
+        holder.notReadedMessagesTextView.text = chat.messagesToRead.toString()
         //holder.lastMessageTextView.text = chat.username
         //TODO: Format Date
 
@@ -65,6 +63,7 @@ class ListOfChatAdapter(var chatList: List<Chat>, var activity: MainActivity): R
     inner class ListOfChatViewHolder(view: View): RecyclerView.ViewHolder(view){
         val chatNameTextView: TextView = view.findViewById(R.id.chatNameTextView);
         //val lastMessageTextView: TextView = view.findViewById(R.id.lastMessageTextView);
+        val notReadedMessagesTextView: TextView = view.findViewById(R.id.notReadedMessagesTextView);
         val clickableListOfChatsLayout: LinearLayout = view.findViewById(R.id.clickableListOfChatsLayout);
     }
 

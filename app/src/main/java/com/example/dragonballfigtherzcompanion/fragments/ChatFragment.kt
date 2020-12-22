@@ -224,7 +224,7 @@ class ChatFragment(val chatId: String) : Fragment() {
                             // Update UI
                             val messages: List<Message> = it.result?.documents?.mapNotNull { it.toObject(Message::class.java) }.orEmpty()
                             //var actualizedMessages: List<Message> = emptyList()
-                            messages.forEach{
+                            /*messages.forEach{
                                 if(it != null){
                                     if(it.from != userId && it.readed == false){
                                         firestore.collection(COLLECTION_MESSAGES).document(it.messageId)
@@ -242,20 +242,19 @@ class ChatFragment(val chatId: String) : Fragment() {
                                 else {
 
                                 }
-                            }
-                            /*
-                            for(i in messages.indices){
-                                if(i != null){
-                                    if(messages.get(i).from != userId && messages.get(i).readed == false){
+                            }*/
 
-                                        firestore.collection(COLLECTION_MESSAGES).document(it.messageId)
+                            for(message in messages){
+                                if(message != null){
+                                    if(message.from != userId && message.readed == false){
+                                        firestore.collection(COLLECTION_MESSAGES).document(message.messageId)
                                                 .set(Message(
-                                                        text = it.text,
-                                                        from = it.from,
-                                                        username = it.username,
-                                                        date = it.date,
-                                                        messageId = it.messageId,
-                                                        chatId = it.chatId,
+                                                        text = message.text,
+                                                        from = message.from,
+                                                        username = message.username,
+                                                        date = message.date,
+                                                        messageId = message.messageId,
+                                                        chatId = message.chatId,
                                                         readed = true
                                                 ))
 
@@ -264,7 +263,7 @@ class ChatFragment(val chatId: String) : Fragment() {
                                 else {
 
                                 }
-                            }*/
+                            }
 
                         } else {
                             // TODO: Show Error
@@ -272,7 +271,7 @@ class ChatFragment(val chatId: String) : Fragment() {
                         swipeRefreshLayout.isRefreshing = false
                     }
         } ?: run {
-            (activity as MainActivity).showMessage("Couldn't do it")
+            (activity as MainActivity).showMessage("Couldn't empty non readed messages")
         }
 
     }
