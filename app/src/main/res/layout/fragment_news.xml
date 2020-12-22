@@ -12,8 +12,8 @@
         android:id="@+id/drac"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginTop="600dp"
-        android:layout_marginBottom="-715dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="-50dp"
         android:background="@drawable/drak">
 
     </ImageView>
@@ -24,6 +24,7 @@
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:background="@color/colorDarkOrange"
+        android:layout_marginTop="-300dp"
         >
         <!--android:translationY="50dp" -->
 
@@ -60,14 +61,13 @@
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
-        android:layout_width="match_parent"
-        android:layout_height="1042dp">
+        android:layout_width="400dp"
+        android:layout_height="500dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="600dp"
-            android:paddingBottom="32dp" />
+            android:layout_height="match_parent" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
