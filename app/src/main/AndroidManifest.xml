@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dragonballfigtherzcompanion">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.TwitchLoginActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,19 +22,14 @@
         <activity
             android:name=".RegisterActivity"
             android:label="Register"
-            android:parentActivityName=".MainActivity">
-        </activity>
+            android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".LoginActivity"
             android:label="Login"
-            android:parentActivityName=".MainActivity">
-        </activity>
-
-        <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
+            android:parentActivityName=".MainActivity"></activity> <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-4424721392310554~2672157963"/>
-
+            android:value="ca-app-pub-4424721392310554~2672157963" />
     </application>
 
 </manifest>

@@ -23,6 +23,13 @@
         android:icon="@drawable/ic_chat"
         />
 
+    <item android:id="@+id/twitchTab"
+        android:enabled="true"
+        android:icon="@drawable/ic_chat"
+        android:title="Twitch"
+        />
+
+
     <!--
     <item
         android:id="@+id/activityTab"

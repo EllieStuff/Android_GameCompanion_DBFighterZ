@@ -6,10 +6,7 @@ import android.view.MenuItem
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
-import com.example.dragonballfigtherzcompanion.fragments.ChatFragment
-import com.example.dragonballfigtherzcompanion.fragments.ListOfChatsFragment
-import com.example.dragonballfigtherzcompanion.fragments.ProfileFragment
-import com.example.dragonballfigtherzcompanion.fragments.NewsFragment
+import com.example.dragonballfigtherzcompanion.fragments.*
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
@@ -77,6 +74,12 @@ class MainActivity : AppCompatActivity() {
                     //Add Profile Fragment
                     val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
                     transaction.replace(R.id.fragmentContainer, ProfileFragment())
+                    transaction.commit()
+                }
+                R.id.twitchTab -> {
+                    //Add Profile Fragment
+                    val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.fragmentContainer, StreamsFragment())
                     transaction.commit()
                 }
 
