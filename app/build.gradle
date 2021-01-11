@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-serialization'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 
@@ -9,7 +10,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.example.dragonballfigtherzcompanion"
+        applicationId "com.example.dragonba llfigtherzcompanion"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
@@ -74,4 +75,13 @@ dependencies {
 
     // AdMob
     implementation 'com.google.android.gms:play-services-ads:19.6.0'
+
+    // Ktor (HTTPClient)
+    implementation "io.ktor:ktor-client--okhttp:1.5.0"
+
+    // Lifecycle Scope
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
+
+    // String to Json converiosn
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
 }
