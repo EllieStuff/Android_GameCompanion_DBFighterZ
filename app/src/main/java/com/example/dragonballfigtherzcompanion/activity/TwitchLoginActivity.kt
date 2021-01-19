@@ -2,16 +2,29 @@ package com.example.dragonballfigtherzcompanion.activity
 
 import android.net.Uri
 import android.os.Bundle
+import android.os.UserManager
 import android.util.Log
 import android.view.View
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.dragonballfigtherzcompanion.Constants
 import com.example.dragonballfigtherzcompanion.R
+import com.example.dragonballfigtherzcompanion.model.OAuthTokensResponse
+import com.example.dragonballfigtherzcompanion.services.NetWorkManager
+import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.client.engine.okhttp.*
+import io.ktor.client.features.json.*
+import io.ktor.client.features.json.serializer.*
+import io.ktor.http.ContentType.Application.Json
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.Json
 
 class TwitchLoginActivity : AppCompatActivity() {
 
@@ -84,25 +97,34 @@ class TwitchLoginActivity : AppCompatActivity() {
     }
 
     private fun getAccessTokens(authorizationCode: String) {
-        Log.i(TAG, msg: "Getting Access Tokens with auth Code $authorizationCode")
-        val httpClient = HttpClient(OkHttp)
+        Log.i(TAG, "Getting Access Tokens with auth Code $authorizationCode")
 
+        //Create HttpClient
+        val httpClient = NetWorkManager.createHttpClient()
         lifecycleScope.launch {
-            delay(timeMillis: 3000L)
-            Log.i(TAG, msg: "Launching get Tokens request")
+            Log.i(TAG,"Launching get Tokens request")
 
             //GlobalScope.launch {
             withContext(Dispatchers.IO) {
-                val response =
-                    httpClient.post<String>(urlString: "https://id.twitch.tv/oauth2/token") {
-                parameter("client_id", Constants.OAUTH_CLIENT_ID)
-                parameter("client_secret", Constants.OAUTH_CLIENT_SECRET)
-                parameter("code", authorizationCode)
-                parameter("grant_type", "authorization_code")
-                parameter("redirect_uri", Constants.OAUTH_REDIRECT_URI)
+                try {
+                    val response: OAuthTokensResponse =
+                        httpClient.post<OAuthTokensResponse>("https://id.twitch.tv/oauth2/token") {
+                            parameter("client_id", Constants.OAUTH_CLIENT_ID)
+                            parameter("client_secret", Constants.OAUTH_CLIENT_SECRET)
+                            parameter("code", authorizationCode)
+                            parameter("grant_type", "authorization_code")
+                            parameter("redirect_uri", Constants.OAUTH_REDIRECT_URI)
+                        }
+                    Log.i(TAG, "Got response from Twitch $response")
+                    //Save Access token
+                    com.example.dragonballfigtherzcompanion.services.UserManager(this@TwitchLoginActivity).saveAccessToken(response.accessToken)
+                    //Close
+                    finish()
+                } catch (t: Throwable){
+                    //TODO: Handle error
+                }
             }
-                Log.i(TAG, msg: "Got response from Twitch $response")
-            }
+
         }
     }
 
