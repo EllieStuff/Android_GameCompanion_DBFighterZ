@@ -10,7 +10,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.example.dragonba llfigtherzcompanion"
+        applicationId "com.example.dragonballfigtherzcompanion"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1

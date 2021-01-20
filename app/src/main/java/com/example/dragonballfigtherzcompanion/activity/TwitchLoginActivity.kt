@@ -59,11 +59,11 @@ class TwitchLoginActivity : AppCompatActivity() {
         webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
 
-                if(request?.url?toString()?.startsWith(Constants.OAUTH_REDIRECT_URI) == true) {
+                if(request?.url?.toString()?.startsWith(Constants.OAUTH_REDIRECT_URI) == true) {
                     // Login succcess
-                    Log.i(tag: TAG, msg: "Starting login with URL: ${request.url}")
-                    request.url.getQueryParameter(key: "code")?.let {
-                        Log.i(tag: TAG, msg: "Got auth CODE $it)
+                    Log.i(TAG, "Starting login with URL: ${request.url}")
+                    request.url.getQueryParameter("code")?.let {
+                        Log.i(TAG, "Got auth CODE $it")
                         webView.visibility = View.GONE
                         // exhange code + client_secret -> access token
                         getAccessTokens(it)
@@ -74,7 +74,7 @@ class TwitchLoginActivity : AppCompatActivity() {
                 return super.shouldOverrideUrlLoading(view, request)
             }
         }
-        Log.i(tag: TAG, msg: "Starting login with URL: ${uri.toString()}")
+        Log.i(TAG, "Starting login with URL: ${uri.toString()}")
         // 2 - Load URL
         webView.loadUrl(uri.toString())
 
