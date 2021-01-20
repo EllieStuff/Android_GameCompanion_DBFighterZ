@@ -17,6 +17,21 @@
         android:text="@string/button_login"
         android:backgroundTint="@color/colorDarkOrange" />
 
+    <Button
+        android:id="@+id/avatarButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Choose you Avatar"
+        />
+
+    <ImageView
+        android:id="@+id/avatarImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        />
+
     <!-- REGISTER -->
     <Button
         android:id="@+id/registerButton"
