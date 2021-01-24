@@ -29,6 +29,7 @@ import kotlinx.coroutines.withContext
 class StreamsFragment: Fragment() {
 
     private lateinit var twitchLoginButton: Button
+    private val streamsViewModel by lazy { StreamsViewModel(UserManager(requireContext())) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         //Log.i(TAG, "++ onCreateView ++")
@@ -44,7 +45,7 @@ class StreamsFragment: Fragment() {
 
     override fun onResume(){
         super.onResume()
-        checkUserAvailability()
+        streamsViewModel.checkUserAvailability()
     }
 
     private fun initViews(view: View){
@@ -55,38 +56,33 @@ class StreamsFragment: Fragment() {
         twitchLoginButton.setOnClickListener{
             startActivity(Intent(requireActivity(), TwitchLoginActivity::class.java))
         }
+
     }
 
-    private fun checkUserAvailability() {
-        val isLoggedIn = com.example.dragonballfigtherzcompanion.services.UserManager(requireContext()).getAccessToken() != null
-        if (isLoggedIn) {
-            twitchLoginButton.visibility = View.GONE
-        } else{
-            twitchLoginButton.visibility = View.VISIBLE
-        }
-    }
+    private fun initObservers() {
+        //val isLoggedIn = com.example.dragonballfigtherzcompanion.services.UserManager(requireContext()).getAccessToken() != null
 
-    private fun getTopGames() {
-        val httpClient = NetWorkManager.createHttpClient()
-        viewLifecycleOwner.lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                val accessToken = com.example.dragonballfigtherzcompanion.services.UserManager(requireContext()).getAccessToken()
-                //Get Top Games
-                try {
-                    val response = httpClient.get<String>("https://api.twitch.tv/helix/games/top") {
-                        header("Client-Id", Constants.OAUTH_CLIENT_ID)
-                        header("Authorization", "Bearer $accessToken")
-                        //parameter()
-                    }
-                    Log.i("StreamsFragment", "Got Top Games: $response")
-                    //Change to Main Thread
-                    withContext(Dispatchers.Main) {
-                        //TODO: Update UI
-                    }
-                } catch (t : Throwable) {
-                    //TODO: Handle error
-                }
+        streamsViewModel.isLoggedIn.observe(viewLifecycleOwner) { isLoggedIn: Boolean ->
+            if (isLoggedIn) {
+                twitchLoginButton.visibility = View.GONE
+            } else{
+                twitchLoginButton.visibility = View.VISIBLE
             }
         }
+
+        streamsViewModel.topGames.observe(viewLifecycleOwner, Observer { isLoggedIn: Boolean ->
+            if (isLoggedIn) {
+                twitchLoginButton.visibility = View.GONE
+            } else{
+                twitchLoginButton.visibility = View.VISIBLE
+            }
+        })
+
+        streamsViewModel.errors.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        }
+
     }
+
+
 }
