@@ -10,28 +10,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
-import com.example.dragonballfigtherzcompanion.Constants
-import com.example.dragonballfigtherzcompanion.LoginActivity
+import androidx.lifecycle.Observer
 import com.example.dragonballfigtherzcompanion.R
-import com.example.dragonballfigtherzcompanion.RegisterActivity
 import com.example.dragonballfigtherzcompanion.activity.TwitchLoginActivity
 import com.example.dragonballfigtherzcompanion.model.StreamsViewModel
-import com.example.dragonballfigtherzcompanion.services.NetWorkManager
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import io.ktor.client.request.*
-import io.ktor.utils.io.*
-import kotlinx.android.synthetic.main.fragment_news.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class StreamsFragment: Fragment() {
 
     private lateinit var twitchLoginButton: Button
-    private val streamsViewModel by lazy { StreamsViewModel(UserManager(requireContext())) }
+    private val streamsViewModel by lazy { StreamsViewModel(com.example.dragonballfigtherzcompanion.services.UserManager(requireContext())) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         //Log.i(TAG, "++ onCreateView ++")
@@ -42,7 +29,7 @@ class StreamsFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews(view)
         initListeners()
-        getTopGames()
+        //initObservers()
     }
 
     override fun onResume() {
@@ -60,27 +47,16 @@ class StreamsFragment: Fragment() {
         }
     }
 
+    /* // No va la bool isLoggedIn
     private fun initObservers() {
-        //val isLoggedIn = com.example.dragonballfigtherzcompanion.services.UserManager(requireContext()).getAccessToken() != null
-
         streamsViewModel.isLoggedIn.observe(viewLifecycleOwner) { isLoggedIn: Boolean ->
-            if (isLoggedIn) {
+            if(isLoggedIn) {
                 twitchLoginButton.visibility = View.GONE
-            } else {
+            }
+            else {
                 twitchLoginButton.visibility = View.VISIBLE
             }
         }
     }
-
-        streamsViewModel.topGames.observe(viewLifecycleOwner, Observer { isLoggedIn: Boolean ->
-            if (isLoggedIn)
-            {twitchLoginButton.visibility = View.GONE}
-            else
-            {twitchLoginButton.visibility = View.VISIBLE}
-        })
-
-        streamsViewModel.errors.observe(viewLifecycleOwner){
-            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-        }
-
+     */
 }
