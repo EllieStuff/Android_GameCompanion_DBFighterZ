@@ -1,8 +1,17 @@
 package com.example.dragonballfigtherzcompanion.model
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.dragonballfigtherzcompanion.Constants
+import com.example.dragonballfigtherzcompanion.services.NetWorkManager
 import com.example.dragonballfigtherzcompanion.services.UserManager
+import io.ktor.client.request.get
+import io.ktor.client.request.header
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class StreamsViewModel(private val userManager: UserManager)
 {
@@ -22,12 +31,12 @@ class StreamsViewModel(private val userManager: UserManager)
     }
 
     private fun logout() {
-        this.isLoggedIn.postValue(value: false)
+        this.isLoggedIn.postValue(false)
     }
 
     private fun getTopGames() {
         val httpClient = NetWorkManager.createHttpClient()
-        GlobalScope.launch {
+        GlobalScope.launch() {
             withContext(Dispatchers.IO) {
                 val accessToken = com.example.dragonballfigtherzcompanion.services.UserManager(requireContext()).getAccessToken()
                 //Get Top Games
