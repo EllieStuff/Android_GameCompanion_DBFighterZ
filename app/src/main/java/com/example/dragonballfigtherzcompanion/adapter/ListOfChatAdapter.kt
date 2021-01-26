@@ -52,7 +52,7 @@ class ListOfChatAdapter(var chatList: List<Chat>, var activity: MainActivity): R
                     ))
             */
 
-            activity.loadChatScreen(chat.id)
+            activity.loadChatScreen(chat.id) // AQUI ES
         }
     }
 
