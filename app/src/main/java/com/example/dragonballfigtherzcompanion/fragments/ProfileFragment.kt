@@ -122,6 +122,7 @@ class ProfileFragment : Fragment() {
             registerButton.visibility = View.GONE
             loginButton.visibility = View.GONE
             logoutButton.visibility = View.VISIBLE
+            avatarButton.visibility = View.VISIBLE
             // Get User profile
             Firebase.firestore
                     .collection(Constants.COLLECTION_USERS)
@@ -146,6 +147,7 @@ class ProfileFragment : Fragment() {
             registerButton.visibility = View.VISIBLE
             loginButton.visibility = View.VISIBLE
             logoutButton.visibility = View.GONE
+            avatarButton.visibility = View.GONE
         }
     }
 

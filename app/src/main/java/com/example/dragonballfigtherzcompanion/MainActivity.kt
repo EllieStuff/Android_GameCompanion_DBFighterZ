@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Select Initial Tab
-        bottomNavigationView.selectedItemId = R.id.newsTab
+        bottomNavigationView.selectedItemId = R.id.userTab
 
 
         // Init AdMob
