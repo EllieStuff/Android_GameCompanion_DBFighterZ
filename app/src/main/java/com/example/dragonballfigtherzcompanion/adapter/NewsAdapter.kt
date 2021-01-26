@@ -3,12 +3,14 @@ package com.example.dragonballfigtherzcompanion.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dragonballfigtherzcompanion.MainActivity
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.model.News
 
-class NewsAdapter(var newsList: List<News>): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+class NewsAdapter(var newsList: List<News>, var activity: MainActivity): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     // Inflate view (xml layout) => ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
@@ -22,6 +24,10 @@ class NewsAdapter(var newsList: List<News>): RecyclerView.Adapter<NewsAdapter.Ne
         val news = newsList[position]
         holder.usernameTextView.text = news.user_name
         holder.victoryTextView.text = news.victory
+
+        holder.clickableListOfNews.setOnClickListener {
+            activity.loadNewsScreen(news.user_name)
+        }
     }
 
     // Total items
@@ -34,5 +40,6 @@ class NewsAdapter(var newsList: List<News>): RecyclerView.Adapter<NewsAdapter.Ne
     inner class NewsViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val usernameTextView: TextView = view.findViewById(R.id.usernameTextView);
         val victoryTextView: TextView = view.findViewById(R.id.victoryTextView);
+        val clickableListOfNews: LinearLayout = view.findViewById(R.id.clickableListOfNews);
     }
 }
