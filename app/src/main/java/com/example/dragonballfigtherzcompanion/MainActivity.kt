@@ -110,7 +110,7 @@ class MainActivity : AppCompatActivity() {
 
     internal fun loadNewsScreen(newId: String?){
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, NewsFragment(newId))
+        transaction.replace(R.id.fragmentContainer, NewNewsFragment(newId))
         transaction.commit()
     }
 

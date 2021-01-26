@@ -31,7 +31,7 @@
             android:layout_height="100dp"
             android:text="Activity"
             android:textSize="30dp"
-            android:textAlignment="center"  />
+            android:textAlignment="center" />
 
     </RelativeLayout>
 
