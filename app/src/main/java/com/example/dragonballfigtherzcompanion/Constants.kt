@@ -7,6 +7,7 @@ object Constants {
     const val COLLECTION_NEWS = "news"
 
     // Twitch
+    const val TWITCH_URL = "https://id.twitch.tv/oauth2/authorize"
     const val OAUTH_CLIENT_ID = "tiw703io13l627ubkg16hqt4cpl6p7"
     //Nota: posarem el client secret aqui ja que no arribarem a publicar l'app, però s'hauria de posar a la base de dades per tal de que no ens la puguin robar
     //  i tenir accés a l'informació de tots els usuaris sota el nostre nom
