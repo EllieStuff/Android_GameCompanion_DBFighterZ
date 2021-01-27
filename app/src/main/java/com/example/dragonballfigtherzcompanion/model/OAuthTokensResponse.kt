@@ -10,3 +10,4 @@ data class OAuthTokensResponse(
         val scope: List<String>? = null,
         @SerialName("token_type") val tokenType: String? = null,
 )
+
