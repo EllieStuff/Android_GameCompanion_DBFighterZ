@@ -2,7 +2,6 @@ package com.example.dragonballfigtherzcompanion.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.UserManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +15,7 @@ import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.RegisterActivity
 import com.example.dragonballfigtherzcompanion.activity.TwitchLoginActivity
 import com.example.dragonballfigtherzcompanion.services.NetWorkManager
+import com.example.dragonballfigtherzcompanion.services.UserManager
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -58,7 +58,7 @@ class StreamsFragment: Fragment() {
     }
 
     private fun checkUserAvailability() {
-        val isLoggedIn = com.example.dragonballfigtherzcompanion.services.UserManager(requireContext()).getAccessToken() != null
+        val isLoggedIn = UserManager(requireContext()).getAccessToken() != null
         if (isLoggedIn) {
             twitchLoginButton.visibility = View.GONE
         } else{
