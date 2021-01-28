@@ -68,6 +68,7 @@ class StreamsFragment: Fragment() {
         }
     }
 
+    // Corrutina
     private fun getTopGames() {
         val httpClient = NetWorkManager.createHttpClient()
         viewLifecycleOwner.lifecycleScope.launch {
