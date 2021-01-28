@@ -1,4 +1,4 @@
-package com.example.dragonballfigtherzcompanion
+package com.example.dragonballfigtherzcompanion.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
+import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.fragments.*
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
@@ -40,7 +41,6 @@ class MainActivity : AppCompatActivity() {
 
                 return instance
             }
-
     }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {

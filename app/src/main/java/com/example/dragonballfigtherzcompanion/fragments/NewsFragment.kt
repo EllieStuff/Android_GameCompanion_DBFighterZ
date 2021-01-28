@@ -1,5 +1,6 @@
 package com.example.dragonballfigtherzcompanion.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,14 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.dragonballfigtherzcompanion.Constants
-import com.example.dragonballfigtherzcompanion.MainActivity
+import com.example.dragonballfigtherzcompanion.activity.MainActivity
+import com.example.dragonballfigtherzcompanion.activity.DetailActivity
 import com.example.dragonballfigtherzcompanion.R
+import com.example.dragonballfigtherzcompanion.activity.LoginActivity
 import com.example.dragonballfigtherzcompanion.adapter.NewsAdapter
-import com.example.dragonballfigtherzcompanion.adapter.NewNewsAdapter
 import com.example.dragonballfigtherzcompanion.model.News
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.firestore.FirebaseFirestore
 
 import com.google.firebase.database.DatabaseReference
@@ -70,6 +71,11 @@ class NewsFragment : Fragment() {
         var names = mutableListOf<String>()
         var victory = mutableListOf<String>()
 
+        recyclerView.setOnClickListener {
+            val intent = Intent(activity, DetailActivity::class.java)
+            startActivity(intent)
+        }
+
         firestore.collection("news").get().addOnSuccessListener { result->
             for (document in result)
             {
@@ -86,7 +92,7 @@ class NewsFragment : Fragment() {
                             News(names[3], victory[3]),
                             News(names[4], victory[4]),
                             News(names[5], victory[5])
-                    ), activity = (activity as MainActivity))
+                    ), activity = (activity as MainActivity)) // DetailActivity
             recyclerView.adapter = newsAdapter
 
             firebaseAnalytics.logEvent("checkActivity", null)
@@ -94,8 +100,8 @@ class NewsFragment : Fragment() {
         }.addOnFailureListener { exception ->
             // Error
             firebaseAnalytics.logEvent("failedToCheck", null)
-        }
 
+        }
 
     }
 

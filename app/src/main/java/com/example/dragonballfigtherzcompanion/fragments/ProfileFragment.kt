@@ -14,13 +14,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.dragonballfighterzcompanion.model.User
 import com.example.dragonballfigtherzcompanion.Constants
-import com.example.dragonballfigtherzcompanion.LoginActivity
+import com.example.dragonballfigtherzcompanion.activity.LoginActivity
 import com.example.dragonballfigtherzcompanion.R
-import com.example.dragonballfigtherzcompanion.RegisterActivity
+import com.example.dragonballfigtherzcompanion.activity.RegisterActivity
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
