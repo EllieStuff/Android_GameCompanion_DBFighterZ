@@ -105,7 +105,7 @@ class NewsFragment : Fragment() {
                             News(names[3], victory[3]),
                             News(names[4], victory[4]),
                             News(names[5], victory[5])
-                    ), activity = (activity as MainActivity)) // DetailActivity // DetailActivity() // , activity = (activity as MainActivity)
+                    ), activity = DetailActivity()) // DetailActivity // DetailActivity() // , activity = (activity as MainActivity)
             recyclerView.adapter = newsAdapter
 
             firebaseAnalytics.logEvent("checkActivity", null)

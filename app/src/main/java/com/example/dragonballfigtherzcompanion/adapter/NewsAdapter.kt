@@ -13,7 +13,7 @@ import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.model.News
 import android.util.Log
 
-class NewsAdapter(var newsList: List<News>, var activity: MainActivity): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+class NewsAdapter(var newsList: List<News>, var activity: DetailActivity): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     // Inflate view (xml layout) => ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
