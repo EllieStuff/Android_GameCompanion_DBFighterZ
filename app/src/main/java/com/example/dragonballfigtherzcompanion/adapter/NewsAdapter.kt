@@ -1,5 +1,6 @@
 package com.example.dragonballfigtherzcompanion.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +11,9 @@ import com.example.dragonballfigtherzcompanion.activity.DetailActivity
 import com.example.dragonballfigtherzcompanion.activity.MainActivity
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.model.News
+import android.util.Log
 
-class NewsAdapter(var newsList: List<News>, var activity: MainActivity): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() { // DetailActivity
+class NewsAdapter(var newsList: List<News>, var activity: MainActivity): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     // Inflate view (xml layout) => ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
@@ -23,11 +25,15 @@ class NewsAdapter(var newsList: List<News>, var activity: MainActivity): Recycle
     // Update view for position
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val news = newsList[position]
+
+
+        Log.d("name", news.user_name.toString())
+
         holder.usernameTextView.text = news.user_name
         holder.victoryTextView.text = news.victory
 
         holder.clickableListOfNews.setOnClickListener {
-            activity.loadNewsScreen(news.user_name)
+            activity.loadNewsScreen(news.user_name) // FUNCION QUE ABRE EL
         }
     }
 

@@ -14,12 +14,13 @@ import com.example.dragonballfigtherzcompanion.Constants
 import com.example.dragonballfigtherzcompanion.activity.MainActivity
 import com.example.dragonballfigtherzcompanion.activity.DetailActivity
 import com.example.dragonballfigtherzcompanion.R
-import com.example.dragonballfigtherzcompanion.activity.LoginActivity
 import com.example.dragonballfigtherzcompanion.adapter.NewsAdapter
 import com.example.dragonballfigtherzcompanion.model.News
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.firestore.FirebaseFirestore
+import android.util.Log
+import com.example.dragonballfigtherzcompanion.activity.LoginActivity
 
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.ktx.Firebase
@@ -30,12 +31,18 @@ import com.google.firebase.firestore.ktx.firestore
 class NewsFragment : Fragment() {
 
     private lateinit var newsAdapter: NewsAdapter
-
-    private lateinit var searchButton: Button
-    private lateinit var optionsButton: Button
+    private lateinit var d_activity: DetailActivity
+    private lateinit var main_activity: MainActivity
 
     private lateinit var  swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
+
+    private lateinit var antonio: Button
+    private lateinit var francis: Button
+    private lateinit var josefa: Button
+    private lateinit var jose: Button
+    private lateinit var pepe: Button
+    private lateinit var viktor: Button
 
     private lateinit var firestore: FirebaseFirestore
     private lateinit var firebaseAnalytics: FirebaseAnalytics
@@ -52,6 +59,7 @@ class NewsFragment : Fragment() {
 
     private fun initViews(view: View) {
         recyclerView = view.findViewById(R.id.recyclerView)
+        //antonio = view.findViewById(R.id.clickableListOfNews)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,17 +72,22 @@ class NewsFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
+
+        /*antonio.setOnClickListener {
+            // Open login activity
+            val intent = Intent(activity, DetailActivity::class.java)
+            startActivity(intent)
+
+            Log.d("TAG", "CLICKEDDD")
+        }*/
+
+
         // Layout Manager
         var layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
 
         var names = mutableListOf<String>()
         var victory = mutableListOf<String>()
-
-        recyclerView.setOnClickListener {
-            val intent = Intent(activity, DetailActivity::class.java)
-            startActivity(intent)
-        }
 
         firestore.collection("news").get().addOnSuccessListener { result->
             for (document in result)
@@ -92,7 +105,7 @@ class NewsFragment : Fragment() {
                             News(names[3], victory[3]),
                             News(names[4], victory[4]),
                             News(names[5], victory[5])
-                    ), activity = (activity as MainActivity)) // DetailActivity
+                    ), activity = (activity as MainActivity)) // DetailActivity // DetailActivity() // , activity = (activity as MainActivity)
             recyclerView.adapter = newsAdapter
 
             firebaseAnalytics.logEvent("checkActivity", null)
@@ -100,8 +113,14 @@ class NewsFragment : Fragment() {
         }.addOnFailureListener { exception ->
             // Error
             firebaseAnalytics.logEvent("failedToCheck", null)
-
         }
+
+        /*recyclerView.setOnClickListener {
+            Log.d("TAG", "CLICKEDDD")
+
+            val intent = Intent(activity, DetailActivity::class.java)
+            startActivity(intent)
+        }*/
 
     }
 

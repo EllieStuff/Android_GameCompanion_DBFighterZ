@@ -11,7 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".pop_up"></activity>
         <activity android:name=".activity.TwitchLoginActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
@@ -23,6 +22,10 @@
         <activity
             android:name=".activity.RegisterActivity"
             android:label="Register"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity
+            android:name=".activity.DetailActivity"
+            android:label="Detail"
             android:parentActivityName=".activity.MainActivity" />
         <activity
             android:name=".activity.LoginActivity"
