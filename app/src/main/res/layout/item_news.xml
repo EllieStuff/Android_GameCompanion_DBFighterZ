@@ -96,4 +96,70 @@
 
     </LinearLayout>
 
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="10dp"
+        >
+        <TextView
+            android:id="@+id/rankTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            tools:text="Rank: Terricola" />
+
+        <TextView
+            android:id="@+id/victoryRateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            tools:text="Victory Rate: 22%"
+            />
+
+        <TextView
+            android:id="@+id/favCharTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            tools:text="Fav. Char: Koku"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="210dp"
+        android:orientation="vertical"
+        android:layout_marginTop="45dp">
+
+        <TextView
+            android:id="@+id/rankingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:gravity="right"
+            tools:text="Ranking: 0" />
+
+        <TextView
+            android:id="@+id/playTimeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:gravity="right"
+            tools:text="Play Time: 333h" />
+
+        <TextView
+            android:id="@+id/maxComboTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:gravity="left"
+            tools:text="Max. Combo: 99" />
+
+    </LinearLayout>
+
 </androidx.cardview.widget.CardView>

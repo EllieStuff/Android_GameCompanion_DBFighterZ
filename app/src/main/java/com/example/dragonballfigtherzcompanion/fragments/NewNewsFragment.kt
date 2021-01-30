@@ -43,7 +43,6 @@ class NewNewsFragment(val userName: String?) : Fragment() {
 
     private fun initViews(view: View) {
         recyclerView = view.findViewById(R.id.recyclerView)
-        Log.d("AD", "HOLA")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,8 +55,8 @@ class NewNewsFragment(val userName: String?) : Fragment() {
     }
 
     public fun startActivity() {
-        val intent = Intent(activity, DetailActivity::class.java)
-        startActivity(intent)
+        //val intent = Intent(activity, DetailActivity::class.java)
+        //startActivity(intent)
     }
 
     private fun initRecyclerView() {
