@@ -1,9 +1,11 @@
 package com.example.dragonballfigtherzcompanion.activity
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dragonballfigtherzcompanion.R
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
@@ -25,15 +27,20 @@ class DetailActivity(/*val newId: String?*/) : AppCompatActivity() {
     private lateinit var  swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
 
-    override fun onStart() {
+    override fun onStart()
+    {
         super.onStart()
+        initListeners()
     }
 
-    override fun onResume() {
+    override fun onResume()
+    {
         super.onResume()
+        initListeners()
     }
 
-    override fun onDestroy() {
+    override fun onDestroy()
+    {
         super.onDestroy()
     }
 
@@ -42,7 +49,13 @@ class DetailActivity(/*val newId: String?*/) : AppCompatActivity() {
         recyclerView = view.findViewById(R.id.recyclerView)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    private fun initListeners() {
+        /*recyclerView.setOnClickListener() {
+            startActivity(Intent(this, DetailActivity::class.java))
+        }*/
+    }
+
+    /*override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_extended_news)
         initViews(this.recyclerView)
@@ -50,7 +63,7 @@ class DetailActivity(/*val newId: String?*/) : AppCompatActivity() {
 
         // Get Fragment Container Reference
         val fragmentContainer: FrameLayout = findViewById(R.id.fragmentContainer)
-    }
+    }*/
 
     internal fun loadNewsScreen(newId: String?){
         /*val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()

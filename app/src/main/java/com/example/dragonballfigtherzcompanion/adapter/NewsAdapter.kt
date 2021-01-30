@@ -9,11 +9,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dragonballfigtherzcompanion.activity.DetailActivity
 import com.example.dragonballfigtherzcompanion.activity.MainActivity
+import com.example.dragonballfigtherzcompanion.fragments.NewsFragment
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.model.News
 import android.util.Log
 
-class NewsAdapter(var newsList: List<News>, var activity: DetailActivity): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+class NewsAdapter(var newsList: List<News>, var activity: DetailActivity, var fragment: NewsFragment): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     // Inflate view (xml layout) => ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
@@ -27,13 +28,13 @@ class NewsAdapter(var newsList: List<News>, var activity: DetailActivity): Recyc
         val news = newsList[position]
 
 
-        Log.d("name", news.user_name.toString())
-
         holder.usernameTextView.text = news.user_name
         holder.victoryTextView.text = news.victory
 
         holder.clickableListOfNews.setOnClickListener {
-            activity.loadNewsScreen(news.user_name) // FUNCION QUE ABRE EL
+            //activity.loadNewsScreen(news.user_name) // FUNCION QUE ABRE EL
+            Log.d("name", news.user_name.toString()) // AQUI DETECTO QUE BOTON PULSO
+            fragment.startActivity()
         }
     }
 

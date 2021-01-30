@@ -105,7 +105,7 @@ class NewsFragment : Fragment() {
                             News(names[3], victory[3]),
                             News(names[4], victory[4]),
                             News(names[5], victory[5])
-                    ), activity = DetailActivity()) // DetailActivity // DetailActivity() // , activity = (activity as MainActivity)
+                    ), activity = DetailActivity(), this) // DetailActivity // DetailActivity() // , activity = (activity as MainActivity)
             recyclerView.adapter = newsAdapter
 
             firebaseAnalytics.logEvent("checkActivity", null)
@@ -117,11 +117,13 @@ class NewsFragment : Fragment() {
 
         /*recyclerView.setOnClickListener {
             Log.d("TAG", "CLICKEDDD")
-
-            val intent = Intent(activity, DetailActivity::class.java)
-            startActivity(intent)
         }*/
 
+    }
+
+    public fun startActivity() {
+        val intent = Intent(activity, DetailActivity::class.java)
+        startActivity(intent)
     }
 
     private fun getNews() {
