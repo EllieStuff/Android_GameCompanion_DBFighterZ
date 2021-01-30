@@ -20,11 +20,18 @@
         android:backgroundTint="@color/colorDarkOrange"
         android:text="@string/button_login" />
 
+    <!-- LOG OUT -->
+
     <Button
         android:id="@+id/avatarButton"
-        android:layout_width="166dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_width="162dp"
+        android:layout_height="84dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="50dp"
         android:layout_toRightOf="@id/avatarImageView"
         android:text="Choose you Avatar" />
 
@@ -32,9 +39,19 @@
         android:id="@+id/avatarImageView"
         android:layout_width="158dp"
         android:layout_height="147dp"
-        android:layout_margin="16dp"/>
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"/>
 
-    <!-- LOG OUT -->
+    <TextView
+        android:id="@+id/usernameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/avatarImageView"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="35dp"
+        android:textSize="25dp"
+        />
+
 
     <Button
         android:id="@+id/registerButton"
@@ -46,14 +63,26 @@
         android:backgroundTint="@color/colorDarkOrange"
         android:text="@string/button_register" />
 
+
+    <EditText
+        android:id="@+id/bioTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:hint="Edit your biography"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="135dp"
+        android:layout_above="@id/logoutButton"
+        android:inputType="textShortMessage"/>
+
     <Button
         android:id="@+id/logoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/registerButton"
-        android:layout_marginTop="263dp"
         android:layout_marginHorizontal="20dp"
         android:backgroundTint="@color/colorDarkOrange"
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentBottom="true"
         android:text="Log Out" />
 
 
