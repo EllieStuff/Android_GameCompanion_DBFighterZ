@@ -86,7 +86,11 @@ dependencies {
     // Ktor (HTTPClient)
     implementation "io.ktor:ktor-client-okhttp:1.5.0"
     implementation "io.ktor:ktor-client-json:1.5.0"
+    implementation "io.ktor:ktor-client-gson:1.5.0"
     implementation "io.ktor:ktor-client-serialization-jvm:1.5.0"
+    implementation "io.ktor:ktor-locations:1.5.0"
+    implementation "io.ktor:ktor-server-core:1.5.0"
+
     // Coroutines (Multithreading)
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2'
 
@@ -95,4 +99,9 @@ dependencies {
 
     // String to Json converiosn
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
+
 }

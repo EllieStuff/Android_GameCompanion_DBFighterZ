@@ -17,14 +17,22 @@ import com.example.dragonballfigtherzcompanion.Constants
 import com.example.dragonballfigtherzcompanion.MainActivity
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.activity.TwitchLoginActivity
+import com.example.dragonballfigtherzcompanion.model.TWStreamsResponse
 import com.example.dragonballfigtherzcompanion.model.TopGamesResponse
 import com.example.dragonballfigtherzcompanion.model.TwitchChannelResponse
+import com.example.dragonballfigtherzcompanion.model.TwitchUserResponse
+import com.example.dragonballfigtherzcompanion.services.ApiService
 import com.example.dragonballfigtherzcompanion.services.NetWorkManager
 import com.example.dragonballfigtherzcompanion.services.UserManager
 import io.ktor.client.request.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Headers
 
 class StreamsFragment: Fragment() {
 
@@ -42,7 +50,7 @@ class StreamsFragment: Fragment() {
         initViews(view)
         initListeners()
         getTopGames()
-        getChannelId()
+        getUserId()
     }
 
     override fun onResume(){
@@ -243,25 +251,36 @@ class StreamsFragment: Fragment() {
         }
     }*/
 
-    private fun getChannelId(){
+    private fun getUserId(){
         val httpClient = NetWorkManager.createHttpClient()
         viewLifecycleOwner.lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 val accessToken = com.example.dragonballfigtherzcompanion.services.UserManager(requireContext()).getAccessToken()
-                //Get Top Games
+                Log.i(TAG, "token2 $accessToken")
+                //Get User Id
+                //val userResponses = mutableListOf<TwitchUserResponse>()
+                /*val response = httpClient.get<TwitchUserResponse>("https://api.twitch.tv/helix/users") {
+                    //header("Accept", "application/vnd.twitchtv.v5+json")
+                    header("Client-Id", Constants.OAUTH_CLIENT_ID)
+                    header("Authorization", "Bearer $accessToken")
+                    //parameter("scope", "channel_read")
+                }
+                val id = response
+                Log.i(TAG, "Got User Id: $id")*/
+                //response = httpClient.ser
                 try {
-                    val response = httpClient.get<String>("https://api.twitch.tv/kraken/user") {
-                        header("Accept", "application/vnd.twitchtv.v5+json")
+                    val response: String = httpClient.get<String>("https://api.twitch.tv/helix/users") {
+                        //header("Accept", "application/vnd.twitchtv.v5+json")
                         header("Client-Id", Constants.OAUTH_CLIENT_ID)
-                        header("Authorization", "Bearer  $accessToken")
+                        header("Authorization", "Bearer $accessToken")
                         //parameter("scope", "channel_read")
                     }
-                    Log.i(TAG, "Got User Id: $response")
-                    //UserManager(requireContext()).saveChannelId(response.id)
-                    //Change to Main Thread
-                    withContext(Dispatchers.Main) {
-                        //TODO: Update UI
+                    Log.i(TAG, "Got User: $response")
+
+                    NetWorkManager.lookFor("id", response)?.let{ id->
+                        UserManager(requireContext()).saveChannelId(id)
                     }
+
                 } catch (t : Throwable) {
                     //TODO: Handle error
                     Log.i(TAG, "Couldn't get User Id")
@@ -275,15 +294,17 @@ class StreamsFragment: Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 val accessToken = com.example.dragonballfigtherzcompanion.services.UserManager(requireContext()).getAccessToken()
+                Log.i(TAG, "token1 $accessToken")
                 //Get Top Games
                 try {
-                    val response: TopGamesResponse = httpClient.get<TopGamesResponse>("https://api.twitch.tv/helix/games/top") {
+                    val response: String = httpClient.get<String>("https://api.twitch.tv/helix/games/top") {
                         header("Client-Id", Constants.OAUTH_CLIENT_ID)
                         header("Authorization", "Bearer $accessToken")
                         //parameter()
                     }
-                    val id = response.id
-                    val name = response.name
+                    Log.i(TAG, "Got Top games $response")
+                    //val id = response.id
+                    //val name = response.name
                     //val boxArtUrl = response.boxArtUrl
                     //Log.i(TAG, "Got Top Games: id: $id, name: $name, box_art_url: $boxArtUrl. ")
                     //Change to Main Thread
@@ -297,4 +318,41 @@ class StreamsFragment: Fragment() {
             }
         }
     }
+
+    /*private fun getStreams() {
+        val httpClient = NetWorkManager.createHttpClient()
+        viewLifecycleOwner.lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                val accessToken = com.example.dragonballfigtherzcompanion.services.UserManager(requireContext()).getAccessToken()
+                //Get Top Games
+                try {
+
+                        ApiService.service.getStreams().enqueue(object : Callback<TWStreamsResponse> {
+                            override fun onResponse(call: Call<TWStreamsResponse>, response: Response<TWStreamsResponse>) {
+                                response.body()?.data?.let { streams ->
+                                    for (stream in streams) {
+                                        Log.i("MainActivity", "Title: ${stream.title} and image: ${stream.imageUrl} and username: ${stream.username}")
+                                        Log.i("MainActivity", "Stream Url: https://www.twitch.tv/${stream.username}")
+                                    }
+                                }
+                            }
+
+                            override fun onFailure(call: Call<TWStreamsResponse>, t: Throwable) {
+                                t.printStackTrace()
+                            }
+
+                        })
+                    //val boxArtUrl = response.boxArtUrl
+                    //Log.i(TAG, "Got Top Games: id: $id, name: $name, box_art_url: $boxArtUrl. ")
+                    //Change to Main Thread
+                    withContext(Dispatchers.Main) {
+                        //TODO: Update UI
+                    }
+                } catch (t : Throwable) {
+                    //TODO: Handle error
+                    Log.i(TAG, "Couldn't get Top Games")
+                }
+            }
+        }
+    }*/
 }
