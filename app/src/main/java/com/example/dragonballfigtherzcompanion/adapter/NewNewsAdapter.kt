@@ -1,5 +1,6 @@
 package com.example.dragonballfigtherzcompanion.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,17 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.model.News
 
-class NewNewsAdapter(var newsList: List<News>): RecyclerView.Adapter<NewNewsAdapter.NewsViewHolder>() {
+class NewNewsAdapter(var newsList: List<News>): RecyclerView.Adapter<NewNewsAdapter.NewNewsViewHolder>() {
 
     // Inflate view (xml layout) => ViewHolder
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewNewsViewHolder {
         val nNewsView: View = LayoutInflater.from(parent.context).inflate(R.layout.item_news_extended, parent, false)
-
-        return NewsViewHolder(nNewsView)
+        return NewNewsViewHolder(nNewsView)
     }
 
     // Update view for position
-    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: NewNewsViewHolder, position: Int) {
         val news = newsList[position]
         holder.usernameTextView.text = news.user_name
         holder.rankTextView.text = "Rank: " + news.rank
@@ -37,7 +37,7 @@ class NewNewsAdapter(var newsList: List<News>): RecyclerView.Adapter<NewNewsAdap
 
 
     // Maps view xml => Kotlin
-    inner class NewsViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class NewNewsViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val usernameTextView: TextView = view.findViewById(R.id.usernameTextView);
         val rankTextView: TextView = view.findViewById(R.id.rankTextView);
         val favCharTextView: TextView = view.findViewById(R.id.favCharTextView);

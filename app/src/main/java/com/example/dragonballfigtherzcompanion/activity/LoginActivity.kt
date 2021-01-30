@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun initViews(){
+    private fun initViews() {
         emailLoginEditText = findViewById<EditText>(R.id.emailLoginEditText)
         passwordLoginEditText = findViewById<EditText>(R.id.passwordLoginEditText)
         loginButton = findViewById<Button>(R.id.login_Button)

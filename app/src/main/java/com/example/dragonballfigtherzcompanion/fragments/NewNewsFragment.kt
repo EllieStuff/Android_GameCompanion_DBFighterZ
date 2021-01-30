@@ -1,6 +1,8 @@
 package com.example.dragonballfigtherzcompanion.fragments
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.dragonballfigtherzcompanion.Constants
 import com.example.dragonballfigtherzcompanion.R
+import com.example.dragonballfigtherzcompanion.activity.DetailActivity
 import com.example.dragonballfigtherzcompanion.adapter.NewNewsAdapter
 import com.example.dragonballfigtherzcompanion.model.News
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -40,6 +43,7 @@ class NewNewsFragment(val userName: String?) : Fragment() {
 
     private fun initViews(view: View) {
         recyclerView = view.findViewById(R.id.recyclerView)
+        Log.d("AD", "HOLA")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,6 +53,11 @@ class NewNewsFragment(val userName: String?) : Fragment() {
         firebaseAnalytics = Firebase.analytics
         initViews(view)
         initRecyclerView()
+    }
+
+    public fun startActivity() {
+        val intent = Intent(activity, DetailActivity::class.java)
+        startActivity(intent)
     }
 
     private fun initRecyclerView() {

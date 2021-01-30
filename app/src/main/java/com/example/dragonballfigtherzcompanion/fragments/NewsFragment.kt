@@ -15,6 +15,7 @@ import com.example.dragonballfigtherzcompanion.activity.MainActivity
 import com.example.dragonballfigtherzcompanion.activity.DetailActivity
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.adapter.NewsAdapter
+import com.example.dragonballfigtherzcompanion.fragments.NewNewsFragment
 import com.example.dragonballfigtherzcompanion.model.News
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -33,6 +34,8 @@ class NewsFragment : Fragment() {
     private lateinit var newsAdapter: NewsAdapter
     private lateinit var d_activity: DetailActivity
     private lateinit var main_activity: MainActivity
+
+    private lateinit var newNewsFragment: NewNewsFragment
 
     private lateinit var  swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
@@ -73,15 +76,6 @@ class NewsFragment : Fragment() {
 
     private fun initRecyclerView() {
 
-        /*antonio.setOnClickListener {
-            // Open login activity
-            val intent = Intent(activity, DetailActivity::class.java)
-            startActivity(intent)
-
-            Log.d("TAG", "CLICKEDDD")
-        }*/
-
-
         // Layout Manager
         var layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
@@ -105,7 +99,7 @@ class NewsFragment : Fragment() {
                             News(names[3], victory[3]),
                             News(names[4], victory[4]),
                             News(names[5], victory[5])
-                    ), activity = DetailActivity(), this) // DetailActivity // DetailActivity() // , activity = (activity as MainActivity)
+                    ), activity = DetailActivity(), this) // newNewsFragment
             recyclerView.adapter = newsAdapter
 
             firebaseAnalytics.logEvent("checkActivity", null)
