@@ -5,6 +5,7 @@ data class User (
     val username: String? = null,
     val email: String? = null,
     var avatarImgUrl: String? = null,
+    var bio : String? = "",
     //val age: Int? = null,
     //val level: Int? = null,
     //val friends: List<User>? = null

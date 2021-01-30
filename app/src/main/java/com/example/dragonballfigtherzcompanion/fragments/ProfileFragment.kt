@@ -18,12 +18,15 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.dragonballfighterzcompanion.model.User
 import com.example.dragonballfigtherzcompanion.Constants
+import com.example.dragonballfigtherzcompanion.Constants.COLLECTION_USERS
 import com.example.dragonballfigtherzcompanion.LoginActivity
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.RegisterActivity
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.firestoreSettings
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
@@ -40,6 +43,8 @@ class ProfileFragment : Fragment() {
     private lateinit var logoutButton: Button
     private lateinit var registerButton: Button
 
+    private lateinit var firestore: FirebaseFirestore
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -52,6 +57,8 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.i(TAG, "++ onViewCreated ++")
+        // Init firestore
+        firestore = Firebase.firestore
         // Init View
         initViews(view)
         // Init Listeners
@@ -157,6 +164,28 @@ class ProfileFragment : Fragment() {
         sharedPreferences.edit()
             .putString("firstKey", "value")
             .apply()
+    }
+
+    private fun profileInfo(bio : String){
+        Firebase.auth.currentUser?.uid?.let {userId:String ->
+            firestore
+                .collection(COLLECTION_USERS)
+                .document(userId)
+                .get()
+                .addOnCompleteListener{
+                    if (it.isSuccessful){
+                        val user = it.result?.toObject(User::class.java)?.let { user : User ->
+                            val userTemp = User (
+                                userId = user.userId,
+                                username = user.username,
+                                email = user.email,
+                                avatarImgUrl = user.avatarImgUrl,
+                                bio = bio
+                            )
+                        }
+                    }
+                }
+        }
     }
 
     private fun uploadImageToFirebaseStorage(bitmap: Bitmap){
