@@ -70,14 +70,14 @@ class NewsFragment : Fragment() {
         var layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
 
-        var names = mutableListOf<String>()
-        var rank = mutableListOf<String>()
-        var fav_char = mutableListOf<String>()
-        var victory = mutableListOf<String>()
-        var ranking = mutableListOf<Int>()
-        var victory_rate = mutableListOf<Int>()
-        var play_time = mutableListOf<Int>()
-        var max_combo = mutableListOf<Int>()
+        var names        = mutableListOf<String>()
+        var rank           = mutableListOf<String>()
+        var fav_char       = mutableListOf<String>()
+        var victory       = mutableListOf<String>()
+        var ranking       = mutableListOf<Int>()
+        var victory_rate    = mutableListOf<Int>()
+        var play_time     = mutableListOf<Int>()
+        var max_combo       = mutableListOf<Int>()
 
         firestore.collection("news").get().addOnSuccessListener { result->
             for (document in result)
@@ -114,13 +114,11 @@ class NewsFragment : Fragment() {
         /*recyclerView.setOnClickListener {
             Log.d("TAG", "CLICKEDDD")
         }*/
-
     }
 
-    public fun startActivity(un: String) {
+    fun startActivity(un: String) {
         val intent = Intent(activity, DetailActivity()::class.java)
         intent.putExtra("userName", un);
-
         startActivity(intent)
     }
 

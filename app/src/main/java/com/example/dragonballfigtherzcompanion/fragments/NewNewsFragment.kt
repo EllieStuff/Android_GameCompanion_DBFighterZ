@@ -54,9 +54,10 @@ class NewNewsFragment(val userName: String?) : Fragment() {
         initRecyclerView()
     }
 
-    public fun startActivity() {
-        //val intent = Intent(activity, DetailActivity::class.java)
-        //startActivity(intent)
+    fun startActivity(un: String) {
+        val intent = Intent(activity, DetailActivity()::class.java)
+        intent.putExtra("userName", un);
+        startActivity(intent)
     }
 
     private fun initRecyclerView() {

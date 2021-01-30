@@ -21,7 +21,6 @@ class NewsAdapter(var newsList: List<News>, var activity: DetailActivity, var fr
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val newsView: View = LayoutInflater.from(parent.context).inflate(R.layout.item_news, parent, false)
 
-        Log.d("TAG", "DONE")
         return NewsViewHolder(newsView)
     }
 
@@ -41,7 +40,7 @@ class NewsAdapter(var newsList: List<News>, var activity: DetailActivity, var fr
 
         holder.clickableListOfNews.setOnClickListener {
             //activity.loadNewsScreen(news.user_name) // FUNCION QUE ABRE EL
-            Log.d("name", news.user_name.toString()) // AQUI DETECTO QUE BOTON PULSO
+            //Log.d("name", news.user_name.toString()) // AQUI DETECTO QUE BOTON PULSO
             fragment.startActivity(news.user_name.toString())
         }
     }
