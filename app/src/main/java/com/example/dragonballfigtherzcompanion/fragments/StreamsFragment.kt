@@ -17,10 +17,7 @@ import com.example.dragonballfigtherzcompanion.Constants
 import com.example.dragonballfigtherzcompanion.MainActivity
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.activity.TwitchLoginActivity
-import com.example.dragonballfigtherzcompanion.model.TWStreamsResponse
-import com.example.dragonballfigtherzcompanion.model.TopGamesResponse
-import com.example.dragonballfigtherzcompanion.model.TwitchChannelResponse
-import com.example.dragonballfigtherzcompanion.model.TwitchUserResponse
+import com.example.dragonballfigtherzcompanion.model.*
 import com.example.dragonballfigtherzcompanion.services.ApiService
 import com.example.dragonballfigtherzcompanion.services.NetWorkManager
 import com.example.dragonballfigtherzcompanion.services.UserManager
@@ -28,6 +25,9 @@ import io.ktor.client.request.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,8 +49,11 @@ class StreamsFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews(view)
         initListeners()
-        getTopGames()
-        getUserId()
+        //getTopGames()
+        getUserData()
+        getChannelData()
+        getChannelFollowers()
+        //getChannelIsLive()
     }
 
     override fun onResume(){
@@ -251,7 +254,7 @@ class StreamsFragment: Fragment() {
         }
     }*/
 
-    private fun getUserId(){
+    private fun getUserData(){
         val httpClient = NetWorkManager.createHttpClient()
         viewLifecycleOwner.lifecycleScope.launch {
             withContext(Dispatchers.IO) {
@@ -259,14 +262,14 @@ class StreamsFragment: Fragment() {
                 Log.i(TAG, "token2 $accessToken")
                 //Get User Id
                 //val userResponses = mutableListOf<TwitchUserResponse>()
-                /*val response = httpClient.get<TwitchUserResponse>("https://api.twitch.tv/helix/users") {
+                /*val response = httpClient.get<String>("https://api.twitch.tv/helix/users") {
                     //header("Accept", "application/vnd.twitchtv.v5+json")
                     header("Client-Id", Constants.OAUTH_CLIENT_ID)
                     header("Authorization", "Bearer $accessToken")
                     //parameter("scope", "channel_read")
                 }
-                val id = response
-                Log.i(TAG, "Got User Id: $id")*/
+                Log.i(TAG, "Got User: $response")
+                val instance = Json.decodeFromString<TwitchUserResponseData>(response)*/
                 //response = httpClient.ser
                 try {
                     val response: String = httpClient.get<String>("https://api.twitch.tv/helix/users") {
@@ -280,29 +283,143 @@ class StreamsFragment: Fragment() {
                     NetWorkManager.lookFor("id", response)?.let{ id->
                         UserManager(requireContext()).saveChannelId(id)
                     }
+                    NetWorkManager.lookFor("login", response)?.let{ name->
+                        UserManager(requireContext()).saveLoginName(name)
+                    }
 
                 } catch (t : Throwable) {
                     //TODO: Handle error
-                    Log.i(TAG, "Couldn't get User Id")
+                    Log.i(TAG, "Couldn't get User Data")
                 }
             }
         }
     }
 
-    private fun getTopGames() {
+    private fun getChannelData(){
+        val httpClient = NetWorkManager.createHttpClient()
+        viewLifecycleOwner.lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                val accessToken = com.example.dragonballfigtherzcompanion.services.UserManager(requireContext()).getAccessToken()
+                Log.i(TAG, "token2 $accessToken")
+                //Get User Id
+                //val userResponses = mutableListOf<TwitchUserResponse>()
+                /*val response = httpClient.get<String>("https://api.twitch.tv/helix/users") {
+                    //header("Accept", "application/vnd.twitchtv.v5+json")
+                    header("Client-Id", Constants.OAUTH_CLIENT_ID)
+                    header("Authorization", "Bearer $accessToken")
+                    //parameter("scope", "channel_read")
+                }
+                Log.i(TAG, "Got User: $response")
+                val instance = Json.decodeFromString<TwitchUserResponseData>(response)*/
+                //response = httpClient.ser
+                try {
+                    val response: String = httpClient.get<String>("https://api.twitch.tv/helix/channels") {
+                        //header("Accept", "application/vnd.twitchtv.v5+json")
+                        header("Client-Id", Constants.OAUTH_CLIENT_ID)
+                        header("Authorization", "Bearer $accessToken")
+                        parameter("broadcaster_id", UserManager(requireContext()).getChannelId())
+                    }
+                    Log.i(TAG, "Got Channel: $response")
+
+                    NetWorkManager.lookFor("broadcaster_language", response)?.let{ lang->
+                        UserManager(requireContext()).saveUserLanguage(lang)
+                    }
+                    NetWorkManager.lookFor("broadcaster_name", response)?.let{ name->
+                        UserManager(requireContext()).saveUsername(name)
+                    }
+
+                } catch (t : Throwable) {
+                    //TODO: Handle error
+                    Log.i(TAG, "Couldn't get Channel Data")
+                }
+            }
+        }
+    }
+
+    private fun getChannelFollowers(){
+        val httpClient = NetWorkManager.createHttpClient()
+        viewLifecycleOwner.lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                val accessToken = com.example.dragonballfigtherzcompanion.services.UserManager(requireContext()).getAccessToken()
+                try {
+                    val response: String = httpClient.get<String>("https://api.twitch.tv/helix/users/follows?to_id=" + UserManager(requireContext()).getChannelId()) {
+                        //header("Accept", "application/vnd.twitchtv.v5+json")
+                        header("Client-Id", Constants.OAUTH_CLIENT_ID)
+                        header("Authorization", "Bearer $accessToken")
+                        //parameter("live_only", true)
+                    }
+                    Log.i(TAG, "Got Channel Followers: $response")
+
+                    NetWorkManager.lookFor("total", response)?.let{ follows->
+                        UserManager(requireContext()).saveUserFollowers(follows)
+                    }
+
+                } catch (t : Throwable) {
+                    //TODO: Handle error
+                    Log.i(TAG, "Couldn't get the total followers")
+                }
+            }
+        }
+    }
+
+    /*private fun getChannelIsLive(){
+        val httpClient = NetWorkManager.createHttpClient()
+        viewLifecycleOwner.lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                val accessToken = com.example.dragonballfigtherzcompanion.services.UserManager(requireContext()).getAccessToken()
+                try {
+                    val response: String = httpClient.get<String>("https://api.twitch.tv/helix/search/channels?query=" + UserManager(requireContext()).getLoginName()) {
+                        //header("Accept", "application/vnd.twitchtv.v5+json")
+                        header("Client-Id", Constants.OAUTH_CLIENT_ID)
+                        header("Authorization", "Bearer $accessToken")
+                        parameter("live_only", true)
+                    }
+                    Log.i(TAG, "Got Channel isLive: $response")
+
+                    var isLive: Boolean
+                    if(NetWorkManager.lookFor("is_live", response) == null){
+                        isLive = false
+                    }
+                    else{
+                        isLive = true
+                        //Do things
+                    }
+
+                } catch (t : Throwable) {
+                    //TODO: Handle error
+                    Log.i(TAG, "Couldn't get is_live data")
+                }
+            }
+        }
+    }*/
+
+    /*private fun getTopGames() {
         val httpClient = NetWorkManager.createHttpClient()
         viewLifecycleOwner.lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 val accessToken = com.example.dragonballfigtherzcompanion.services.UserManager(requireContext()).getAccessToken()
                 Log.i(TAG, "token1 $accessToken")
                 //Get Top Games
+                /*val response = httpClient.get<String>("https://api.twitch.tv/helix/games/top") {
+                    header("Client-Id", Constants.OAUTH_CLIENT_ID)
+                    header("Authorization", "Bearer $accessToken")
+                    //parameter()
+                }
+                Log.i(TAG, "Got Top games $response")*/
+                //val instance = Json.decodeFromString<TopGamesResponse>(response)
+
                 try {
                     val response: String = httpClient.get<String>("https://api.twitch.tv/helix/games/top") {
                         header("Client-Id", Constants.OAUTH_CLIENT_ID)
                         header("Authorization", "Bearer $accessToken")
                         //parameter()
                     }
-                    Log.i(TAG, "Got Top games $response")
+                    Log.i(TAG, response)
+                    NetWorkManager.lookForAll("name", response)?.let{ names->
+                        //UserManager(requireContext()).saveChannelId(names)
+                    }
+
+                    //Log.i(TAG, "Got Top games $response")
                     //val id = response.id
                     //val name = response.name
                     //val boxArtUrl = response.boxArtUrl
@@ -317,7 +434,7 @@ class StreamsFragment: Fragment() {
                 }
             }
         }
-    }
+    }*/
 
     /*private fun getStreams() {
         val httpClient = NetWorkManager.createHttpClient()

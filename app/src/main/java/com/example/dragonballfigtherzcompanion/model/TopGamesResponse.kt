@@ -8,6 +8,8 @@ data class TopGamesResponse(
         @SerialName("name") val name: String? = null,
         //@SerialName("box_art_url") val boxArtUrl: String? = null,
         //@SerialName("pagination") val pagination: String? = null,
-        //val scope: List<String>? = null,
+        //val scope: List<TopGamesResponse>? = null,
+
 )
 
+//public val topGamesResponses = mutableListOf<TopGamesResponse>()
