@@ -19,7 +19,7 @@ class NewNewsAdapter(var newsList: List<News>): RecyclerView.Adapter<NewNewsAdap
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val newsView: View = LayoutInflater.from(parent.context).inflate(R.layout.item_news_extended, parent, false)
 
-        Log.d("HOLDER", "YES")
+        //Log.d("HOLDER", "NO")
 
         return NewsViewHolder(newsView)
     }
@@ -37,7 +37,9 @@ class NewNewsAdapter(var newsList: List<News>): RecyclerView.Adapter<NewNewsAdap
         holder.playTimeTextView.text = "Play Time: " + news.play_time.toString() + "h"
         holder.maxComboTextView.text = "Max. Combo: " + news.max_combo.toString()
 
-
+        /*holder.clickableListOfNews.setOnClickListener {
+            Log.d("si", "clique")
+        }*/
     }
 
     // Total items

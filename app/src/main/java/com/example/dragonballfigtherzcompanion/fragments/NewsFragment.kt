@@ -20,12 +20,6 @@ import com.example.dragonballfigtherzcompanion.model.News
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.firestore.FirebaseFirestore
-import android.util.Log
-import androidx.fragment.app.FragmentTransaction
-import com.example.dragonballfigtherzcompanion.activity.LoginActivity
-import com.example.dragonballfigtherzcompanion.adapter.NewNewsAdapter
-
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.ktx.Firebase
 
 import com.google.firebase.firestore.ktx.firestore
@@ -51,6 +45,7 @@ class NewsFragment() : Fragment() {
 
     private fun initViews(view: View) {
         recyclerView = view.findViewById(R.id.recyclerViewNews)
+        //Log.d("FRAGMENT", "YES")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -100,6 +95,7 @@ class NewsFragment() : Fragment() {
                             News(names[4], victory[4], fav_char[4], rank[4], victory_rate[4], ranking[4], play_time[4], max_combo[4]),
                             News(names[5], victory[5], fav_char[5], rank[5], victory_rate[5], ranking[5], play_time[5], max_combo[5])
                     ), DetailActivity() /*("lol")*/, this) // newNewsFragment
+
             recyclerView.adapter = newsAdapter
 
             firebaseAnalytics.logEvent("checkActivity", null)

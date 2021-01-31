@@ -5,10 +5,12 @@ import com.example.dragonballfigtherzcompanion.R
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.dragonballfighterzcompanion.ActivityFragment
 import com.example.dragonballfigtherzcompanion.adapter.NewNewsAdapter
 import com.example.dragonballfigtherzcompanion.fragments.ListOfChatsFragment
@@ -16,6 +18,7 @@ import com.example.dragonballfigtherzcompanion.fragments.NewsFragment
 import com.example.dragonballfigtherzcompanion.fragments.NewNewsFragment
 import com.example.dragonballfigtherzcompanion.fragments.ProfileFragment
 import com.example.dragonballfigtherzcompanion.model.News
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class DetailActivity : AppCompatActivity() {
 
@@ -48,6 +51,9 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_extended_news)
 
+        val what: RecyclerView = findViewById<RecyclerView>(R.id.recyclerViewDetails)
+
+
         userName = getIntent().getStringExtra("userName").toString();
         victory = getIntent().getStringExtra("victory").toString();
         rank = getIntent().getStringExtra("fav_char").toString();
@@ -57,31 +63,18 @@ class DetailActivity : AppCompatActivity() {
         //play_time = getIntent().getStringExtra("play_time").toString();
         //max_combo = getIntent().getStringExtra("max_combo").toString();
 
-        Log.d("USERNAME", userName);
-        Log.d("VICTORY", victory);
-        Log.d("RANK", rank);
-        Log.d("FAV_CHAR", fav_char);
+        //Log.d("USERNAME", userName);
+        //Log.d("VICTORY", victory);
+        //Log.d("RANK", rank);
+        //Log.d("FAV_CHAR", fav_char);
         //Log.d("RANKING", ranking);
         //Log.d("VICTORY", victory_rate);
         //Log.d("PLAY_TIME", play_time);
         //Log.d("COMBO", max_combo);
 
-        newsList = listOf( News(userName, victory, rank, fav_char, 1, 2, 3, 4) )
-        newNewsAdapter = NewNewsAdapter(newsList)
-    }
-
-    // PRIMERO ADAPTER, LUEGO FRAGMENT???
-    public fun createFragment() {
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.detailsContainer, NewNewsFragment(userName, victory, rank, fav_char, "ranking", "victory_rate", "play_time", "max_combo")) // NewNewsFragment(userName)
         transaction.commit()
-    }
 
-    private fun initViews(view: View)
-    {
-        recyclerView = view.findViewById(R.id.recyclerViewDetails)
     }
-
-    private fun initListeners()
-    { }
 }

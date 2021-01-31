@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity() {
             findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
         // Get Fragment Container Reference
-        val fragmentContainer: FrameLayout = findViewById(R.id.fragmentContainer)
 
         // Listen to Tabs Selected
         bottomNavigationView.setOnNavigationItemSelectedListener { menuItem: MenuItem ->
