@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.dragonballfigtherzcompanion.Constants
 import com.example.dragonballfigtherzcompanion.R
+import com.example.dragonballfigtherzcompanion.fragments.ProfileFragment
 import com.example.dragonballfigtherzcompanion.model.OAuthTokensResponse
 import com.example.dragonballfigtherzcompanion.services.NetWorkManager
 import com.example.dragonballfigtherzcompanion.services.UserManager
@@ -147,6 +148,7 @@ class TwitchLoginActivity : AppCompatActivity() {
             }
 
         }
+
     }
 
 }

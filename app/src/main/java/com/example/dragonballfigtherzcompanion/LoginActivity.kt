@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.dragonballfigtherzcompanion.fragments.ProfileFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -72,8 +73,14 @@ class LoginActivity : AppCompatActivity() {
             //visibility
             loginButton.isEnabled = false;
             Toast.makeText(baseContext, "Logged in", Toast.LENGTH_SHORT).show()
+
+            /*val fragment:ProfileFragment = getFragmentManager().findFragmentById(2131230912) as ProfileFragment
+            fragment.checkUserAvailability()
+            fragment.checkUserTwitchAvailability()*/
+
             startActivity(Intent(this, MainActivity::class.java))
-    }
+        }
+
     }
 
 

@@ -76,12 +76,6 @@ class MainActivity : AppCompatActivity() {
                     transaction.replace(R.id.fragmentContainer, ProfileFragment())
                     transaction.commit()
                 }
-                R.id.twitchTab -> {
-                    //Add Profile Fragment
-                    val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.fragmentContainer, StreamsFragment())
-                    transaction.commit()
-                }
 
             }
 

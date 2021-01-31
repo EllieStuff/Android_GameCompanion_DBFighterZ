@@ -71,8 +71,8 @@
         android:gravity="center"
         android:hint="Edit your biography"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="135dp"
-        android:layout_above="@id/logoutButton"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@id/buttonTwitch"
         android:inputType="textShortMessage"/>
 
     <Button
@@ -81,43 +81,50 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:backgroundTint="@color/colorDarkOrange"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="10dp"
         android:layout_alignParentBottom="true"
         android:text="Log Out" />
 
     <!-- TWITCH -->
 
-    <Button
-        android:id="@+id/buttonTwitch"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_above="@+id/logoutButton"
-        android:layout_marginBottom="35dp"
-        android:layout_marginLeft="50dp"
-        />
-
     <!-- TWITCH USERNAME-->
 
     <!-- TWITCH broadcaster_language-->
+    <ImageButton
+        android:id="@+id/buttonTwitch"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/logoutButton"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="40dp"
+        android:scaleType="fitCenter"
+        android:backgroundTint="#9C27B0"
+        android:src="@drawable/twitch_logo_black"
+        />
+
     <TextView
         android:id="@+id/twitchUsernameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/bioTextView"
-        android:layout_marginHorizontal="35dp"
+        android:layout_above="@+id/broadcasterLanguageTextView"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginLeft="27dp"
-        android:layout_marginTop="39dp"
         android:layout_toRightOf="@id/buttonTwitch"
-        android:textSize="15dp" />
+        android:layout_marginBottom="7dp"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        />
 
     <TextView
         android:id="@+id/broadcasterLanguageTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/buttonTwitch"
-        android:layout_below="@+id/twitchUsernameTextView"
-        android:layout_marginHorizontal="35dp"
-        android:textSize="15dp"
+        android:layout_above="@+id/twitchFollowersTextView"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="7dp"
+        android:textSize="18dp"
+        android:textStyle="bold"
         />
 
     <!-- TWITCH FOLLOWERS-->
@@ -126,10 +133,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/buttonTwitch"
-        android:layout_below="@+id/broadcasterLanguageTextView"
-        android:layout_marginBottom="75dp"
-        android:layout_marginHorizontal="35dp"
-        android:textSize="15dp"
+        android:layout_above="@+id/logoutButton"
+        android:layout_marginBottom="48dp"
+        android:layout_marginHorizontal="20dp"
+        android:textSize="18dp"
+        android:textStyle="bold"
         />
 
 
