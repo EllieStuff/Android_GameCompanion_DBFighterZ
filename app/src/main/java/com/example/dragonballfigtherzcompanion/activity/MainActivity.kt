@@ -1,4 +1,4 @@
-package com.example.dragonballfigtherzcompanion
+package com.example.dragonballfigtherzcompanion.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
+import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.fragments.*
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
@@ -40,7 +41,6 @@ class MainActivity : AppCompatActivity() {
 
                 return instance
             }
-
     }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity() {
             findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
         // Get Fragment Container Reference
-        val fragmentContainer: FrameLayout = findViewById(R.id.fragmentContainer)
 
         // Listen to Tabs Selected
         bottomNavigationView.setOnNavigationItemSelectedListener { menuItem: MenuItem ->
@@ -102,11 +101,11 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-    internal fun loadNewsScreen(newId: String?){
+    /*internal fun loadNewsScreen(newId: String?){
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainer, NewNewsFragment(newId))
         transaction.commit()
-    }
+    }*/
 
     public fun showMessage(text: String) {
         Toast.makeText(this, text, Toast.LENGTH_LONG).show()

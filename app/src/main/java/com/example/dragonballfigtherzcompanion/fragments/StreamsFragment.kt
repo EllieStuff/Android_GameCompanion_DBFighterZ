@@ -15,7 +15,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.dragonballfigtherzcompanion.Constants
-import com.example.dragonballfigtherzcompanion.MainActivity
+import com.example.dragonballfigtherzcompanion.activity.MainActivity
 import androidx.lifecycle.Observer
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.activity.TwitchLoginActivity

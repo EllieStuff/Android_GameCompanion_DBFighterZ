@@ -12,6 +12,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.*
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
@@ -21,7 +23,7 @@ import com.example.dragonballfigtherzcompanion.Constants
 import com.example.dragonballfigtherzcompanion.Constants.COLLECTION_USERS
 import com.example.dragonballfigtherzcompanion.LoginActivity
 import com.example.dragonballfigtherzcompanion.R
-import com.example.dragonballfigtherzcompanion.RegisterActivity
+import com.example.dragonballfigtherzcompanion.activity.RegisterActivity
 import com.example.dragonballfigtherzcompanion.activity.TwitchLoginActivity
 import com.example.dragonballfigtherzcompanion.services.NetWorkManager
 import com.example.dragonballfigtherzcompanion.services.UserManager
@@ -344,12 +346,27 @@ class ProfileFragment : Fragment() {
     }
 
     fun readTwitchData(){
-        // Get Username
-        twitchUsernameTextView.setText("Username: " + UserManager(requireContext()).getUsername().orEmpty())
-        // Get Language
-        twitchLanguageTextView.setText("Language: " + UserManager(requireContext()).getUserLanguage().orEmpty())
-        // Get Followers
-        twitchFollowersTextView.setText("Followers: " + UserManager(requireContext()).getUserFollowers().orEmpty())
+
+        var tmp = UserManager(requireContext()).getUsername().orEmpty();
+
+        if(tmp != "")
+        {
+            // Get Username
+            twitchUsernameTextView.setText("Username: " + UserManager(requireContext()).getUsername().orEmpty())
+            // Get Language
+            twitchLanguageTextView.setText("Language: " + UserManager(requireContext()).getUserLanguage().orEmpty())
+            // Get Followers
+            twitchFollowersTextView.setText("Followers: " + UserManager(requireContext()).getUserFollowers().orEmpty())
+        }
+        else
+        {
+            // Get Username
+            twitchUsernameTextView.setText(" ")
+            // Get Language
+            twitchLanguageTextView.setText(" ")
+            // Get Followers
+            twitchFollowersTextView.setText(" ")
+        }
     }
 
     fun getTwitchData(){

@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
 
+    android:id="@+id/detailsContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@color/colorGold">
+    android:background="@color/colorGold"
+    tools:context=".activity.DetailActivity">
+
+
 
     <ImageView
         android:id="@+id/drac"
@@ -16,6 +21,7 @@
         android:layout_marginBottom="-200dp"
         android:background="@drawable/drak">
 
+
     </ImageView>
 
     <RelativeLayout
@@ -24,8 +30,8 @@
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:background="@color/colorDarkOrange"
-        android:layout_marginTop="-300dp" >
-        
+        android:layout_marginTop="-350dp" >
+
         <TextView
             android:layout_width="150dp"
             android:layout_height="100dp"
@@ -38,11 +44,12 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="400dp"
-        android:layout_height="500dp">
+        android:layout_height="500dp" >
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/recyclerViewDetails"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"/>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

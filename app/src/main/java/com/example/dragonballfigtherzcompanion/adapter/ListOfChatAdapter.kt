@@ -4,21 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import android.widget.TextView
-import android.widget.Toast
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dragonballfigtherzcompanion.Constants
-import com.example.dragonballfigtherzcompanion.MainActivity
+import com.example.dragonballfigtherzcompanion.activity.MainActivity
 import com.example.dragonballfigtherzcompanion.R
-import com.example.dragonballfigtherzcompanion.fragments.ListOfChatsFragment
 import com.example.dragonballfigtherzcompanion.model.Chat
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import java.util.*
 
 class ListOfChatAdapter(var chatList: List<Chat>, var activity: MainActivity): RecyclerView.Adapter<ListOfChatAdapter.ListOfChatViewHolder>() {
     // Inflate view (xml layout) => ViewHolder

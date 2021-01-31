@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.dragonballfigtherzcompanion.activity.MainActivity
 import com.example.dragonballfigtherzcompanion.fragments.ProfileFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -61,15 +62,15 @@ class LoginActivity : AppCompatActivity() {
             }
             val password : String = passwordLoginEditText.text.toString()
             auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful){
-                        Log.i(TAG, "signInWithEmail:success")
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful){
+                            Log.i(TAG, "signInWithEmail:success")
 
-                    } else {
-                        Log.i(TAG, "signInWithEmail:failure", task.exception)
-                        Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Log.i(TAG, "signInWithEmail:failure", task.exception)
+                            Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }
             //visibility
             loginButton.isEnabled = false;
             Toast.makeText(baseContext, "Logged in", Toast.LENGTH_SHORT).show()

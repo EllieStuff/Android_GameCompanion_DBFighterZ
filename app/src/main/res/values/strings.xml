@@ -16,4 +16,6 @@
     <!--%d per posar variables decimals, per strings es %s-->
     <string name="error_password_invalid">Password must be at least %d characters long and contain letters &amp; numbers</string>
     <string name="error_login_password_invalid">Password is not valid</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
