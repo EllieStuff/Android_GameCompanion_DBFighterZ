@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Select Initial Tab
-        bottomNavigationView.selectedItemId = R.id.newsTab
+        bottomNavigationView.selectedItemId = R.id.userTab
 
 
         // Init AdMob
@@ -105,6 +105,12 @@ class MainActivity : AppCompatActivity() {
     internal fun loadChatScreen(chatId: String){
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainer, ChatFragment(chatId))
+        transaction.commit()
+    }
+
+    internal fun loadNewsScreen(newId: String?){
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, NewNewsFragment(newId))
         transaction.commit()
     }
 

@@ -73,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
             loginButton.isEnabled = false;
             Toast.makeText(baseContext, "Logged in", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, MainActivity::class.java))
-        }
+    }
     }
 
 

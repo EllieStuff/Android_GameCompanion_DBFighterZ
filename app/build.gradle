@@ -96,6 +96,7 @@ dependencies {
 
     // Lifecycle Scope
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
+    //implementation "androidx.lifecycle:lifecycle-activity-ktx:2.2.0"
 
     // String to Json converiosn
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"

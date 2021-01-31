@@ -12,18 +12,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
+import androidx.core.widget.addTextChangedListener
 import com.bumptech.glide.Glide
 import com.example.dragonballfighterzcompanion.model.User
 import com.example.dragonballfigtherzcompanion.Constants
+import com.example.dragonballfigtherzcompanion.Constants.COLLECTION_USERS
 import com.example.dragonballfigtherzcompanion.LoginActivity
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.RegisterActivity
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.firestoreSettings
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
@@ -39,6 +41,10 @@ class ProfileFragment : Fragment() {
     private lateinit var avatarImageView: ImageView
     private lateinit var logoutButton: Button
     private lateinit var registerButton: Button
+    private lateinit var bioTextView: EditText
+    private lateinit var usernameTextView: TextView
+
+    private lateinit var firestore: FirebaseFirestore
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -52,10 +58,16 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.i(TAG, "++ onViewCreated ++")
+        // Init firestore
+        firestore = Firebase.firestore
         // Init View
         initViews(view)
         // Init Listeners
         initListeners()
+        // Init bio
+        getBio()
+        // Init Username
+        getUsername()
     }
 
     private fun initViews(parentView: View) {
@@ -64,6 +76,8 @@ class ProfileFragment : Fragment() {
         avatarImageView = parentView.findViewById<ImageView>(R.id.avatarImageView)
         loginButton = parentView.findViewById<Button>(R.id.loginButton)
         logoutButton = parentView.findViewById<Button>(R.id.logoutButton)
+        bioTextView = parentView.findViewById<EditText>(R.id.bioTextView)
+        usernameTextView = parentView.findViewById<TextView>(R.id.usernameTextView)
     }
 
     override  fun onStart(){
@@ -80,7 +94,15 @@ class ProfileFragment : Fragment() {
             // Open login activity
             ///it: View!
             val intent = Intent(activity, LoginActivity::class.java)
+            checkUserAvailability()
             startActivity(intent)
+
+        }
+
+        bioTextView.addTextChangedListener{
+            val bio = bioTextView.text.toString()
+            if (bio.isBlank()) return@addTextChangedListener
+            setBio(bio)
         }
 
         avatarButton.setOnClickListener {
@@ -94,7 +116,9 @@ class ProfileFragment : Fragment() {
             // Open register activity
             ///it: View!
             val intent = Intent(activity, RegisterActivity::class.java)
+            checkUserAvailability()
             startActivity(intent)
+
         }
 
         logoutButton.setOnClickListener{
@@ -122,6 +146,10 @@ class ProfileFragment : Fragment() {
             registerButton.visibility = View.GONE
             loginButton.visibility = View.GONE
             logoutButton.visibility = View.VISIBLE
+            avatarButton.visibility = View.VISIBLE
+            bioTextView.visibility = View.VISIBLE
+            avatarImageView.visibility = View.VISIBLE
+            usernameTextView.visibility = View.VISIBLE
             // Get User profile
             Firebase.firestore
                     .collection(Constants.COLLECTION_USERS)
@@ -146,6 +174,10 @@ class ProfileFragment : Fragment() {
             registerButton.visibility = View.VISIBLE
             loginButton.visibility = View.VISIBLE
             logoutButton.visibility = View.GONE
+            avatarButton.visibility = View.GONE
+            bioTextView.visibility = View.GONE
+            avatarImageView.visibility = View.GONE
+            usernameTextView.visibility = View.GONE
         }
     }
 
@@ -155,6 +187,64 @@ class ProfileFragment : Fragment() {
         sharedPreferences.edit()
             .putString("firstKey", "value")
             .apply()
+    }
+
+    private fun setBio(bio : String){
+        Firebase.auth.currentUser?.uid?.let {userId:String ->
+            firestore
+                .collection(COLLECTION_USERS)
+                .document(userId)
+                .get()
+                .addOnCompleteListener{
+                    if (it.isSuccessful){
+                        val user = it.result?.toObject(User::class.java)?.let { user : User ->
+                            val userTemp = User (
+                                userId = user.userId,
+                                username = user.username,
+                                email = user.email,
+                                avatarImgUrl = user.avatarImgUrl,
+                                bio = bio
+                            )
+                            firestore
+                                .collection(COLLECTION_USERS)
+                                .document(userId)
+                                .set(userTemp)
+                        }
+                    }
+                }
+        }
+    }
+
+    private fun getBio(){
+        Firebase.auth.currentUser?.uid?.let {userId:String ->
+            firestore
+                .collection(COLLECTION_USERS)
+                .document(userId)
+                .get()
+                .addOnCompleteListener{
+                    if (it.isSuccessful){
+                        val user = it.result?.toObject(User::class.java)?.let { user : User ->
+                            bioTextView.setText(user.bio)
+                        }
+                    }
+                }
+        }
+    }
+
+    private fun getUsername(){
+        Firebase.auth.currentUser?.uid?.let {userId:String ->
+            firestore
+                .collection(COLLECTION_USERS)
+                .document(userId)
+                .get()
+                .addOnCompleteListener{
+                    if (it.isSuccessful){
+                        val user = it.result?.toObject(User::class.java)?.let { user : User ->
+                            usernameTextView.text = user.username
+                        }
+                    }
+                }
+        }
     }
 
     private fun uploadImageToFirebaseStorage(bitmap: Bitmap){

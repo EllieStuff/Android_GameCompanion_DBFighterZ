@@ -11,10 +11,12 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.dragonballfigtherzcompanion.Constants
 import com.example.dragonballfigtherzcompanion.MainActivity
+import androidx.lifecycle.Observer
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.activity.TwitchLoginActivity
 import com.example.dragonballfigtherzcompanion.model.*
@@ -33,10 +35,12 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import com.example.dragonballfigtherzcompanion.model.StreamsViewModel
 
 class StreamsFragment: Fragment() {
 
     private lateinit var twitchLoginButton: Button
+    private val streamsViewModel by lazy { StreamsViewModel(com.example.dragonballfigtherzcompanion.services.UserManager(requireContext())) }
 
     private val TAG = "StreamsFragment"
 
@@ -56,17 +60,17 @@ class StreamsFragment: Fragment() {
         //getChannelIsLive()
     }
 
-    override fun onResume(){
+    override fun onResume() {
         super.onResume()
-        checkUserAvailability()
+        streamsViewModel.checkUserAvailability()
     }
 
-    private fun initViews(view: View){
+    private fun initViews(view: View) {
         twitchLoginButton = view.findViewById(R.id.twitchLoginButton)
     }
 
     private fun initListeners() {
-        twitchLoginButton.setOnClickListener{
+        twitchLoginButton.setOnClickListener {
             startActivity(Intent(requireActivity(), TwitchLoginActivity::class.java))
         }
     }
@@ -432,6 +436,9 @@ class StreamsFragment: Fragment() {
                     //TODO: Handle error
                     Log.i(TAG, "Couldn't get Top Games")
                 }
+            }
+            else {
+                twitchLoginButton.visibility = View.VISIBLE
             }
         }
     }*/

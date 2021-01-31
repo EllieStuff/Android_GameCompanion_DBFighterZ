@@ -144,7 +144,7 @@ class ListOfChatsFragment : Fragment() {
             //showMessage("1");
 
             // Create Chat
-            CreateChat(otherUserEmail)
+            CreateChat(otherUserEmail) // ESTO ES
         }
     }
 
