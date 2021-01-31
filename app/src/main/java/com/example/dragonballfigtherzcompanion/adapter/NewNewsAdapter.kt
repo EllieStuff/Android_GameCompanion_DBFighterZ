@@ -36,6 +36,8 @@ class NewNewsAdapter(var newsList: List<News>): RecyclerView.Adapter<NewNewsAdap
         holder.rankingTextView.text = "Ranking: " + news.ranking.toString()
         holder.playTimeTextView.text = "Play Time: " + news.play_time.toString() + "h"
         holder.maxComboTextView.text = "Max. Combo: " + news.max_combo.toString()
+
+
     }
 
     // Total items

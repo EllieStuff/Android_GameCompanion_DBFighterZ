@@ -29,12 +29,9 @@ class NewNewsFragment(val userName: String, val victory: String, val fav_char: S
 
     private lateinit var  swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
+
     private lateinit var newNewsAdapter: NewNewsAdapter
 
-    private lateinit var firestore: FirebaseFirestore
-    private lateinit var firebaseAnalytics: FirebaseAnalytics
-
-    //private lateinit var newNewsAdapter: NewNewsAdapter
     private lateinit var newsList: List<News>
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

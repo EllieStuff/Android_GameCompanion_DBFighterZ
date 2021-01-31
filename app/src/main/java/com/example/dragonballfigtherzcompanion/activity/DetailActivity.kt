@@ -32,7 +32,7 @@ class DetailActivity : AppCompatActivity() {
     public lateinit var play_time: String
     public lateinit var max_combo: String
 
-    override fun onStart() {
+    /*override fun onStart() {
         super.onStart()
     }
 
@@ -42,7 +42,7 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-    }
+    }*/
 
     override fun onCreate (savedInstanceState : Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,7 +70,8 @@ class DetailActivity : AppCompatActivity() {
         newNewsAdapter = NewNewsAdapter(newsList)
     }
 
-    public fun createFragment(newNewsAdapter: NewNewsAdapter) {
+    // PRIMERO ADAPTER, LUEGO FRAGMENT???
+    public fun createFragment() {
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.detailsContainer, NewNewsFragment(userName, victory, rank, fav_char, "ranking", "victory_rate", "play_time", "max_combo")) // NewNewsFragment(userName)
         transaction.commit()

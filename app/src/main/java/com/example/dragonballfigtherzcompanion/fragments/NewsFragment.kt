@@ -21,6 +21,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.firestore.FirebaseFirestore
 import android.util.Log
+import androidx.fragment.app.FragmentTransaction
 import com.example.dragonballfigtherzcompanion.activity.LoginActivity
 import com.example.dragonballfigtherzcompanion.adapter.NewNewsAdapter
 
@@ -30,7 +31,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.firestore.ktx.firestore
 
 
-class NewsFragment : Fragment() {
+class NewsFragment() : Fragment() {
 
     private lateinit var newsAdapter: NewsAdapter
 
