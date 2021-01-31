@@ -21,7 +21,7 @@ import com.bumptech.glide.Glide
 import com.example.dragonballfighterzcompanion.model.User
 import com.example.dragonballfigtherzcompanion.Constants
 import com.example.dragonballfigtherzcompanion.Constants.COLLECTION_USERS
-import com.example.dragonballfigtherzcompanion.LoginActivity
+import com.example.dragonballfigtherzcompanion.activity.LoginActivity
 import com.example.dragonballfigtherzcompanion.R
 import com.example.dragonballfigtherzcompanion.activity.RegisterActivity
 import com.example.dragonballfigtherzcompanion.activity.TwitchLoginActivity
@@ -31,7 +31,6 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.firestoreSettings
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import io.ktor.client.request.get
