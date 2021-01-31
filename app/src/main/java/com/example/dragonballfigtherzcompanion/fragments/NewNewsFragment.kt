@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -42,16 +43,18 @@ class NewNewsFragment(val userName: String?) : Fragment() {
     }
 
     private fun initViews(view: View) {
-        recyclerView = view.findViewById(R.id.recyclerView)
+        recyclerView = view.findViewById(R.id.recyclerViewDetails)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState);
-        // TODO: Init
+
         firestore = Firebase.firestore
         firebaseAnalytics = Firebase.analytics
         initViews(view)
         initRecyclerView()
+
+        /// LLEGA HASTA AQUI
     }
 
     fun startActivity(un: String) {

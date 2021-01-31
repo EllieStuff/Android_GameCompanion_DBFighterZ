@@ -3,20 +3,19 @@ package com.example.dragonballfigtherzcompanion.activity
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dragonballfigtherzcompanion.R
 import android.os.Bundle
-import android.view.View
 import android.util.Log
-import android.view.ViewParent
+import android.view.View
 import android.widget.TextView
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.dragonballfighterzcompanion.ActivityFragment
 import com.example.dragonballfigtherzcompanion.adapter.NewNewsAdapter
-import com.example.dragonballfigtherzcompanion.adapter.NewsAdapter
+import com.example.dragonballfigtherzcompanion.fragments.ListOfChatsFragment
+import com.example.dragonballfigtherzcompanion.fragments.NewsFragment
+import com.example.dragonballfigtherzcompanion.fragments.NewNewsFragment
+import com.example.dragonballfigtherzcompanion.fragments.ProfileFragment
 import com.example.dragonballfigtherzcompanion.model.News
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 
 class DetailActivity : AppCompatActivity() {
 
@@ -26,33 +25,38 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var usernameTextView: TextView
 
+    private lateinit var newsList: List<News>
+
+    override fun onStart() {
+        super.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
     override fun onCreate (savedInstanceState : Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_extended_news)
-        initViews()
-        initListeners()
-        initRecyclerView()
 
         userName = getIntent().getStringExtra("userName").toString();
 
-    }
+        newsList = listOf( News(userName, "You Win", "-", "You", 0, 1, 0, 1) )
 
-    private fun initViews()
-    {
-        //usernameTextView = findViewById<TextView>(R.id.usernameTextView)
-    }
-
-    private fun initListeners()
-    { }
-
-    private fun initRecyclerView() {
-        // Layout Manager
-        var layoutManager = LinearLayoutManager(this)
-        //recyclerView.layoutManager = layoutManager
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.detailsContainer, NewNewsFragment(userName)) // NewNewsFragment(userName)
+        transaction.commit()
     }
 
     private fun initViews(view: View)
     {
         recyclerView = view.findViewById(R.id.recyclerView)
     }
+
+    private fun initListeners()
+    { }
 }

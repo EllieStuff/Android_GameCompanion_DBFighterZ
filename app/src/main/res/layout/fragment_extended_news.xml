@@ -2,11 +2,14 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
+    android:id="@+id/detailsContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
     android:background="@color/colorGold">
+
+
 
     <ImageView
         android:id="@+id/drac"
@@ -15,6 +18,7 @@
         android:layout_marginTop="200dp"
         android:layout_marginBottom="-200dp"
         android:background="@drawable/drak">
+
 
     </ImageView>
 
@@ -40,7 +44,7 @@
         android:layout_width="400dp"
         android:layout_height="500dp" >
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/recyclerViewDetails"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
