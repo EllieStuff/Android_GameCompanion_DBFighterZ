@@ -41,7 +41,7 @@ class NewsAdapter(var newsList: List<News>, var activity: DetailActivity, var fr
         holder.clickableListOfNews.setOnClickListener {
             //activity.loadNewsScreen(news.user_name) // FUNCION QUE ABRE EL
             //Log.d("name", news.user_name.toString()) // AQUI DETECTO QUE BOTON PULSO
-            fragment.startActivity(news.user_name.toString())
+            fragment.startActivity(news.user_name.toString(), news.victory.toString(), news.fav_char.toString(), news.rank.toString(), news.victory_rate, news.ranking, news.play_time, news.max_combo)
         }
     }
 

@@ -113,9 +113,16 @@ class NewsFragment : Fragment() {
         }*/
     }
 
-    fun startActivity(un: String) {
+    fun startActivity(userName: String, victory: String, fav_char: String, rank: String, victory_rate: Int?, ranking: Int?, play_time: Int?, max_combo: Int?) {
         val intent = Intent(activity, DetailActivity()::class.java)
-        intent.putExtra("userName", un);
+        intent.putExtra("userName", userName);
+        intent.putExtra("victory", victory)
+        intent.putExtra("fav_char", fav_char)
+        intent.putExtra("rank", rank)
+        //intent.putExtra("victory_rate", victory_rate)
+        //intent.putExtra("ranking", ranking)
+        //intent.putExtra("play_time", play_time)
+        //intent.putExtra("max_combo", max_combo)
         startActivity(intent)
     }
 

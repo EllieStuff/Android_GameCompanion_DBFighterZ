@@ -19,6 +19,8 @@ class NewNewsAdapter(var newsList: List<News>): RecyclerView.Adapter<NewNewsAdap
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val newsView: View = LayoutInflater.from(parent.context).inflate(R.layout.item_news_extended, parent, false)
 
+        Log.d("HOLDER", "YES")
+
         return NewsViewHolder(newsView)
     }
 

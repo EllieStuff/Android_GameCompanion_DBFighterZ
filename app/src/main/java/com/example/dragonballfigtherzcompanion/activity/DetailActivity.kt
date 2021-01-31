@@ -24,6 +24,13 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var newsList: List<News>
 
     public lateinit var userName: String
+    public lateinit var victory: String
+    public lateinit var fav_char: String
+    public lateinit var rank: String
+    public lateinit var victory_rate: String
+    public lateinit var ranking: String
+    public lateinit var play_time: String
+    public lateinit var max_combo: String
 
     override fun onStart() {
         super.onStart()
@@ -42,12 +49,30 @@ class DetailActivity : AppCompatActivity() {
         setContentView(R.layout.fragment_extended_news)
 
         userName = getIntent().getStringExtra("userName").toString();
+        victory = getIntent().getStringExtra("victory").toString();
+        rank = getIntent().getStringExtra("fav_char").toString();
+        fav_char = getIntent().getStringExtra("rank").toString();
+        //ranking = getIntent().getStringExtra("victory_rate").toString();
+        //victory_rate = getIntent().getStringExtra("ranking").toString();
+        //play_time = getIntent().getStringExtra("play_time").toString();
+        //max_combo = getIntent().getStringExtra("max_combo").toString();
 
-        newsList = listOf( News(userName, "You Win", "-", "You", 0, 1, 0, 1) )
+        Log.d("USERNAME", userName);
+        Log.d("VICTORY", victory);
+        Log.d("RANK", rank);
+        Log.d("FAV_CHAR", fav_char);
+        //Log.d("RANKING", ranking);
+        //Log.d("VICTORY", victory_rate);
+        //Log.d("PLAY_TIME", play_time);
+        //Log.d("COMBO", max_combo);
+
+        newsList = listOf( News(userName, victory, rank, fav_char, 1, 2, 3, 4) )
         newNewsAdapter = NewNewsAdapter(newsList)
+    }
 
+    public fun createFragment(newNewsAdapter: NewNewsAdapter) {
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.detailsContainer, NewNewsFragment(userName, newNewsAdapter)) // NewNewsFragment(userName)
+        transaction.replace(R.id.detailsContainer, NewNewsFragment(userName, victory, rank, fav_char, "ranking", "victory_rate", "play_time", "max_combo")) // NewNewsFragment(userName)
         transaction.commit()
     }
 
