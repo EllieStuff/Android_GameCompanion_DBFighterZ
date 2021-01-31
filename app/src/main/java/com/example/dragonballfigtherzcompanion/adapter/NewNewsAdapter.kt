@@ -44,7 +44,7 @@ class NewNewsAdapter(var newsList: List<News>): RecyclerView.Adapter<NewNewsAdap
 
     // Maps view xml => Kotlin
     inner class NewsViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val clickableListOfNews: LinearLayout = view.findViewById(R.id.clickableListOfNews);
+        //val clickableListOfNews: LinearLayout = view.findViewById(R.id.clickableListOfNews);
         val usernameTextView: TextView = view.findViewById(R.id.usernameTextView);
         val victoryTextView: TextView = view.findViewById(R.id.victoryTextView);
         val favCharTextView: TextView = view.findViewById(R.id.favCharTextView);

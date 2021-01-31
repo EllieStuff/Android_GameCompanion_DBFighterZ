@@ -108,11 +108,11 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-    internal fun loadNewsScreen(newId: String?){
+    /*internal fun loadNewsScreen(newId: String?){
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainer, NewNewsFragment(newId))
         transaction.commit()
-    }
+    }*/
 
     public fun showMessage(text: String) {
         Toast.makeText(this, text, Toast.LENGTH_LONG).show()

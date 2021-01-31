@@ -20,12 +20,10 @@ import com.example.dragonballfigtherzcompanion.model.News
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
+    private lateinit var newNewsAdapter: NewNewsAdapter
+    private lateinit var newsList: List<News>
 
     public lateinit var userName: String
-
-    private lateinit var usernameTextView: TextView
-
-    private lateinit var newsList: List<News>
 
     override fun onStart() {
         super.onStart()
@@ -46,15 +44,16 @@ class DetailActivity : AppCompatActivity() {
         userName = getIntent().getStringExtra("userName").toString();
 
         newsList = listOf( News(userName, "You Win", "-", "You", 0, 1, 0, 1) )
+        newNewsAdapter = NewNewsAdapter(newsList)
 
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.detailsContainer, NewNewsFragment(userName)) // NewNewsFragment(userName)
+        transaction.replace(R.id.detailsContainer, NewNewsFragment(userName, newNewsAdapter)) // NewNewsFragment(userName)
         transaction.commit()
     }
 
     private fun initViews(view: View)
     {
-        recyclerView = view.findViewById(R.id.recyclerView)
+        recyclerView = view.findViewById(R.id.recyclerViewDetails)
     }
 
     private fun initListeners()

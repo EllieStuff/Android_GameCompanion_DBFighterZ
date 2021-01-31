@@ -34,8 +34,6 @@ class NewsFragment : Fragment() {
 
     private lateinit var newsAdapter: NewsAdapter
 
-    private lateinit var newNewsFragment: NewNewsFragment
-
     private lateinit var  swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
 
@@ -52,7 +50,6 @@ class NewsFragment : Fragment() {
 
     private fun initViews(view: View) {
         recyclerView = view.findViewById(R.id.recyclerViewNews)
-        //antonio = view.findViewById(R.id.clickableListOfNews)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
